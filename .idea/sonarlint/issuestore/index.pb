@@ -17,7 +17,5 @@ X
 (src/main/java/kappa/view/KappaStage.java,2\9\29f05de48a99a0c705ad5be84b9ce336a4352f6b
 ]
 -src/main/java/kappa/view/CableDetailPane.java,f\d\fda6f935730896e541bab39016bcc8a5e16e75e1
-Q
-!src/main/java/kappa/view/Gui.java,d\3\d354004088efc5b4c44ee35aeb6c6d5724da87bb
 V
 &src/main/java/kappa/view/MenuPane.java,2\b\2bb241efc5ae4f36c16f96501ae6574566f6c2c2

@@ -1,2 +1,4 @@
-package kappa.model;public class Cable {
+package kappa.model;
+
+public class Cable {
 }

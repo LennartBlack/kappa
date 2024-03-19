@@ -12,6 +12,7 @@
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-security.version>6.2.3</spring-security.version>
     </properties>
     <dependencies>
         <dependency>
@@ -19,6 +20,16 @@
             <artifactId>javafx-graphics</artifactId>
             <version>20</version>
         </dependency>
+        <dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-bom</artifactId>
+			<version>{spring-security-version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
     </dependencies>
-
 </project>

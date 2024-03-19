@@ -7,15 +7,16 @@ import kappa.model.Kappa;
 
 
 public class Main extends Application{
-    launch(args);
-}
+    public static void main(String[] args) {
+        launch(args);
+    }
+    @Override
+    public void start(Stage primaryStage) {
+        newSession();
+    }
 
-@Override
-public void start(Stage primaryStage) {
-    newSeassion();
-}
-
-private void newSession() {
-    App app = new App();
-    Stage stage = new Stage(app);
+    private void newSession() {
+        Kappa KAppa = new Kappa();
+        KappaStage stage = new KappaStage(KAppa);
+    }
 }

@@ -1,2 +1,6 @@
-package kappa.view;public class LoginRegisterPane {
+package kappa.view;
+
+import javafx.scene.layout.Region;
+
+public class LoginRegisterPane  extends Region {
 }

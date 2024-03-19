@@ -1,5 +1,10 @@
 package kappa.view;
 
-public class KappaStage {
-    
+import javafx.stage.Stage;
+import kappa.model.Kappa;
+
+public class KappaStage extends Stage{
+    public KappaStage(Kappa KAppa){
+
+    }
 }

@@ -12,11 +12,11 @@ public class Main extends Application{
     }
     @Override
     public void start(Stage primaryStage) {
-        newSession();
+        newSession(primaryStage);
     }
 
-    private void newSession() {
+    private void newSession(Stage primaryStage) {
         Kappa KAppa = new Kappa();
-        KappaStage stage = new KappaStage(KAppa);
+        KappaStage stage = new KappaStage(primaryStage);
     }
 }

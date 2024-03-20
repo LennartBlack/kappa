@@ -1,9 +1,13 @@
 package kappa.view;
 
-import javafx.scene.control.*;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.HBox;
+import javafx.scene.*;
+import javafx.scene.control.*;
+
+
 
 
 public class MenuPane  extends Region {
@@ -11,6 +15,7 @@ public class MenuPane  extends Region {
 
     public MenuPane(){
         this.hBox = new HBox();
+
         ToolBar toolBar = createToolbar();
 
         this.hBox.setStyle("-fx-border-color:lightgrey;-fx-border-width:1px; -fx-max-width:800;");

@@ -19,3 +19,11 @@ _
 /src/main/java/kappa/view/LoginRegisterPane.java,8\7\8784e33e9a12d6a28b56882b7c44003a6c500727
 V
 &src/main/java/kappa/view/MenuPane.java,2\b\2bb241efc5ae4f36c16f96501ae6574566f6c2c2
+X
+(src/main/java/kappa/view/SignInPane.java,9\4\9431c49ccde3fa48f988348a2120874696706773
+[
++src/main/java/kappa/control/Controller.java,3\3\3328cf0949d088aa4246bb88c7528ae08e9b8514
+Z
+*src/main/java/kappa/MainWithoutVMArgs.java,c\6\c603731d51fef52416fe5300327ca64cb4d6dfbc
+N
+src/main/java/module-info.java,1\c\1c89a5491fbfda3fb050196d6a239f20200296e7

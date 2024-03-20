@@ -5,3 +5,4 @@
 "zoom-in.png" - "https://www.flaticon.com/free-icon/zoom-in_545651?term=zoom&page=1&position=1&origin=search&related_id=545651" created by Freepik
 "zoom-out.png" - "https://www.flaticon.com/free-icon/magnifying-glass_74158?term=zoom&page=1&position=7&origin=search&related_id=74158" created by Freepik
 "new-tab.png" - "https://www.flaticon.com/free-icons/new-window" created by Wahyu Adam
+"cover.jpeg" - Microsoft Bing Copilot

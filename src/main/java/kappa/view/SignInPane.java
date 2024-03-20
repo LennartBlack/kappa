@@ -5,9 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import org.springframework.data.jpa.repository.JpaRepository;
-import
-
 public class SignInPane extends Region {
     private HBox hBox;
     public SignInPane(){

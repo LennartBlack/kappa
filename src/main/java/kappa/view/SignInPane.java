@@ -2,7 +2,6 @@ package kappa.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -11,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 public class SignInPane extends Region {
     private Button signIn;
@@ -21,13 +19,16 @@ public class SignInPane extends Region {
     private Label loginFailed;
     
     public SignInPane(){
+        //Create the login layout
         this.vBoxLogInLayout = new VBox();
         this.vBoxLogInLayout.setAlignment(Pos.CENTER);
 
+        // Create the cover icon
         ImageView coverIcon = new ImageView("cover.jpeg");
         coverIcon.setFitWidth(250);
         coverIcon.setFitHeight(250);
 
+        // Create the login form
         Label userLabel = new Label("Bitte gib deinen Butzernamen ein.");
         this.userField = new TextField();
         userField.setPromptText("Benutzername");
@@ -37,10 +38,12 @@ public class SignInPane extends Region {
         passwordField.setPromptText("Passwort");
         passwordField.setPrefWidth(100);
 
+        // Create the sign in button
         this.signIn = new Button("Anmelden");
         signIn.setTextFill(javafx.scene.paint.Color.web("#C8D200"));
         signIn.setStyle("-fx-background-color: #005F96;");
 
+        // Add all elements to the login layout
         this.vBoxLogInLayout.getChildren().addAll(coverIcon, userLabel, userField, passwordLabel, passwordField, signIn);
         this.vBoxLogInLayout.setSpacing(10);
     }
@@ -62,6 +65,10 @@ public class SignInPane extends Region {
     public VBox getvBoxLogInLayout(){
         return this.vBoxLogInLayout;
     }
+
+    /**
+     * This method adds a login failed message to the login layout
+     */
     public void addLoginFailedMessage() {
         this.loginFailed = new Label("Anmeldung fehlgeschlagen. Bitte versuche es erneut.");
         this.loginFailed.setTextFill(Color.RED);
@@ -70,6 +77,11 @@ public class SignInPane extends Region {
     public Label getLoginFailedMessage(){
         return this.loginFailed;
     }
+
+    /**
+     * This method checks if the login failed message is visible
+     * @return true if the message is visible, false otherwise
+     */
     public boolean isLogininFaildMessageVisible() {
         for (Node n : this.vBoxLogInLayout.getChildren()) {
             if (n.equals(this.loginFailed)) {
@@ -77,5 +89,13 @@ public class SignInPane extends Region {
             }
         }
         return false;
+    }
+    public void removeLoginFailedMessage() {
+        for (Node n : this.vBoxLogInLayout.getChildren()) {
+            if (n.equals(this.loginFailed)) {
+                this.vBoxLogInLayout.getChildren().remove(n);
+                //Todo: update Scene?
+            }
+        }
     }
 }

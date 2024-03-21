@@ -1,6 +1,7 @@
 package kappa.view;
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,12 +10,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 public class SignInPane extends Region {
     private Button signIn;
     private TextField userField;
     private PasswordField passwordField;
     private VBox vBoxLogInLayout;
+    private Label loginFailed;
     
     public SignInPane(){
         this.vBoxLogInLayout = new VBox();
@@ -49,7 +53,29 @@ public class SignInPane extends Region {
     public String getUsernameInput(){
         return this.userField.getText();
     }
+    public TextField getUserField(){
+        return this.userField;
+    }
+    public PasswordField getPasswordField(){
+        return this.passwordField;
+    }
     public VBox getvBoxLogInLayout(){
         return this.vBoxLogInLayout;
+    }
+    public void addLoginFailedMessage() {
+        this.loginFailed = new Label("Anmeldung fehlgeschlagen. Bitte versuche es erneut.");
+        this.loginFailed.setTextFill(Color.RED);
+        this.vBoxLogInLayout.getChildren().add(loginFailed);
+    }
+    public Label getLoginFailedMessage(){
+        return this.loginFailed;
+    }
+    public boolean isLogininFaildMessageVisible() {
+        for (Node n : this.vBoxLogInLayout.getChildren()) {
+            if (n.equals(this.loginFailed)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

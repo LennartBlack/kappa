@@ -27,3 +27,13 @@ N
 src/main/java/module-info.java,1\c\1c89a5491fbfda3fb050196d6a239f20200296e7
 Z
 *src/main/java/kappa/MainWithoutVMArgs.java,c\6\c603731d51fef52416fe5300327ca64cb4d6dfbc
+S
+#src/main/java/kappa/utils/Hash.java,7\e\7ebc753d331ed6d06b0a0aa5b14b679dab2cea0d
+c
+3src/main/java/kappa/utils/BuildStringFromBytes.java,5\d\5d482b4144c360a3fee3786e5853c48e889ffab0
+[
++src/main/java/kappa/utils/Authenticate.java,4\0\40a94d455423e4478c110590772a04535c4f821a
+S
+#src/main/java/kappa/model/User.java,b\1\b1ea05143b3dc27dfa3715aa7e4a276a02251095
+T
+$src/main/java/kappa/model/Admin.java,7\0\7008f06ede3ce7b52bc838fe28d1c3338fd0382c

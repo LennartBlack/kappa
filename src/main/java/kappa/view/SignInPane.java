@@ -1,23 +1,55 @@
 package kappa.view;
 
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
-public class SignInPane extends Region {
-    private HBox hBox;
-    public SignInPane(){
-        Button openRegisterPaneButton = new Button("Registrieren");
-        Label anmeldenLabel = new Label("Anmelden");
-        TextInputDialog emailInput = new TextInputDialog("E-Mail");
-        Button emailVergessenButton =  new Button("E-Mail vergessen? Hier klicken!");
-        TextInputDialog passwortInput = new TextInputDialog("Passwort");
-        Button logInButton = new Button("Einloggen");
+import javafx.scene.layout.VBox;
 
-        this.hBox = new HBox();
-        this.hBox.setStyle("-fx-border-color:lightgrey;-fx-border-width:1px; -fx-max-width:800;");
-        this.hBox.getChildren().addAll(openRegisterPaneButton, anmeldenLabel, emailVergessenButton, logInButton);
-        this.getChildren().add(hBox);
+public class SignInPane extends Region {
+    private Button signIn;
+    private TextField userField;
+    private PasswordField passwordField;
+    private VBox vBoxLogInLayout;
+    
+    public SignInPane(){
+        this.vBoxLogInLayout = new VBox();
+        this.vBoxLogInLayout.setAlignment(Pos.CENTER);
+
+        ImageView coverIcon = new ImageView("cover.jpeg");
+        coverIcon.setFitWidth(250);
+        coverIcon.setFitHeight(250);
+
+        Label userLabel = new Label("Bitte gib deinen Butzernamen ein.");
+        this.userField = new TextField();
+        userField.setPromptText("Benutzername");
+        userField.setPrefWidth(200);
+        Label passwordLabel = new Label("Bitte gib dein Passwort ein.");
+        this.passwordField = new PasswordField();
+        passwordField.setPromptText("Passwort");
+        passwordField.setPrefWidth(100);
+
+        this.signIn = new Button("Anmelden");
+        signIn.setTextFill(javafx.scene.paint.Color.web("#C8D200"));
+        signIn.setStyle("-fx-background-color: #005F96;");
+
+        this.vBoxLogInLayout.getChildren().addAll(coverIcon, userLabel, userField, passwordLabel, passwordField, signIn);
+        this.vBoxLogInLayout.setSpacing(10);
+    }
+    public Button getSignInButton(){
+        return this.signIn;
+    }
+    public String getPasswordInput(){
+        return this.passwordField.getText();
+    }
+    public String getUsernameInput(){
+        return this.userField.getText();
+    }
+    public VBox getvBoxLogInLayout(){
+        return this.vBoxLogInLayout;
     }
 }

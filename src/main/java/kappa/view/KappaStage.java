@@ -15,19 +15,23 @@ public class KappaStage extends Stage{
     private CableDetailPane cableDetailPane;
     private GraphActionPane graphActionPane;
     private GraphPane graphPane;
-    private LoginRegisterPane loginRegisterPane;
+    private SignInPane signInPane;
     private MenuPane menuPane;
     private Stage primaryStage;
+    private HomePane homePane;
+
+    private Scene signInScene;
+    private Scene homeScene;
     public KappaStage(Stage stage){
         this.primaryStage = stage;
         showSignInScene();
         //showCabelDetailScene();
     }
-
     public void showSignInScene(){
-        this.loginRegisterPane = new LoginRegisterPane();
+        this.signInPane = new SignInPane();
+        this.signInScene = new Scene(this.signInPane.getvBoxLogInLayout(), 800, 600);
         this.primaryStage.setTitle("Kappa - Anmeldung");
-        this.primaryStage.setScene(this.loginRegisterPane.getLoginScene());
+        this.primaryStage.setScene(signInScene);
         this.primaryStage.show();
     }
     public void showCabelDetailScene(){
@@ -50,8 +54,17 @@ public class KappaStage extends Stage{
     public void showCableWithTopWorkloud(){
 
     }
-
-    public LoginRegisterPane getLoginRegisterPane(){
-        return this.loginRegisterPane;
+    public void showHomeScene() {
+        this.homePane = new HomePane();
+        this.homeScene = new Scene(this.homePane.getvBoxHomeLayout(), 800, 600);
+        this.primaryStage.setTitle("Kappa - Willkommen");
+        this.primaryStage.setScene(homeScene);
+        this.primaryStage.show(); 
+    }
+    public void showAdminHomeScene() {
+        
+    }
+    public SignInPane getSignInPane(){
+        return this.signInPane;
     }
 }

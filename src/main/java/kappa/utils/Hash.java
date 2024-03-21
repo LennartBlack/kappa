@@ -5,17 +5,11 @@ import java.security.NoSuchAlgorithmException;
 
 public class Hash {
 
-    public void hash(String value){
+    public static String hash(String value) throws NoSuchAlgorithmException{
         String algorithm = "SHA-256";
-        try{
-            MessageDigest digest = MessageDigest.getInstance(algorithm);
-            byte[] hash = digest.digest(value.getBytes());
-            String hex = BuildStringFromBytes.buildStringFromBytes(hash);
-        }
-        catch (NoSuchAlgorithmException e){
-            e.printStackTrace();
-        }
+        MessageDigest digest = MessageDigest.getInstance(algorithm);
+        byte[] hashedInput = digest.digest(value.getBytes());
+        String hashedInputString = BuildStringFromBytes.buildStringFromBytes(hashedInput);
+        return hashedInputString;
     }
-
-
 }

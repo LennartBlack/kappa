@@ -4,10 +4,10 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-public class KappaStage extends Stage{
+public class KappaStage extends Stage {
     private Stage primaryStage;
-    
-    //Panes
+
+    // Panes
     private BorderPane kappaPane;
     private CableDetailPane cableDetailPane;
     private GraphActionPane graphActionPane;
@@ -19,13 +19,13 @@ public class KappaStage extends Stage{
     private HelpPane helpPane;
     private WatchlistPane watchlistPane;
 
-    //Scenes
+    // Scenes
     private Scene signInScene;
     private Scene kappeScene;
 
     private SearchCablePane searchCablePane;
 
-    public KappaStage(Stage stage){
+    public KappaStage(Stage stage) {
         this.primaryStage = stage;
         this.kappaPane = new BorderPane();
         this.kappaPane.setTop(this.menuPane = new MenuPane());
@@ -34,15 +34,15 @@ public class KappaStage extends Stage{
         // Starting the application with the sign in scene
         showSignInScene();
 
-        //Test area
-        //this.signInPane = new SignInPane();
-        //this.menuPane = new MenuPane();
-        //showCabelDetailScene();
-        //showHomeScene();
+        // Test area
+        // this.signInPane = new SignInPane();
+        // this.menuPane = new MenuPane();
+        // showCabelDetailScene();
+        // showHomeScene();
     }
 
-    //This method sets the sign in scene
-    public void showSignInScene(){
+    // This method sets the sign in scene
+    public void showSignInScene() {
         this.signInPane = new SignInPane();
         this.signInScene = new Scene(this.signInPane.getvBoxLogInLayout(), 800, 600);
         this.primaryStage.setTitle("Kappa - Anmeldung");
@@ -50,15 +50,19 @@ public class KappaStage extends Stage{
         this.primaryStage.show();
     }
 
-    //This method sets the sign in scene after logging out
-    public void showSignInSceneAfterLogout(){
+    // This method sets the sign in scene after logging out
+    public void showSignInSceneAfterLogout() {
+        if (getSignInPane().isLogininFaildMessageVisible()) {
+            getSignInPane().removeLoginFailedMessage();
+            System.out.println("test");
+        }
         this.primaryStage.setTitle("Kappa - Anmeldung");
         this.primaryStage.setScene(this.signInScene);
         this.primaryStage.show();
     }
-    
+
     // This method sets the cable detail scene
-    public void showCabelDetailScene(){
+    public void showCabelDetailScene() {
         cableDetailPane = new CableDetailPane();
         graphActionPane = new GraphActionPane();
         graphPane = new GraphPane();
@@ -75,41 +79,41 @@ public class KappaStage extends Stage{
         this.primaryStage.setScene(graphDetailScene);
         this.primaryStage.show();
     }
-    
-    //This method sets the cable detail scene
-    public void showCableWithTopWorkloudScene(){
+
+    // This method sets the cable detail scene
+    public void showCableWithTopWorkloudScene() {
         this.topWorkloadCablePane = new TopWorkloadCablePane();
         this.kappaPane.setCenter(topWorkloadCablePane.getvBoxTopWorkloadCableLayout());
         updateKappa("Kappa - Kabel mit höchster Auslastung");
     }
-    
+
     // This method sets the home scene
     public void showHomeScene() {
         this.homePane = new HomePane();
         this.kappaPane.setCenter(homePane.getvBoxHomeLayout());
         updateKappa("Kappa - Willkommen");
     }
-    
-    //This method sets the admin home scene
+
+    // This method sets the admin home scene
     public void showAdminHomeScene() {
-        //TODO: Implement admin home scene
+        // TODO: Implement admin home scene
     }
-    
-    //This method sets the help scene
+
+    // This method sets the help scene
     public void showHelpScene() {
         this.helpPane = new HelpPane();
         this.kappaPane.setCenter(helpPane.getvBoxHelpLayout());
         updateKappa("Kappa - Hilfe");
     }
-   
-    //This method sets the search cable scene
+
+    // This method sets the search cable scene
     public void showWatchlistScene() {
         this.watchlistPane = new WatchlistPane();
         this.kappaPane.setCenter(watchlistPane.getvBoxWatchlistLayout());
         updateKappa("Kappa - Merkliste");
     }
 
-    //This method sets the search cable scene
+    // This method sets the search cable scene
     public void showSearchCableScene() {
         this.searchCablePane = new SearchCablePane();
         this.kappaPane.setCenter(searchCablePane.getvBoxSearchCableLayout());
@@ -119,25 +123,29 @@ public class KappaStage extends Stage{
     /**
      * This method updates the primary stage with a new title and scene
      * It is meant to use after updating the KappaScene
+     * 
      * @param title
      */
-    private void updateKappa(String title){
+    private void updateKappa(String title) {
         this.primaryStage.setTitle(title);
         this.primaryStage.setScene(getKappaScene());
         this.primaryStage.show();
     }
-    
-    //Getters and Setters
-    public SignInPane getSignInPane(){
+
+    // Getters and Setters
+    public SignInPane getSignInPane() {
         return this.signInPane;
     }
+
     public HomePane getHomePane() {
         return this.homePane;
     }
-    public MenuPane getMenuPane(){
+
+    public MenuPane getMenuPane() {
         return this.menuPane;
     }
-    private Scene getKappaScene(){
+
+    private Scene getKappaScene() {
         return this.kappeScene;
     }
 }

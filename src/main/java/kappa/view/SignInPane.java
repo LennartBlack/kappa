@@ -1,5 +1,6 @@
 package kappa.view;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -17,9 +18,9 @@ public class SignInPane extends Region {
     private PasswordField passwordField;
     private VBox vBoxLogInLayout;
     private Label loginFailed;
-    
-    public SignInPane(){
-        //Create the login layout
+
+    public SignInPane() {
+        // Create the login layout
         this.vBoxLogInLayout = new VBox();
         this.vBoxLogInLayout.setAlignment(Pos.CENTER);
 
@@ -44,25 +45,32 @@ public class SignInPane extends Region {
         signIn.setStyle("-fx-background-color: #005F96;");
 
         // Add all elements to the login layout
-        this.vBoxLogInLayout.getChildren().addAll(coverIcon, userLabel, userField, passwordLabel, passwordField, signIn);
+        this.vBoxLogInLayout.getChildren().addAll(coverIcon, userLabel, userField, passwordLabel, passwordField,
+                signIn);
         this.vBoxLogInLayout.setSpacing(10);
     }
-    public Button getSignInButton(){
+
+    public Button getSignInButton() {
         return this.signIn;
     }
-    public String getPasswordInput(){
+
+    public String getPasswordInput() {
         return this.passwordField.getText();
     }
-    public String getUsernameInput(){
+
+    public String getUsernameInput() {
         return this.userField.getText();
     }
-    public TextField getUserField(){
+
+    public TextField getUserField() {
         return this.userField;
     }
-    public PasswordField getPasswordField(){
+
+    public PasswordField getPasswordField() {
         return this.passwordField;
     }
-    public VBox getvBoxLogInLayout(){
+
+    public VBox getvBoxLogInLayout() {
         return this.vBoxLogInLayout;
     }
 
@@ -74,12 +82,14 @@ public class SignInPane extends Region {
         this.loginFailed.setTextFill(Color.RED);
         this.vBoxLogInLayout.getChildren().add(loginFailed);
     }
-    public Label getLoginFailedMessage(){
+
+    public Label getLoginFailedMessage() {
         return this.loginFailed;
     }
 
     /**
      * This method checks if the login failed message is visible
+     * 
      * @return true if the message is visible, false otherwise
      */
     public boolean isLogininFaildMessageVisible() {
@@ -90,12 +100,10 @@ public class SignInPane extends Region {
         }
         return false;
     }
+
     public void removeLoginFailedMessage() {
-        for (Node n : this.vBoxLogInLayout.getChildren()) {
-            if (n.equals(this.loginFailed)) {
-                this.vBoxLogInLayout.getChildren().remove(n);
-                //Todo: update Scene?
-            }
+        if (this.vBoxLogInLayout.getChildren().contains(this.loginFailed)) {
+            this.vBoxLogInLayout.getChildren().remove(this.loginFailed);
         }
     }
 }

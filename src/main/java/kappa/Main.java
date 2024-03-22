@@ -6,17 +6,17 @@ import kappa.control.Controller;
 import kappa.view.KappaStage;
 import kappa.model.Kappa;
 
-
-public class Main extends Application{
+public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     @Override
     public void start(Stage primaryStage) {
         newSession(primaryStage);
     }
 
-    private void newSession(Stage primaryStage) {
+    public void newSession(Stage primaryStage) {
         Kappa kappa = new Kappa(primaryStage);
         KappaStage stage = new KappaStage(primaryStage);
         Controller controller = new Controller(stage);

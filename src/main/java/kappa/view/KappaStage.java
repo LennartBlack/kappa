@@ -1,7 +1,14 @@
 package kappa.view;
 
 import javafx.stage.Stage;
+import kappa.model.Cable;
+import kappa.model.Watchlist;
+
+import java.io.FileInputStream;
+import java.util.ArrayList;
+
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 public class KappaStage extends Stage {
@@ -18,6 +25,7 @@ public class KappaStage extends Stage {
     private HomePane homePane;
     private HelpPane helpPane;
     private WatchlistPane watchlistPane;
+    private PreviousViewedCablesPane previousViewedCablesPane;
 
     // Scenes
     private Scene signInScene;
@@ -29,6 +37,8 @@ public class KappaStage extends Stage {
         this.primaryStage = stage;
         this.kappaPane = new BorderPane();
         this.kappaPane.setTop(this.menuPane = new MenuPane());
+        this.previousViewedCablesPane = new PreviousViewedCablesPane();
+        this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
         this.kappeScene = new Scene(this.kappaPane, 800, 600);
 
         // Starting the application with the sign in scene

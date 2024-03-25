@@ -15,8 +15,6 @@ X
 -src/main/java/kappa/view/GraphActionPane.java,8\b\8b5387c62f3237b93f265401fcb48e034d483939
 W
 'src/main/java/kappa/view/GraphPane.java,5\d\5d7cd717fc25e2bf9857d9b622cff3ed7226a52e
-_
-/src/main/java/kappa/view/LoginRegisterPane.java,8\7\8784e33e9a12d6a28b56882b7c44003a6c500727
 V
 &src/main/java/kappa/view/MenuPane.java,2\b\2bb241efc5ae4f36c16f96501ae6574566f6c2c2
 X
@@ -37,3 +35,7 @@ S
 #src/main/java/kappa/model/User.java,b\1\b1ea05143b3dc27dfa3715aa7e4a276a02251095
 T
 $src/main/java/kappa/model/Admin.java,7\0\7008f06ede3ce7b52bc838fe28d1c3338fd0382c
+X
+(src/main/java/kappa/model/Watchlist.java,6\d\6d642b06490caa7ce4d45d940a7fca28e895261a
+[
++src/main/java/kappa/view/WatchlistPane.java,b\4\b4098dca72ad7fe3821634b619ba53bca937aad8

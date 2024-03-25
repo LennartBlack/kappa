@@ -72,22 +72,15 @@ public class KappaStage extends Stage {
     }
 
     // This method sets the cable detail scene
-    public void showCabelDetailScene() {
-        cableDetailPane = new CableDetailPane();
-        graphActionPane = new GraphActionPane();
-        graphPane = new GraphPane();
-        menuPane = new MenuPane();
-
-        BorderPane graphDetailLayout = new BorderPane();
-        graphDetailLayout.setTop(menuPane);
-        graphDetailLayout.setRight(graphPane);
-        graphDetailLayout.setLeft(cableDetailPane);
-        graphDetailLayout.setBottom(graphActionPane);
-
-        Scene graphDetailScene = new Scene(graphDetailLayout, 1200, 600);
-        this.primaryStage.setTitle("Kappa - Kabelauslastungsplanungsprogrammassistent");
-        this.primaryStage.setScene(graphDetailScene);
-        this.primaryStage.show();
+    public void showCabelDetailScene(Cable cable) {
+        this.cableDetailPane = new CableDetailPane(cable);
+        this.kappaPane.setCenter(cableDetailPane.getCableDetailPane());
+        this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
+        updateKappa("Kappa - Kabel Detailansicht" + cable.getIdentification());
+        for(int i = 0; i < 6; i++){
+            System.out.println("Showing cable detail scene" + this.previousViewedCablesPane.getPreviousViewedCables().get(i).getIdentification());
+        }
+        System.out.println();
     }
 
     // This method sets the cable detail scene
@@ -158,4 +151,9 @@ public class KappaStage extends Stage {
     private Scene getKappaScene() {
         return this.kappeScene;
     }
+
+    public PreviousViewedCablesPane getPreviousViewedCablesPane() {
+        return previousViewedCablesPane;
+    }
+
 }

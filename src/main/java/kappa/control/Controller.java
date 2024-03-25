@@ -5,19 +5,27 @@ import java.security.NoSuchAlgorithmException;
 import javafx.util.Duration;
 import kappa.Main;
 import kappa.MainWithoutVMArgs;
+import kappa.model.Cable;
 import kappa.model.Kappa;
+import kappa.model.PreviousViewedCable;
 import kappa.model.User;
 import kappa.utils.Hash;
 import kappa.view.KappaStage;
+import kappa.view.PreviousViewedCablesPane;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 public class Controller {
     private KappaStage stage;
+    private PreviousViewedCable previousViewedCables;
+    private PreviousViewedCablesPane previousViewedCablesPane;
 
     public Controller(KappaStage stage) {
         this.stage = stage;
+        this.previousViewedCables = this.stage.getPreviousViewedCablesPane().getPreviousViewedCables();
+        this.previousViewedCablesPane = this.stage.getPreviousViewedCablesPane();
 
         // Eventhandler for the sign in button
         this.stage.getSignInPane().getSignInButton().setOnAction(e -> {
@@ -27,7 +35,7 @@ public class Controller {
                 String hashedPassword = Hash.hash(passwordInput);
                 // Validate Credintials
                 if (validateUser(usernameInput, hashedPassword)) {
-                    clearInputs();
+                    clearSignInInputs();
                     if (this.stage.getSignInPane().isLogininFaildMessageVisible()) {
                         System.out.println("Removing login failed message");
                         this.stage.getSignInPane().removeLoginFailedMessage();
@@ -35,7 +43,7 @@ public class Controller {
                     System.out.println("Showing home scene");
                     this.stage.showHomeScene();
                 } else if (validateAdmin(usernameInput, hashedPassword)) {
-                    clearInputs();
+                    clearSignInInputs();
                     this.stage.showAdminHomeScene();
                 } else {
                     // Validation failed
@@ -45,7 +53,7 @@ public class Controller {
                         this.stage.getSignInPane().addLoginFailedMessage();
                     }
                     shakeNode(this.stage.getSignInPane().getLoginFailedMessage());
-                    clearInputs();
+                    clearSignInInputs();
                 }
             } catch (NoSuchAlgorithmException ex) {
                 System.out.println("Hashing failed");
@@ -72,8 +80,7 @@ public class Controller {
             this.stage.showWatchlistScene();
         });
 
-        // Eventhandler for the topWorkloadCable button to topWorkloadCable the home
-        // scene
+        // Eventhandler for the topWorkloadCable button to topWorkloadCable the home scene
         this.stage.getMenuPane().getTopWorkloadCableButton().setOnAction(e -> {
             this.stage.showCableWithTopWorkloudScene();
         });
@@ -97,6 +104,27 @@ public class Controller {
         this.stage.getMenuPane().getLogOffButton().setOnAction(e -> {
             this.stage.showSignInSceneAfterLogout();
         });
+
+        // Evenenthandler for the previous viewed cables pane buttons
+        
+    }
+
+    private void addCableToPreviousViewedCableHandler(Cable cable, Button b){
+        b.setOnAction(e -> {
+            updatePreviousViewedCables(cable);
+        });
+    }
+
+    private void updatePreviousViewedCables(Cable cable){
+        int actionCode = this.previousViewedCables.clickedOnCable(cable);
+        if(actionCode == -1){
+            addCableToPreviousViewedCableHandler(cable, this.previousViewedCablesPane.addPreviousViewedCableButton(cable));
+        } else if(actionCode == -2){
+            addCableToPreviousViewedCableHandler(cable, this.previousViewedCablesPane.addPreviousViewedCableButton(cable));
+            this.previousViewedCablesPane.removeLastButton();
+        } else{
+            this.previousViewedCablesPane.putFirst(actionCode);
+        }
     }
 
     /**
@@ -117,7 +145,7 @@ public class Controller {
      * This method clears the input fields userField and passwordField after a
      * failed login attempt
      */
-    private void clearInputs() {
+    private void clearSignInInputs() {
         this.stage.getSignInPane().getUserField().clear();
         this.stage.getSignInPane().getPasswordField().clear();
     }

@@ -11,8 +11,18 @@ import java.util.Comparator;
 
 public class Watchlist extends ArrayList<Cable> {
 
+    private static final long serialVersionUID = 1L;
+    
     public Watchlist() {
         super();
+    }
+
+    public void addCable(Cable cable) {
+        this.add(cable);
+    }
+
+    public void removeCable(Cable cable) {
+        this.remove(cable);
     }
 
     public void sort() {
@@ -37,9 +47,10 @@ public class Watchlist extends ArrayList<Cable> {
 
     // Methode zum Laden der Watchlist aus einer Datei
     public static Watchlist loadFromFile() {
+        Watchlist watchlist = new Watchlist();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("watchlist.ser"))) {
-            Watchlist loadedList = (Watchlist) ois.readObject();
-            return loadedList;
+            watchlist = (Watchlist) ois.readObject();
+            return watchlist;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;

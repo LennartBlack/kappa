@@ -3,8 +3,6 @@
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-_
-/src/main/java/kappa/view/LoginRegisterPane.java,8\7\8784e33e9a12d6a28b56882b7c44003a6c500727
 M
 src/main/java/kappa/Main.java,0\1\01525925fd0b43200905d7e569ec93c1f1787fe2
 T
@@ -37,3 +35,7 @@ S
 #src/main/java/kappa/model/User.java,b\1\b1ea05143b3dc27dfa3715aa7e4a276a02251095
 T
 $src/main/java/kappa/model/Admin.java,7\0\7008f06ede3ce7b52bc838fe28d1c3338fd0382c
+X
+(src/main/java/kappa/model/Watchlist.java,6\d\6d642b06490caa7ce4d45d940a7fca28e895261a
+[
++src/main/java/kappa/view/WatchlistPane.java,b\4\b4098dca72ad7fe3821634b619ba53bca937aad8

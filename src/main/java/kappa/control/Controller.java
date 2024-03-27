@@ -6,6 +6,7 @@ import javafx.util.Duration;
 import kappa.Main;
 import kappa.MainWithoutVMArgs;
 import kappa.model.Cable;
+import kappa.model.CableCoreDataDB;
 import kappa.model.Kappa;
 import kappa.model.PreviousViewedCable;
 import kappa.model.User;
@@ -21,9 +22,11 @@ public class Controller {
     private KappaStage stage;
     private PreviousViewedCable previousViewedCables;
     private PreviousViewedCablesPane previousViewedCablesPane;
+    private CableCoreDataDB cableCoreDataDB;
 
-    public Controller(KappaStage stage) {
+    public Controller(KappaStage stage, CableCoreDataDB cableCoreDataDB) {
         this.stage = stage;
+        this.cableCoreDataDB = cableCoreDataDB;
         this.previousViewedCables = this.stage.getPreviousViewedCablesPane().getPreviousViewedCables();
         this.previousViewedCablesPane = this.stage.getPreviousViewedCablesPane();
 
@@ -86,7 +89,7 @@ public class Controller {
         });
 
         // Eventhandler for the newWindowSearch button to show the newWindowSearch scene
-        this.stage.getMenuPane().getNewWindowSearchButton().setOnAction(e -> {
+        this.stage.getMenuPane().getOpenNewWindow().setOnAction(e -> {
             // TODO: Implement new window search
             Stage newStage = new Stage();
             Kappa kappa = new Kappa(newStage);
@@ -95,36 +98,71 @@ public class Controller {
             newWindow.newSession(newStage);
         });
 
-        // Eventhandler for the searchCable button to show the searchCable scene
-        this.stage.getMenuPane().getSearchCableButton().setOnAction(e -> {
-            this.stage.showSearchCableScene();
-        });
-
         // Eventhandler for the logOff button to show the sign in scene
         this.stage.getMenuPane().getLogOffButton().setOnAction(e -> {
             this.stage.showSignInSceneAfterLogout();
         });
 
-        // Evenenthandler for the previous viewed cables pane buttons
+        // Eventhandler for the searchCableTextField to search for a cable
+        this.stage.getMenuPane().getSearchCableTextField().setOnAction(e -> {
+            try{
+                String cableId = this.stage.getMenuPane().getSearchCableTextField().getText();
+                if(cableId.isEmpty() || cableId.isBlank() || cableId == null){
+                    throw new Exception();
+                }
+                Cable cable = this.cableCoreDataDB.get(cableId);
+                if (cable != null) {
+                    System.out.println("Cable found, updatePVC method called");
+                    updatePreviousViewedCables(cable);
+                    this.stage.showCabelDetailScene(cable);
+                }
+                else{
+                    throw new Exception();
+                }
+            }catch (Exception ex){
+                shakeNode(this.stage.getMenuPane().getSearchCableTextField());
+            }
+        });
         
     }
 
-    private void addCableToPreviousViewedCableHandler(Cable cable, Button b){
-        b.setOnAction(e -> {
+    /**
+     * 
+     * @param cable to use for the Eventhandler
+     * @param button to set an Eventhandler on
+     */
+    private void addCableToPreviousViewedCableHandler(Cable cable, Button button){
+        System.out.println("adding Eventhandler to button");
+        button.setOnAction(e -> {
             updatePreviousViewedCables(cable);
         });
     }
 
+
+    /**
+     * After clicking on a cable the previousViewedCables will be updated
+     * @param cable that was clicked on
+     */
     private void updatePreviousViewedCables(Cable cable){
         int actionCode = this.previousViewedCables.clickedOnCable(cable);
+        System.out.println("actionCode is " + actionCode);
         if(actionCode == -1){
-            addCableToPreviousViewedCableHandler(cable, this.previousViewedCablesPane.addPreviousViewedCableButton(cable));
+            // actionCode -1 means: cable is not in pvc and pvc is full
+            Button b = this.previousViewedCablesPane.createPreviousViewedCableButton(cable);
+            addCableToPreviousViewedCableHandler(cable, b);
+            this.previousViewedCablesPane.removeOldestButton();
+            this.previousViewedCablesPane.addButtonToVBox(b);
+
         } else if(actionCode == -2){
-            addCableToPreviousViewedCableHandler(cable, this.previousViewedCablesPane.addPreviousViewedCableButton(cable));
-            this.previousViewedCablesPane.removeLastButton();
+            // actionCode -2 means: cable not in pvc and pvc not full
+            Button b = this.previousViewedCablesPane.createPreviousViewedCableButton(cable);
+            addCableToPreviousViewedCableHandler(cable, b);
+            this.previousViewedCablesPane.addButtonToVBox(b);
         } else{
+            // actionCode postive number means: cable is already in pvc
             this.previousViewedCablesPane.putFirst(actionCode);
         }
+        this.stage.updateKappa("Kappa - Kabel Detailansicht" + cable.getId());
     }
 
     /**

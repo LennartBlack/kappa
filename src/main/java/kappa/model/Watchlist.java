@@ -29,7 +29,7 @@ public class Watchlist extends ArrayList<Cable> {
         Collections.sort(this, new Comparator<Cable>() {
             @Override
             public int compare(Cable cable1, Cable cable2) {
-                return cable1.getIdentification().compareTo(cable2.getIdentification());
+                return cable1.getId().compareTo(cable2.getId());
             }
         });
     }

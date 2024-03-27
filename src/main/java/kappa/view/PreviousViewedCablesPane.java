@@ -11,7 +11,7 @@ import kappa.model.PreviousViewedCable;
 
 public class PreviousViewedCablesPane extends Region {
     private VBox vBoxPreviousViewedCables;
-    private int maxAmountOfCables = 10;
+    private int maxAmountOfCables = 20;
     private PreviousViewedCable previousViewedCables = new PreviousViewedCable();
 
     public PreviousViewedCablesPane() {
@@ -29,18 +29,25 @@ public class PreviousViewedCablesPane extends Region {
     }
 
     public void putFirst(int index){
-        Button temp = (Button) this.vBoxPreviousViewedCables.getChildren().get(index + 1);
+        System.out.println("index ist" + index);
+        Button temp = (Button) this.vBoxPreviousViewedCables.getChildren().get(index);
+        System.out.println("text of index element" + temp.getText());
+        vBoxPreviousViewedCables.getChildren().remove(index);
         vBoxPreviousViewedCables.getChildren().add(temp);
-        vBoxPreviousViewedCables.getChildren().remove(index + 1);
     }
 
-    public Button addPreviousViewedCableButton(Cable cable) {
-        Button cableButton = new Button(cable.getIdentification());
-        this.vBoxPreviousViewedCables.getChildren().add(cableButton);
+    public Button createPreviousViewedCableButton(Cable cable) {
+        Button cableButton = new Button();
+        cableButton.setText(cable.getId());
+        System.out.println("new Button created with text: " + cableButton.getText());
         return cableButton;
     }
 
-    public void removeLastButton(){
+    public void addButtonToVBox(Button button){
+        this.vBoxPreviousViewedCables.getChildren().add(button);
+    }
+
+    public void removeOldestButton(){
         this.vBoxPreviousViewedCables.getChildren().remove(1);
     }
 

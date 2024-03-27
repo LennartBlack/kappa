@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import kappa.control.Controller;
 import kappa.view.KappaStage;
+import kappa.model.CableCoreDataDB;
 import kappa.model.Kappa;
 
 public class Main extends Application {
@@ -18,7 +19,8 @@ public class Main extends Application {
 
     public void newSession(Stage primaryStage) {
         Kappa kappa = new Kappa(primaryStage);
+        CableCoreDataDB cableCoreDataDB = new CableCoreDataDB();
         KappaStage stage = new KappaStage(primaryStage);
-        Controller controller = new Controller(stage);
+        Controller controller = new Controller(stage, cableCoreDataDB);
     }
 }

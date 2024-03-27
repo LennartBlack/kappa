@@ -3,10 +3,13 @@ package kappa.view;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 
 
 
@@ -17,9 +20,10 @@ public class MenuPane  extends Region {
     private Button helpButton;
     private Button topWorkloadCableButton;
     private Button watchlistButton;
-    private Button newWindowSearchButton;
-    private Button searchCableButton;
+    private Button openNewWindow;
+    private TextField searchCableTextField;
     private Button logOffButton;
+    private VBox searchVBox;
 
     public MenuPane(){
         this.hBox = new HBox();
@@ -32,17 +36,19 @@ public class MenuPane  extends Region {
     }
 
     private ToolBar createToolbar() {
-        this.searchCableButton = new Button("Kabel suchen");
+        this.searchCableTextField = new TextField();
+        this.searchCableTextField.setPromptText("Kabel suchen");
         ImageView searchCableIcon = new ImageView("search.png");
         searchCableIcon.setFitWidth(16);
         searchCableIcon.setFitHeight(16);
-        searchCableButton.setGraphic(searchCableIcon);
         
-        this.newWindowSearchButton = new Button("Suchen in neuem Fenster");
-        ImageView newWindowSearchIcon = new ImageView("new-tab.png");
-        newWindowSearchIcon.setFitWidth(16);
-        newWindowSearchIcon.setFitHeight(16);
-        newWindowSearchButton.setGraphic(newWindowSearchIcon);
+        
+        
+        this.openNewWindow = new Button("Neues Fenster");
+        ImageView newWindowIcon = new ImageView("new-tab.png");
+        newWindowIcon.setFitWidth(16);
+        newWindowIcon.setFitHeight(16);
+        openNewWindow.setGraphic(newWindowIcon);
     
 
         this.topWorkloadCableButton = new Button("Top ausgelastete Kabel");
@@ -71,7 +77,7 @@ public class MenuPane  extends Region {
 
         ToolBar toolbar = new ToolBar();
         toolbar.setStyle("-fx-border-color:lightgrey;-fx-border-width:1px;");
-        toolbar.getItems().addAll(searchCableButton, newWindowSearchButton, topWorkloadCableButton, watchlistButton, helpButton, logOffButton);
+        toolbar.getItems().addAll(searchCableIcon, searchCableTextField, openNewWindow, topWorkloadCableButton, watchlistButton, helpButton, logOffButton);
         return toolbar;
     }
 
@@ -87,16 +93,14 @@ public class MenuPane  extends Region {
         return watchlistButton;
     }
 
-    public Button getNewWindowSearchButton() {
-        return newWindowSearchButton;
-    }
-
-    public Button getSearchCableButton() {
-        return searchCableButton;
+    public Button getOpenNewWindow() {
+        return openNewWindow;
     }
 
     public Button getLogOffButton() {
         return logOffButton;
     }
-    
+    public TextField getSearchCableTextField() {
+        return searchCableTextField;
+    }
 }

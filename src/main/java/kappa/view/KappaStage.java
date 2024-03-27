@@ -39,7 +39,7 @@ public class KappaStage extends Stage {
         this.kappaPane.setTop(this.menuPane = new MenuPane());
         this.previousViewedCablesPane = new PreviousViewedCablesPane();
         this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
-        this.kappeScene = new Scene(this.kappaPane, 800, 600);
+        this.kappeScene = new Scene(this.kappaPane, 900, 600);
 
         // Starting the application with the sign in scene
         showSignInScene();
@@ -76,11 +76,7 @@ public class KappaStage extends Stage {
         this.cableDetailPane = new CableDetailPane(cable);
         this.kappaPane.setCenter(cableDetailPane.getCableDetailPane());
         this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
-        updateKappa("Kappa - Kabel Detailansicht" + cable.getIdentification());
-        for(int i = 0; i < 6; i++){
-            System.out.println("Showing cable detail scene" + this.previousViewedCablesPane.getPreviousViewedCables().get(i).getIdentification());
-        }
-        System.out.println();
+        updateKappa("Kappa - Kabel Detailansicht" + cable.getId());
     }
 
     // This method sets the cable detail scene
@@ -129,7 +125,8 @@ public class KappaStage extends Stage {
      * 
      * @param title
      */
-    private void updateKappa(String title) {
+    public void updateKappa(String title) {
+        this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
         this.primaryStage.setTitle(title);
         this.primaryStage.setScene(getKappaScene());
         this.primaryStage.show();

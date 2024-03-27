@@ -11,7 +11,7 @@ public class CableDetailPane extends Region{
 
     public CableDetailPane(Cable cable) {
         this.cableDetailPane = new BorderPane();
-        Label cableLabel = new Label(cable.getIdentification());
+        Label cableLabel = new Label(cable.getId());
         this.cableDetailPane.setTop(cableLabel);
     }
 

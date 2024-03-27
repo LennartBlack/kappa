@@ -86,4 +86,31 @@ public class Cable extends ArrayList implements Serializable {
     public int getCrossSection() {
         return CrossSection;
     }
+
+    public String getCableValue(String attribute) {
+        switch (attribute) {
+            case "ID":
+                return this.getId();
+            case "Start":
+                return this.getStart();
+            case "End":
+                return this.getEnd();
+            case "Resistance":
+                return String.valueOf(this.getResistance());
+            case "Reactance":
+                return String.valueOf(this.getReactance());
+            case "Ampacity":
+                return String.valueOf(this.getAmpacity());
+            case "Electricity":
+                return String.valueOf(this.getElectricity());
+            case "Length":
+                return String.valueOf(this.getLength());
+            case "Year of Construction":
+                return String.valueOf(this.getYearOfConstruction());
+            case "Cross Section":
+                return String.valueOf(this.getCrossSection());
+            default:
+                return "";
+        }
+    }
 }

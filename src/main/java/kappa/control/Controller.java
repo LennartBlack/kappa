@@ -120,6 +120,7 @@ public class Controller {
                     throw new Exception();
                 }
             }catch (Exception ex){
+                ex.printStackTrace();
                 shakeNode(this.stage.getMenuPane().getSearchCableTextField());
             }
         });

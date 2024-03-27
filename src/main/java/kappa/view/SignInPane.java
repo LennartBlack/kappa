@@ -31,18 +31,20 @@ public class SignInPane extends Region {
 
         // Create the login form
         Label userLabel = new Label("Bitte gib deinen Butzernamen ein.");
+        userLabel.setTextFill(javafx.scene.paint.Color.web((Style.getEweBlue())));
         this.userField = new TextField();
         userField.setPromptText("Benutzername");
         userField.setPrefWidth(200);
         Label passwordLabel = new Label("Bitte gib dein Passwort ein.");
+        passwordLabel.setTextFill(javafx.scene.paint.Color.web((Style.getEweBlue())));
         this.passwordField = new PasswordField();
         passwordField.setPromptText("Passwort");
         passwordField.setPrefWidth(100);
 
         // Create the sign in button
         this.signIn = new Button("Anmelden");
-        signIn.setTextFill(javafx.scene.paint.Color.web("#C8D200"));
-        signIn.setStyle("-fx-background-color: #005F96;");
+        signIn.setTextFill(javafx.scene.paint.Color.web(Style.EWE_GREEN));
+        signIn.setStyle(Style.getButtonDesing());
 
         // Add all elements to the login layout
         this.vBoxLogInLayout.getChildren().addAll(coverIcon, userLabel, userField, passwordLabel, passwordField,

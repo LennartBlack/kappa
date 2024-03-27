@@ -16,7 +16,7 @@ public class KappaStage extends Stage {
 
     // Panes
     private BorderPane kappaPane;
-    private CableDetailPane cableDetailPane;
+    private CablePane cableDetailPane;
     private GraphActionPane graphActionPane;
     private TopWorkloadCablePane topWorkloadCablePane;
     private GraphPane graphPane;
@@ -36,10 +36,11 @@ public class KappaStage extends Stage {
     public KappaStage(Stage stage) {
         this.primaryStage = stage;
         this.kappaPane = new BorderPane();
+        this.kappaPane.setStyle("-fx-background-color:  white;");
         this.kappaPane.setTop(this.menuPane = new MenuPane());
         this.previousViewedCablesPane = new PreviousViewedCablesPane();
         this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
-        this.kappeScene = new Scene(this.kappaPane, 900, 600);
+        this.kappeScene = new Scene(this.kappaPane, 1000, 600);
 
         // Starting the application with the sign in scene
         showSignInScene();
@@ -64,7 +65,6 @@ public class KappaStage extends Stage {
     public void showSignInSceneAfterLogout() {
         if (getSignInPane().isLogininFaildMessageVisible()) {
             getSignInPane().removeLoginFailedMessage();
-            System.out.println("test");
         }
         this.primaryStage.setTitle("Kappa - Anmeldung");
         this.primaryStage.setScene(this.signInScene);
@@ -73,7 +73,7 @@ public class KappaStage extends Stage {
 
     // This method sets the cable detail scene
     public void showCabelDetailScene(Cable cable) {
-        this.cableDetailPane = new CableDetailPane(cable);
+        this.cableDetailPane = new CablePane(cable);
         this.kappaPane.setCenter(cableDetailPane.getCableDetailPane());
         this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
         updateKappa("Kappa - Kabel Detailansicht" + cable.getId());

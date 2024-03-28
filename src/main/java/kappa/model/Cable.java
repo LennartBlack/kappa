@@ -16,13 +16,13 @@ public class Cable extends ArrayList implements Serializable {
     private int yearOfConstruction;
     private int CrossSection;
 
-
     public Cable(String identification) {
         this.id = identification;
     }
 
     /**
      * Constructor for the Cable class
+     * 
      * @param id
      * @param start
      * @param end
@@ -34,7 +34,8 @@ public class Cable extends ArrayList implements Serializable {
      * @param yearOfConstruction
      * @param CrossSection
      */
-    public Cable(String id, String start, String end, Double resistance, Double reactance, Double ampacity, Double electricity, Double length, int yearOfConstruction, int CrossSection) {
+    public Cable(String id, String start, String end, Double resistance, Double reactance, Double ampacity,
+            Double electricity, Double length, int yearOfConstruction, int CrossSection) {
         this.id = id;
         this.start = start;
         this.end = end;
@@ -50,7 +51,7 @@ public class Cable extends ArrayList implements Serializable {
     public String getId() {
         return this.id;
     }
-    
+
     public String getStart() {
         return start;
     }
@@ -95,19 +96,19 @@ public class Cable extends ArrayList implements Serializable {
                 return this.getStart();
             case "End":
                 return this.getEnd();
-            case "Resistance":
+            case "Widerstand":
                 return String.valueOf(this.getResistance());
             case "Reactance":
                 return String.valueOf(this.getReactance());
-            case "Ampacity":
+            case "Nennstrom":
                 return String.valueOf(this.getAmpacity());
-            case "Electricity":
+            case "Strom":
                 return String.valueOf(this.getElectricity());
-            case "Length":
+            case "Länge":
                 return String.valueOf(this.getLength());
-            case "Year of Construction":
+            case "Baujahr":
                 return String.valueOf(this.getYearOfConstruction());
-            case "Cross Section":
+            case "Durchmesser":
                 return String.valueOf(this.getCrossSection());
             default:
                 return "";

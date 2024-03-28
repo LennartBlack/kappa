@@ -40,14 +40,9 @@ public class Controller {
                 if (validateUser(usernameInput, hashedPassword)) {
                     clearSignInInputs();
                     if (this.stage.getSignInPane().isLogininFaildMessageVisible()) {
-                        System.out.println("Removing login failed message");
                         this.stage.getSignInPane().removeLoginFailedMessage();
                     }
-                    System.out.println("Showing home scene");
                     this.stage.showHomeScene();
-                } else if (validateAdmin(usernameInput, hashedPassword)) {
-                    clearSignInInputs();
-                    this.stage.showAdminHomeScene();
                 } else {
                     // Validation failed
                     shakeNode(this.stage.getSignInPane().getUserField());
@@ -83,7 +78,8 @@ public class Controller {
             this.stage.showWatchlistScene();
         });
 
-        // Eventhandler for the topWorkloadCable button to topWorkloadCable the home scene
+        // Eventhandler for the topWorkloadCable button to topWorkloadCable the home
+        // scene
         this.stage.getMenuPane().getTopWorkloadCableButton().setOnAction(e -> {
             this.stage.showCableWithTopWorkloudScene();
         });
@@ -105,63 +101,66 @@ public class Controller {
 
         // Eventhandler for the searchCableTextField to search for a cable
         this.stage.getMenuPane().getSearchCableTextField().setOnAction(e -> {
-            try{
+            try {
                 String cableId = this.stage.getMenuPane().getSearchCableTextField().getText();
-                if(cableId.isEmpty() || cableId.isBlank() || cableId == null){
+                if (cableId.isEmpty() || cableId.isBlank() || cableId == null) {
                     throw new Exception();
                 }
                 Cable cable = this.cableCoreDataDB.get(cableId);
                 if (cable != null) {
-                    System.out.println("Cable found, updatePVC method called");
                     updatePreviousViewedCables(cable);
-                    this.stage.showCabelDetailScene(cable);
-                }
-                else{
+                    this.stage.showCablePane(cable);
+                } else {
                     throw new Exception();
                 }
-            }catch (Exception ex){
-                ex.printStackTrace();
+            } catch (Exception ex) {
                 shakeNode(this.stage.getMenuPane().getSearchCableTextField());
             }
         });
-        
+
     }
 
     /**
      * 
-     * @param cable to use for the Eventhandler
+     * @param cable  to use for the Eventhandler
      * @param button to set an Eventhandler on
      */
-    private void addCableToPreviousViewedCableHandler(Cable cable, Button button){
-        System.out.println("adding Eventhandler to button");
+    private void addCableToPreviousViewedCableHandler(Cable cable, Button button) {
         button.setOnAction(e -> {
             updatePreviousViewedCables(cable);
+            this.stage.showCablePane(cable);
         });
     }
 
-
     /**
      * After clicking on a cable the previousViewedCables will be updated
+     * 
      * @param cable that was clicked on
      */
-    private void updatePreviousViewedCables(Cable cable){
-        int actionCode = this.previousViewedCables.clickedOnCable(cable);
-        System.out.println("actionCode is " + actionCode);
-        if(actionCode == -1){
-            // actionCode -1 means: cable is not in pvc and pvc is full
-            Button b = this.previousViewedCablesPane.createPreviousViewedCableButton(cable);
-            addCableToPreviousViewedCableHandler(cable, b);
-            this.previousViewedCablesPane.removeOldestButton();
-            this.previousViewedCablesPane.addButtonToVBox(b);
-
-        } else if(actionCode == -2){
-            // actionCode -2 means: cable not in pvc and pvc not full
-            Button b = this.previousViewedCablesPane.createPreviousViewedCableButton(cable);
-            addCableToPreviousViewedCableHandler(cable, b);
-            this.previousViewedCablesPane.addButtonToVBox(b);
-        } else{
-            // actionCode postive number means: cable is already in pvc
-            this.previousViewedCablesPane.putFirst(actionCode);
+    private void updatePreviousViewedCables(Cable cable) {
+        if (this.previousViewedCables.checkIfCableIsInPreviousViewedCables(cable)) {
+            if (this.previousViewedCables.isCableLatestItem(cable)) {
+                // cable is in previousViewedCables and is the latest item
+            } else {
+                // cable is in previousViewedCables but not the latest item
+                int oldIndex = this.previousViewedCables.getIndexOFCable(cable);
+                this.previousViewedCablesPane.putButtonOnTopOfList(oldIndex);
+                this.previousViewedCables.putCableOnTopOfList(oldIndex, cable);
+            }
+        } else {
+            if (this.previousViewedCables.isPreviousViewedCablesFull()) {
+                // cable is not in previousViewedCables and previousViewedCables is full
+                addCableToPreviousViewedCableHandler(cable,
+                        this.previousViewedCablesPane.createPreviousViewedCableButton(cable));
+                this.previousViewedCablesPane.removeOldestButton();
+                this.previousViewedCables.addFirst(cable);
+                this.previousViewedCables.removeLast();
+            } else {
+                // cable is not in previousViewedCables and previousViewedCables is not full
+                addCableToPreviousViewedCableHandler(cable,
+                        this.previousViewedCablesPane.createPreviousViewedCableButton(cable));
+                this.previousViewedCables.addFirst(cable);
+            }
         }
         this.stage.updateKappa("Kappa - Kabel Detailansicht" + cable.getId());
     }
@@ -187,17 +186,6 @@ public class Controller {
     private void clearSignInInputs() {
         this.stage.getSignInPane().getUserField().clear();
         this.stage.getSignInPane().getPasswordField().clear();
-    }
-
-    /**
-     * This method validates the user input with the admin credentials
-     * 
-     * @param usernameInput
-     * @param passwordInput
-     * @return true if the input is valid, false otherwise
-     */
-    private boolean validateAdmin(String usernameInput, String passwordInput) {
-        return usernameInput.equals(User.getUsername()) && passwordInput.equals(User.getPasswort());
     }
 
     /**

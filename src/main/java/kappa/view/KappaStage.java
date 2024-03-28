@@ -16,10 +16,10 @@ public class KappaStage extends Stage {
 
     // Panes
     private BorderPane kappaPane;
-    private CablePane cableDetailPane;
-    private GraphActionPane graphActionPane;
+    private CablePane cablePane;
+    private CableGraphActionPane graphActionPane;
     private TopWorkloadCablePane topWorkloadCablePane;
-    private GraphPane graphPane;
+    private CableGraphPane graphPane;
     private SignInPane signInPane;
     private MenuPane menuPane;
     private HomePane homePane;
@@ -72,9 +72,9 @@ public class KappaStage extends Stage {
     }
 
     // This method sets the cable detail scene
-    public void showCabelDetailScene(Cable cable) {
-        this.cableDetailPane = new CablePane(cable);
-        this.kappaPane.setCenter(cableDetailPane.getCableDetailPane());
+    public void showCablePane(Cable cable) {
+        this.cablePane = new CablePane(cable);
+        this.kappaPane.setCenter(cablePane.getCablePane());
         this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
         updateKappa("Kappa - Kabel Detailansicht" + cable.getId());
     }
@@ -91,11 +91,6 @@ public class KappaStage extends Stage {
         this.homePane = new HomePane();
         this.kappaPane.setCenter(homePane.getvBoxHomeLayout());
         updateKappa("Kappa - Willkommen");
-    }
-
-    // This method sets the admin home scene
-    public void showAdminHomeScene() {
-        // TODO: Implement admin home scene
     }
 
     // This method sets the help scene

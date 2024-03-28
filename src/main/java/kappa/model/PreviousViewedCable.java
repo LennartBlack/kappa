@@ -3,7 +3,7 @@ package kappa.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PreviousViewedCable extends ArrayList<Cable> implements Serializable{
+public class PreviousViewedCable extends ArrayList<Cable> implements Serializable {
 
     public static final long serialVersionUID = 1L;
     private int MAX_AMOUNT_OF_CABLES = 5;
@@ -12,35 +12,23 @@ public class PreviousViewedCable extends ArrayList<Cable> implements Serializabl
         super();
     }
 
-    /**
-     * 
-     * @param cable
-     * @return old index of cable if cable is already in pvc OR -1 if pvc is full OR -2 if cable is not in pvc and pvc is not full
-     */
-    public int clickedOnCable(Cable cable) {
-        System.out.println("ArrayListsize: " + this.size());
-        if(checkIfCableIsInPreviousViewedCables(cable)) {
-            for(Cable element : this){
-                System.out.println(element.getId() + "and index is: " + getIndexOFCable(element));
+    public void clickedOnACable(Cable cable) {
+        if (checkIfCableIsInPreviousViewedCables(cable)) {
+            if (isCableLatestItem(cable)) {
+                // do nothing
+            } else {
+                // putCableOnTopOfList(cable);
             }
-            System.out.println("clickedOnCable: cable is already in pvc");
-            int oldIndex = getIndexOFCable(cable);
-            System.out.println("old index is: " + oldIndex);
-
-            putCableOnTopOfList(cable);
-            return oldIndex;
-            // hier wird null zurückgegeben obwohl der alte index zurückgegeben werden sollte
-        } else if(isPreviousViewedCablesFull()) {
-            System.out.println("clickedOnCable: pvc is full");
-            this.add(cable);
-            this.remove(0);
-            return -1;
         } else {
-            System.out.println("clickedOnCable: cable not in pvc and pvc not full");
-            this.add(cable);
-            return -2;            
+            if (isPreviousViewedCablesFull()) {
+                this.addFirst(cable);
+                this.removeLast();
+            } else {
+                this.addFirst(cable);
+            }
         }
     }
+
     public boolean checkIfCableIsInPreviousViewedCables(Cable cable) {
         boolean isCableInPreviousViewedCables = false;
         for (Cable element : this) {
@@ -53,30 +41,30 @@ public class PreviousViewedCable extends ArrayList<Cable> implements Serializabl
 
     public boolean isPreviousViewedCablesFull() {
         boolean isFull = this.size() >= MAX_AMOUNT_OF_CABLES;
-        System.out.println("size of arraylist" + this.size() + "therfore its full" + isFull);
-        return this.size() >= MAX_AMOUNT_OF_CABLES;
+        return isFull;
     }
 
     public void removeCableFromPreviousViewedCables(Cable cable) {
         this.remove(cable);
     }
 
-    public int putCableOnTopOfList(Cable cable) {
-        int oldIndex = this.indexOf(cable);
-        this.add(cable);
-        this.remove(oldIndex);
-        return oldIndex;
+    public void putCableOnTopOfList(int oldIndex, Cable cable) {
+        this.addFirst(cable);
+        this.remove(oldIndex + 1);
     }
 
-    private int getIndexOFCable(Cable cable) {
+    public int getIndexOFCable(Cable cable) {
         int i = 0;
-        for(Cable element : this){
-            i++;
-            if(element.getId().equals(cable.getId())){
-                System.out.println("getIndexOfcable will return: element id" + element.getId() + "and i should show index" + i);
+        for (Cable element : this) {
+            if (element.getId().equals(cable.getId())) {
                 return i;
             }
+            i++;
         }
         return -1;
+    }
+
+    public boolean isCableLatestItem(Cable cable) {
+        return this.get(0).getId().equals(cable.getId());
     }
 }

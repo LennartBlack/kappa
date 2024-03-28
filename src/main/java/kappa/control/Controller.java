@@ -1,7 +1,6 @@
 package kappa.control;
 
 import java.security.NoSuchAlgorithmException;
-
 import javafx.util.Duration;
 import kappa.Main;
 import kappa.MainWithoutVMArgs;
@@ -10,6 +9,7 @@ import kappa.model.CableCoreDataDB;
 import kappa.model.Kappa;
 import kappa.model.PreviousViewedCable;
 import kappa.model.User;
+import kappa.model.Watchlist;
 import kappa.utils.Hash;
 import kappa.view.KappaStage;
 import kappa.view.PreviousViewedCablesPane;
@@ -23,10 +23,12 @@ public class Controller {
     private PreviousViewedCable previousViewedCables;
     private PreviousViewedCablesPane previousViewedCablesPane;
     private CableCoreDataDB cableCoreDataDB;
+    private Watchlist watchlist;
 
-    public Controller(KappaStage stage, CableCoreDataDB cableCoreDataDB) {
+    public Controller(KappaStage stage, CableCoreDataDB cableCoreDataDB, Watchlist watchlist) {
         this.stage = stage;
         this.cableCoreDataDB = cableCoreDataDB;
+        this.watchlist = watchlist;
         this.previousViewedCables = this.stage.getPreviousViewedCablesPane().getPreviousViewedCables();
         this.previousViewedCablesPane = this.stage.getPreviousViewedCablesPane();
 
@@ -110,6 +112,7 @@ public class Controller {
                 if (cable != null) {
                     updatePreviousViewedCables(cable);
                     this.stage.showCablePane(cable);
+                    addGraphActionPaneEventHandlers();
                 } else {
                     throw new Exception();
                 }
@@ -118,6 +121,20 @@ public class Controller {
             }
         });
 
+    }
+
+    private void addGraphActionPaneEventHandlers() {
+        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getAddToWatchlistButton()
+                .setOnAction(e -> {
+                    String cableId = this.stage.getCablePane().getCable().getId();
+                    watchlist.addCable(cableId);
+                });
+
+        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getRemoveFromWatchlistButton()
+                .setOnAction(e -> {
+                    String cableId = this.stage.getCablePane().getCable().getId();
+                    watchlist.removeCable(cableId);
+                });
     }
 
     /**

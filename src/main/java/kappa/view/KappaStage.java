@@ -45,11 +45,6 @@ public class KappaStage extends Stage {
         // Starting the application with the sign in scene
         showSignInScene();
 
-        // Test area
-        // this.signInPane = new SignInPane();
-        // this.menuPane = new MenuPane();
-        // showCabelDetailScene();
-        // showHomeScene();
     }
 
     // This method sets the sign in scene
@@ -74,7 +69,7 @@ public class KappaStage extends Stage {
     // This method sets the cable detail scene
     public void showCablePane(Cable cable) {
         this.cablePane = new CablePane(cable);
-        this.kappaPane.setCenter(cablePane.getCablePane());
+        this.kappaPane.setCenter(cablePane);
         this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
         updateKappa("Kappa - Kabel Detailansicht" + cable.getId());
     }
@@ -128,6 +123,10 @@ public class KappaStage extends Stage {
     }
 
     // Getters and Setters
+    private Scene getKappaScene() {
+        return this.kappeScene;
+    }
+
     public SignInPane getSignInPane() {
         return this.signInPane;
     }
@@ -140,8 +139,8 @@ public class KappaStage extends Stage {
         return this.menuPane;
     }
 
-    private Scene getKappaScene() {
-        return this.kappeScene;
+    public CablePane getCablePane() {
+        return this.cablePane;
     }
 
     public PreviousViewedCablesPane getPreviousViewedCablesPane() {

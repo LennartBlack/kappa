@@ -1,20 +1,31 @@
 package kappa.view;
 
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
+import kappa.model.Cable;
 
-public class CableDetailPane extends Region {
+public class CableDetailPane extends BorderPane {
 
-    private BorderPane cableDetailPane;
+    // Attributes
     private CableGraphActionPane graphActionPane;
     private CableGraphPane graphPane;
+    private Cable cable;
 
-    public CableDetailPane() {
-        this.cableDetailPane = new BorderPane();
-        this.graphActionPane = new CableGraphActionPane();
-        this.graphPane = new CableGraphPane();
-        this.cableDetailPane.setBottom(graphActionPane);
-        this.cableDetailPane.setCenter(graphPane);
+    // Constructor
+    public CableDetailPane(Cable cable) {
+        this.cable = cable;
+        this.graphActionPane = new CableGraphActionPane(cable);
+        this.graphPane = new CableGraphPane(cable);
+        this.setBottom(graphActionPane);
+        this.setCenter(graphPane);
+    }
+
+    // Getter
+    public CableGraphActionPane getGraphActionPane() {
+        return graphActionPane;
+    }
+
+    public CableGraphPane getGraphPane() {
+        return graphPane;
     }
 
 }

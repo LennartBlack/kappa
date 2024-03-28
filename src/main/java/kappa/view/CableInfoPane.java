@@ -13,16 +13,13 @@ import javafx.scene.layout.VBox;
 import kappa.model.Cable;
 import kappa.utils.AttributePair;
 
-public class CableInfoPane extends Region {
-
-    private HBox hBoxCableInfo;
+public class CableInfoPane extends HBox {
 
     public CableInfoPane(Cable cable) {
         String[] attributes = { "ID", "Start", "End", "Widerstand", "Reactance", "Nennstrom", "Strom", "Länge",
                 "Baujahr", "Durchmesser" };
         String[] units = { " ", "km", "km", "Ohm", "Ohm", "A", "kV", "km", " ", "mm²" };
 
-        this.hBoxCableInfo = new HBox();
         VBox attributesCol = new VBox();
         VBox valuesCol = new VBox();
         VBox unitsCol = new VBox();
@@ -39,10 +36,6 @@ public class CableInfoPane extends Region {
             valuesCol.getChildren().addAll(valueLabel);
             unitsCol.getChildren().addAll(unitLabel);
         }
-        this.hBoxCableInfo.getChildren().addAll(attributesCol, valuesCol, unitsCol);
-    }
-
-    public HBox getVBoxCableInfo() {
-        return this.hBoxCableInfo;
+        this.getChildren().addAll(attributesCol, valuesCol, unitsCol);
     }
 }

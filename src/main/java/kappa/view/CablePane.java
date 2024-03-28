@@ -1,21 +1,33 @@
 package kappa.view;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
 import kappa.model.Cable;
 
-public class CablePane extends Region {
-    private BorderPane cableDetailPane;
-    private CableInfoPane cableInfoPane;
+public class CablePane extends BorderPane {
 
+    // Attributes
+    private CableInfoPane cableInfoPane;
+    private CableDetailPane cableDetailPane;
+    private Cable cable;
+
+    // Constructor
     public CablePane(Cable cable) {
-        this.cableDetailPane = new BorderPane();
         this.cableInfoPane = new CableInfoPane(cable);
-        this.cableDetailPane.setLeft(this.cableInfoPane.getVBoxCableInfo());
+        this.cableDetailPane = new CableDetailPane(cable);
+        this.setLeft(this.cableInfoPane);
+        this.setCenter(this.cableDetailPane);
     }
 
-    public BorderPane getCablePane() {
+    // Getter
+    public CableInfoPane getCableInfoPane() {
+        return this.cableInfoPane;
+    }
+
+    public CableDetailPane getCableDetailPane() {
         return this.cableDetailPane;
+    }
+
+    public Cable getCable() {
+        return this.cable;
     }
 }

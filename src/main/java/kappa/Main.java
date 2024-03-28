@@ -6,6 +6,7 @@ import kappa.control.Controller;
 import kappa.view.KappaStage;
 import kappa.model.CableCoreDataDB;
 import kappa.model.Kappa;
+import kappa.model.Watchlist;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -20,7 +21,8 @@ public class Main extends Application {
     public void newSession(Stage primaryStage) {
         Kappa kappa = new Kappa(primaryStage);
         CableCoreDataDB cableCoreDataDB = new CableCoreDataDB();
+        Watchlist watchlist = Watchlist.loadFromFile(cableCoreDataDB);
         KappaStage stage = new KappaStage(primaryStage);
-        Controller controller = new Controller(stage, cableCoreDataDB);
+        Controller controller = new Controller(stage, cableCoreDataDB, watchlist);
     }
 }

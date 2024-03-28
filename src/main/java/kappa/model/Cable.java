@@ -1,9 +1,8 @@
 package kappa.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
-public class Cable extends ArrayList implements Serializable {
+public class Cable implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
     private String start;

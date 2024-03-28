@@ -13,10 +13,14 @@ import kappa.model.Watchlist;
 import kappa.utils.Hash;
 import kappa.view.KappaStage;
 import kappa.view.PreviousViewedCablesPane;
+import kappa.view.WatchlistEntryPane;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
 public class Controller {
     private KappaStage stage;
@@ -77,7 +81,9 @@ public class Controller {
 
         // Eventhandler for the watchlist button to show the watchlist scene
         this.stage.getMenuPane().getWatchlistButton().setOnAction(e -> {
-            this.stage.showWatchlistScene();
+            this.stage.showWatchlistScene(cableCoreDataDB);
+            loadWatchlist(watchlist);
+
         });
 
         // Eventhandler for the topWorkloadCable button to topWorkloadCable the home
@@ -91,7 +97,7 @@ public class Controller {
             // TODO: Implement new window search
             Stage newStage = new Stage();
             Kappa kappa = new Kappa(newStage);
-            KappaStage newKappaStage = new KappaStage(newStage);
+            KappaStage newKappaStage = new KappaStage(newStage, cableCoreDataDB, watchlist);
             Main newWindow = new Main();
             newWindow.newSession(newStage);
         });
@@ -112,7 +118,7 @@ public class Controller {
                 if (cable != null) {
                     updatePreviousViewedCables(cable);
                     this.stage.showCablePane(cable);
-                    addGraphActionPaneEventHandlers();
+                    addGraphActionPaneEventHandlers(cable);
                 } else {
                     throw new Exception();
                 }
@@ -123,17 +129,34 @@ public class Controller {
 
     }
 
-    private void addGraphActionPaneEventHandlers() {
+    private void loadWatchlist(Watchlist watchlist) {
+        for (int i = 0; i < this.stage.getWatchlistPane().getWatchlistVBox().getChildren().size(); i++) {
+            if (this.stage.getWatchlistPane().getWatchlistVBox().getChildren().get(i) instanceof HBox) {
+                WatchlistEntryPane watchlistEntryPane = (WatchlistEntryPane) this.stage.getWatchlistPane()
+                        .getWatchlistVBox().getChildren().get(i);
+                String cableId = ((Label) watchlistEntryPane.getChildren().get(0)).getText();
+                Button button = (Button) watchlistEntryPane.getChildren().get(1);
+                button.setOnAction(e -> {
+                    System.out.println("Buttonaction used");
+                    watchlistEntryPane.updateWatchlistEntryPane();
+                });
+
+            }
+        }
+        this.stage.showWatchlistScene(cableCoreDataDB);
+    }
+
+    private void addGraphActionPaneEventHandlers(Cable cable) {
         this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getAddToWatchlistButton()
                 .setOnAction(e -> {
-                    String cableId = this.stage.getCablePane().getCable().getId();
-                    watchlist.addCable(cableId);
+                    watchlist.addCable(cable);
+                    Watchlist.serializeHashMap(watchlist);
                 });
 
         this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getRemoveFromWatchlistButton()
                 .setOnAction(e -> {
-                    String cableId = this.stage.getCablePane().getCable().getId();
-                    watchlist.removeCable(cableId);
+                    watchlist.removeCable(cable);
+                    Watchlist.serializeHashMap(watchlist);
                 });
     }
 
@@ -146,6 +169,7 @@ public class Controller {
         button.setOnAction(e -> {
             updatePreviousViewedCables(cable);
             this.stage.showCablePane(cable);
+            addGraphActionPaneEventHandlers(cable);
         });
     }
 

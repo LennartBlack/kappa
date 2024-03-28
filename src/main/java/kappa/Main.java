@@ -21,8 +21,8 @@ public class Main extends Application {
     public void newSession(Stage primaryStage) {
         Kappa kappa = new Kappa(primaryStage);
         CableCoreDataDB cableCoreDataDB = new CableCoreDataDB();
-        Watchlist watchlist = Watchlist.loadFromFile(cableCoreDataDB);
-        KappaStage stage = new KappaStage(primaryStage);
+        Watchlist watchlist = Watchlist.deserializeHashMap(cableCoreDataDB);
+        KappaStage stage = new KappaStage(primaryStage, cableCoreDataDB, watchlist);
         Controller controller = new Controller(stage, cableCoreDataDB, watchlist);
     }
 }

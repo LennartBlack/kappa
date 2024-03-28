@@ -6,9 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
-public class Watchlist extends HashMap<String, WatchlistElement> {
+public class Watchlist extends HashMap<String, WatchlistElement> implements Serializable {
 
     // Attributes
     private static final long serialVersionUID = 1L;
@@ -41,9 +43,13 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
     // Methode zum Speichern der Watchlist in einer Datei
     public static void saveToFile(Watchlist watchlist) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("watchlist.ser"))) {
-            for (String cableId : watchlist) {
-                oos.writeObject(cableId);
-            }
+            watchlist.forEach((key, value) -> {
+                try {
+                    oos.writeObject(value);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +65,9 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
             return watchlist;
         }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("watchlist.ser"))) {
-            watchlist = (Watchlist) ois.readObject();
+            for (String key = (String) ois.readObject(); key != null; key = (String) ois.readObject()) {
+                watchlist.addCable(key);
+            }
             return watchlist;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -67,4 +75,32 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
         }
     }
 
+    public static void serializeHashMap(Watchlist watchlist) {
+        try (FileOutputStream fileOut = new FileOutputStream("watchlist.ser");
+                ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(watchlist);
+        } catch (IOException e) {
+        }
+    }
+
+    // Methode zum Auslesen der HashMap aus einer .ser-Datei
+    public static Watchlist deserializeHashMap(CableCoreDataDB cableCoreDataDB) {
+        Watchlist watchlist = new Watchlist(cableCoreDataDB);
+        File file = new File("watchlist.ser");
+        if (!file.exists()) {
+            return watchlist;
+        } else if (file.length() == 0) {
+            return watchlist;
+        }
+        try (FileInputStream fileIn = new FileInputStream("watchlist.ser");
+                ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            watchlist = (Watchlist) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+        }
+        return watchlist;
+    }
+
+    public WatchlistElement getWatchlistElement(String cableId) {
+        return this.get(cableId);
+    }
 }

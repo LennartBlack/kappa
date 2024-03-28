@@ -1,6 +1,8 @@
 package kappa.model;
 
-public class WatchlistElement {
+import java.io.Serializable;
+
+public class WatchlistElement implements Serializable {
 
     // Attributes
     private Cable cable;
@@ -14,6 +16,10 @@ public class WatchlistElement {
     // Getter
     public String getNote() {
         return this.note;
+    }
+
+    public Cable getCable() {
+        return this.cable;
     }
 
     // Setter

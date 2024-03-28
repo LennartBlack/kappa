@@ -2,6 +2,7 @@ package kappa.view;
 
 import javafx.stage.Stage;
 import kappa.model.Cable;
+import kappa.model.CableCoreDataDB;
 import kappa.model.Watchlist;
 
 import java.io.FileInputStream;
@@ -17,25 +18,29 @@ public class KappaStage extends Stage {
     // Panes
     private BorderPane kappaPane;
     private CablePane cablePane;
-    private CableGraphActionPane graphActionPane;
     private TopWorkloadCablePane topWorkloadCablePane;
-    private CableGraphPane graphPane;
     private SignInPane signInPane;
     private MenuPane menuPane;
     private HomePane homePane;
     private HelpPane helpPane;
     private WatchlistPane watchlistPane;
     private PreviousViewedCablesPane previousViewedCablesPane;
+    private SearchCablePane searchCablePane;
 
     // Scenes
     private Scene signInScene;
     private Scene kappeScene;
 
-    private SearchCablePane searchCablePane;
+    // Data
+    private Watchlist watchlist;
+    private CableCoreDataDB cableCoreDataDB;
 
-    public KappaStage(Stage stage) {
+    public KappaStage(Stage stage, CableCoreDataDB cableCoreDataDB, Watchlist watchlist) {
         this.primaryStage = stage;
+        this.cableCoreDataDB = cableCoreDataDB;
+        this.watchlist = watchlist;
         this.kappaPane = new BorderPane();
+        this.watchlistPane = new WatchlistPane(cableCoreDataDB);
         this.kappaPane.setStyle("-fx-background-color:  white;");
         this.kappaPane.setTop(this.menuPane = new MenuPane());
         this.previousViewedCablesPane = new PreviousViewedCablesPane();
@@ -96,9 +101,8 @@ public class KappaStage extends Stage {
     }
 
     // This method sets the search cable scene
-    public void showWatchlistScene() {
-        this.watchlistPane = new WatchlistPane();
-        this.kappaPane.setCenter(watchlistPane.getvBoxWatchlistLayout());
+    public void showWatchlistScene(CableCoreDataDB cableCoreDataDB) {
+        this.kappaPane.setCenter(watchlistPane);
         updateKappa("Kappa - Merkliste");
     }
 
@@ -141,6 +145,10 @@ public class KappaStage extends Stage {
 
     public CablePane getCablePane() {
         return this.cablePane;
+    }
+
+    public WatchlistPane getWatchlistPane() {
+        return this.watchlistPane;
     }
 
     public PreviousViewedCablesPane getPreviousViewedCablesPane() {

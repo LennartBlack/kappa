@@ -4,16 +4,10 @@ import javafx.stage.Stage;
 import kappa.model.Cable;
 import kappa.model.CableCoreDataDB;
 import kappa.model.Watchlist;
-
-import java.io.FileInputStream;
-import java.util.ArrayList;
-
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 public class KappaStage extends Stage {
-    private Stage primaryStage;
 
     // Panes
     private BorderPane kappaPane;
@@ -35,30 +29,25 @@ public class KappaStage extends Stage {
     private Watchlist watchlist;
     private CableCoreDataDB cableCoreDataDB;
 
-    public KappaStage(Stage stage, CableCoreDataDB cableCoreDataDB, Watchlist watchlist) {
-        this.primaryStage = stage;
+    public KappaStage(CableCoreDataDB cableCoreDataDB, Watchlist watchlist) {
         this.cableCoreDataDB = cableCoreDataDB;
         this.watchlist = watchlist;
         this.kappaPane = new BorderPane();
-        this.watchlistPane = new WatchlistPane(cableCoreDataDB);
+        this.watchlistPane = new WatchlistPane(this.cableCoreDataDB, this);
         this.kappaPane.setStyle("-fx-background-color:  white;");
         this.kappaPane.setTop(this.menuPane = new MenuPane());
         this.previousViewedCablesPane = new PreviousViewedCablesPane();
-        this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
+        this.kappaPane.setLeft(this.previousViewedCablesPane);
         this.kappeScene = new Scene(this.kappaPane, 1000, 600);
-
-        // Starting the application with the sign in scene
-        showSignInScene();
-
+        this.signInPane = new SignInPane();
     }
 
     // This method sets the sign in scene
     public void showSignInScene() {
-        this.signInPane = new SignInPane();
-        this.signInScene = new Scene(this.signInPane.getvBoxLogInLayout(), 800, 600);
-        this.primaryStage.setTitle("Kappa - Anmeldung");
-        this.primaryStage.setScene(signInScene);
-        this.primaryStage.show();
+        this.signInScene = new Scene(this.signInPane, 300, 450);
+        this.setTitle("Kappa - Anmeldung");
+        this.setScene(signInScene);
+        this.show();
     }
 
     // This method sets the sign in scene after logging out
@@ -66,16 +55,16 @@ public class KappaStage extends Stage {
         if (getSignInPane().isLogininFaildMessageVisible()) {
             getSignInPane().removeLoginFailedMessage();
         }
-        this.primaryStage.setTitle("Kappa - Anmeldung");
-        this.primaryStage.setScene(this.signInScene);
-        this.primaryStage.show();
+        this.setTitle("Kappa - Anmeldung");
+        this.setScene(this.signInScene);
+        this.show();
     }
 
     // This method sets the cable detail scene
     public void showCablePane(Cable cable) {
         this.cablePane = new CablePane(cable);
         this.kappaPane.setCenter(cablePane);
-        this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
+        this.kappaPane.setLeft(this.previousViewedCablesPane);
         updateKappa("Kappa - Kabel Detailansicht" + cable.getId());
     }
 
@@ -89,7 +78,7 @@ public class KappaStage extends Stage {
     // This method sets the home scene
     public void showHomeScene() {
         this.homePane = new HomePane();
-        this.kappaPane.setCenter(homePane.getvBoxHomeLayout());
+        this.kappaPane.setCenter(homePane);
         updateKappa("Kappa - Willkommen");
     }
 
@@ -120,13 +109,21 @@ public class KappaStage extends Stage {
      * @param title
      */
     public void updateKappa(String title) {
-        this.kappaPane.setLeft(this.previousViewedCablesPane.getvBoxPreviousViewedCables());
-        this.primaryStage.setTitle(title);
-        this.primaryStage.setScene(getKappaScene());
-        this.primaryStage.show();
+        this.kappaPane.setLeft(this.previousViewedCablesPane);
+        this.setTitle(title);
+        this.setScene(getKappaScene());
+        this.show();
     }
 
     // Getters and Setters
+    public boolean isPreviousViewedCablesPaneVisible() {
+        if(this.getKappaPane().getLeft() != null){
+            System.out.println(!this.getPreviousViewedCablesPane().isvBoxEmpty());
+            return this.getPreviousViewedCablesPane().isvBoxEmpty();
+        }
+        return false;
+    }
+    
     private Scene getKappaScene() {
         return this.kappeScene;
     }
@@ -151,8 +148,16 @@ public class KappaStage extends Stage {
         return this.watchlistPane;
     }
 
+    public BorderPane getKappaPane() {
+        return this.kappaPane;
+    }
+
     public PreviousViewedCablesPane getPreviousViewedCablesPane() {
         return previousViewedCablesPane;
+    }
+
+    public Watchlist getWatchlist() {
+        return watchlist;
     }
 
 }

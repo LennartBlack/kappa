@@ -1,2 +1,5 @@
-package kappa;public class test {
+package kappa;
+
+public class test {
+    
 }

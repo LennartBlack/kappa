@@ -1,17 +1,11 @@
 package kappa.view;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import kappa.model.Cable;
-import kappa.utils.AttributePair;
 
 public class CableInfoPane extends HBox {
 

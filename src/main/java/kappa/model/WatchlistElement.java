@@ -11,6 +11,7 @@ public class WatchlistElement implements Serializable {
     // Constructor
     public WatchlistElement(Cable cable) {
         this.cable = cable;
+        this.note = "";
     }
 
     // Getter

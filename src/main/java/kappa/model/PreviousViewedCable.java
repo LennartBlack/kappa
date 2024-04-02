@@ -1,17 +1,19 @@
 package kappa.model;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PreviousViewedCable extends ArrayList<Cable> implements Serializable {
+public class PreviousViewedCable extends ArrayList<Cable>{
 
+    // Attributes
     public static final long serialVersionUID = 1L;
     private int MAX_AMOUNT_OF_CABLES = 5;
 
+    // Constructor
     public PreviousViewedCable() {
         super();
     }
 
+    // Methods
     public void clickedOnACable(Cable cable) {
         if (checkIfCableIsInPreviousViewedCables(cable)) {
             if (isCableLatestItem(cable)) {
@@ -53,6 +55,15 @@ public class PreviousViewedCable extends ArrayList<Cable> implements Serializabl
         this.remove(oldIndex + 1);
     }
 
+    public void addFirst(Cable cable) {
+        this.add(0, cable);
+    }
+
+    public void removeLast() {
+        this.remove(this.size() - 1);
+    }
+
+    // Getters
     public int getIndexOFCable(Cable cable) {
         int i = 0;
         for (Cable element : this) {

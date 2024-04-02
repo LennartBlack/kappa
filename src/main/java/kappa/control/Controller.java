@@ -3,10 +3,8 @@ package kappa.control;
 import java.security.NoSuchAlgorithmException;
 import javafx.util.Duration;
 import kappa.Main;
-import kappa.MainWithoutVMArgs;
 import kappa.model.Cable;
 import kappa.model.CableCoreDataDB;
-import kappa.model.Kappa;
 import kappa.model.PreviousViewedCable;
 import kappa.model.User;
 import kappa.model.Watchlist;
@@ -18,9 +16,6 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 
 public class Controller {
     private KappaStage stage;
@@ -81,25 +76,20 @@ public class Controller {
 
         // Eventhandler for the watchlist button to show the watchlist scene
         this.stage.getMenuPane().getWatchlistButton().setOnAction(e -> {
-            this.stage.showWatchlistScene(cableCoreDataDB);
+            this.stage.getWatchlistPane().constructWatchListPane();
             loadWatchlist(watchlist);
-
+            this.stage.showWatchlistScene(cableCoreDataDB);
         });
 
-        // Eventhandler for the topWorkloadCable button to topWorkloadCable the home
-        // scene
+        // Eventhandler for the topWorkloadCable button to topWorkloadCable the home scene
         this.stage.getMenuPane().getTopWorkloadCableButton().setOnAction(e -> {
             this.stage.showCableWithTopWorkloudScene();
         });
 
         // Eventhandler for the newWindowSearch button to show the newWindowSearch scene
         this.stage.getMenuPane().getOpenNewWindow().setOnAction(e -> {
-            // TODO: Implement new window search
-            Stage newStage = new Stage();
-            Kappa kappa = new Kappa(newStage);
-            KappaStage newKappaStage = new KappaStage(newStage, cableCoreDataDB, watchlist);
             Main newWindow = new Main();
-            newWindow.newSession(newStage);
+            newWindow.newSession();
         });
 
         // Eventhandler for the logOff button to show the sign in scene
@@ -109,54 +99,115 @@ public class Controller {
 
         // Eventhandler for the searchCableTextField to search for a cable
         this.stage.getMenuPane().getSearchCableTextField().setOnAction(e -> {
-            try {
-                String cableId = this.stage.getMenuPane().getSearchCableTextField().getText();
-                if (cableId.isEmpty() || cableId.isBlank() || cableId == null) {
-                    throw new Exception();
-                }
-                Cable cable = this.cableCoreDataDB.get(cableId);
-                if (cable != null) {
-                    updatePreviousViewedCables(cable);
-                    this.stage.showCablePane(cable);
-                    addGraphActionPaneEventHandlers(cable);
-                } else {
-                    throw new Exception();
-                }
-            } catch (Exception ex) {
-                shakeNode(this.stage.getMenuPane().getSearchCableTextField());
-            }
+            searchCable();
+        });
+        this.stage.getMenuPane().getSearchCableButton().setOnAction(e -> {
+            searchCable();
         });
 
     }
-
+    private void searchCable() {
+        try {
+            String cableId = this.stage.getMenuPane().getSearchCableTextField().getText();
+            if (cableId.isEmpty() || cableId.isBlank() || cableId == null) {
+                throw new Exception();
+            }
+            Cable cable = this.cableCoreDataDB.get(cableId);
+            if (cable != null) {
+                System.out.println("show Cable" + cable.getId());
+                updatePreviousViewedCables(cable);
+                this.stage.showCablePane(cable);
+                addGraphActionPaneEventHandlers(cable);
+                this.stage.getWatchlistPane().constructWatchListPane();
+            } else {
+                throw new Exception();
+            }
+        } catch (Exception ex) {
+            shakeNode(this.stage.getMenuPane().getSearchCableTextField());
+        }
+    }
+    /**
+     * This method loads WatchlistEntryPane for each Watchlist element and adds the eventhandlers to the buttons
+     * @param watchlist
+     */
     private void loadWatchlist(Watchlist watchlist) {
+        this.stage.getWatchlistPane().constructWatchListPane();
+        // Iterate over the Children of the WatchlistPane
         for (int i = 0; i < this.stage.getWatchlistPane().getWatchlistVBox().getChildren().size(); i++) {
-            if (this.stage.getWatchlistPane().getWatchlistVBox().getChildren().get(i) instanceof HBox) {
+            // Check if the child is an WatchlistEntryPane
+            if (this.stage.getWatchlistPane().getWatchlistVBox().getChildren().get(i) instanceof WatchlistEntryPane) {
                 WatchlistEntryPane watchlistEntryPane = (WatchlistEntryPane) this.stage.getWatchlistPane()
                         .getWatchlistVBox().getChildren().get(i);
-                String cableId = ((Label) watchlistEntryPane.getChildren().get(0)).getText();
-                Button button = (Button) watchlistEntryPane.getChildren().get(1);
-                button.setOnAction(e -> {
-                    System.out.println("Buttonaction used");
-                    watchlistEntryPane.updateWatchlistEntryPane();
+                String cableId = watchlistEntryPane.getWatchlistElement().getCable().getId();
+                
+                // Get Buttons from WatchlistEntryPane to add Eventhandlers
+                Button cableIdButton = watchlistEntryPane.getCableIdButton();
+                Button addNoteButton = watchlistEntryPane.getAddNoteButton();
+                Button editNoteButton = watchlistEntryPane.getEditNoteButton();
+                Button deleteNoteButton = watchlistEntryPane.getDeleteNoteButton();
+                Button saveNoteButton = watchlistEntryPane.getSaveNoteButton();
+                Button removeFromWatchlistButton = watchlistEntryPane.getRemoveFromWatchlistButton();
+                
+                // Add Eventhandlers to the Buttons
+                cableIdButton.setOnAction(e -> {
+                    Cable cable = cableCoreDataDB.get(cableId);
+                    updatePreviousViewedCables(cable);
+                    this.stage.showCablePane(cable);
+                    addGraphActionPaneEventHandlers(cable);
                 });
-
+                addNoteButton.setOnAction(e -> {
+                    watchlistEntryPane.createEditNotePane();
+                    watchlistEntryPane.getNoteTextField().requestFocus();
+                });
+                editNoteButton.setOnAction(e -> {
+                    watchlistEntryPane.createEditNotePane();
+                    watchlistEntryPane.getNoteTextField().requestFocus();
+                });
+                deleteNoteButton.setOnAction(e -> {
+                    watchlistEntryPane.getWatchlistElement().setNote("");
+                    watchlist.getWatchlistElement(cableId).setNote("");
+                    Watchlist.serializeHashMap(watchlist);
+                    watchlistEntryPane.createPaneWithoutNote();
+                });
+                saveNoteButton.setOnAction(e -> {
+                    String note = watchlistEntryPane.getNoteTextField().getText();
+                    watchlistEntryPane.getWatchlistElement().setNote(note);
+                    watchlist.getWatchlistElement(cableId).setNote(note);
+                    Watchlist.serializeHashMap(watchlist);
+                    watchlistEntryPane.createPaneWithNote();
+                });
+                removeFromWatchlistButton.setOnAction(e -> {
+                    watchlist.removeCable(watchlistEntryPane.getWatchlistElement().getCable());
+                    Watchlist.serializeHashMap(watchlist);
+                    this.stage.getWatchlistPane().removeWatchlistEntryPane(watchlistEntryPane);
+                    this.stage.showWatchlistScene(cableCoreDataDB);
+                });
+                watchlistEntryPane.getNoteTextField().setOnAction(e -> {
+                    saveNoteButton.fire();
+                });
             }
         }
         this.stage.showWatchlistScene(cableCoreDataDB);
     }
 
+    /**
+     * This method adds the Eventhandlers for the Buttons to add and remove a cable from the watchlist
+     * @param cable
+     */
     private void addGraphActionPaneEventHandlers(Cable cable) {
         this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getAddToWatchlistButton()
                 .setOnAction(e -> {
                     watchlist.addCable(cable);
                     Watchlist.serializeHashMap(watchlist);
+                    this.stage.getWatchlistPane().constructWatchListPane();
                 });
 
         this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getRemoveFromWatchlistButton()
                 .setOnAction(e -> {
                     watchlist.removeCable(cable);
                     Watchlist.serializeHashMap(watchlist);
+                    // TODO entferne WatchlistEntryPane aus watchlistpane
+                    this.stage.getWatchlistPane().removeWatchlistEntryPane(cable.getId());
                 });
     }
 

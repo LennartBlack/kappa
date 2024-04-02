@@ -13,8 +13,8 @@ public class CableDetailPane extends BorderPane {
     // Constructor
     public CableDetailPane(Cable cable) {
         this.cable = cable;
-        this.graphActionPane = new CableGraphActionPane(cable);
-        this.graphPane = new CableGraphPane(cable);
+        this.graphActionPane = new CableGraphActionPane(this.cable);
+        this.graphPane = new CableGraphPane(this.cable);
         this.setBottom(graphActionPane);
         this.setCenter(graphPane);
     }

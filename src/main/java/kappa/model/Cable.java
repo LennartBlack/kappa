@@ -3,6 +3,8 @@ package kappa.model;
 import java.io.Serializable;
 
 public class Cable implements Serializable {
+
+    // Attribute
     private static final long serialVersionUID = 1L;
     private String id;
     private String start;
@@ -15,10 +17,7 @@ public class Cable implements Serializable {
     private int yearOfConstruction;
     private int CrossSection;
 
-    public Cable(String identification) {
-        this.id = identification;
-    }
-
+    // Constructor
     /**
      * Constructor for the Cable class
      * 
@@ -51,6 +50,7 @@ public class Cable implements Serializable {
         return this.id;
     }
 
+    // Getter
     public String getStart() {
         return start;
     }
@@ -85,32 +85,5 @@ public class Cable implements Serializable {
 
     public int getCrossSection() {
         return CrossSection;
-    }
-
-    public String getCableValue(String attribute) {
-        switch (attribute) {
-            case "ID":
-                return this.getId();
-            case "Start":
-                return this.getStart();
-            case "End":
-                return this.getEnd();
-            case "Widerstand":
-                return String.valueOf(this.getResistance());
-            case "Reactance":
-                return String.valueOf(this.getReactance());
-            case "Nennstrom":
-                return String.valueOf(this.getAmpacity());
-            case "Strom":
-                return String.valueOf(this.getElectricity());
-            case "Länge":
-                return String.valueOf(this.getLength());
-            case "Baujahr":
-                return String.valueOf(this.getYearOfConstruction());
-            case "Durchmesser":
-                return String.valueOf(this.getCrossSection());
-            default:
-                return "";
-        }
     }
 }

@@ -1,5 +1,7 @@
 package kappa.view;
 
+import javafx.geometry.Insets;
+
 public class Style {
     public static final String EWE_BLUE = "#005F96";
     
@@ -8,6 +10,8 @@ public class Style {
     private static final String EWE_GREY ="#5A5F5F";
 
     private static final String STANDARD_DESIGN = "-fx-background-color:" + EWE_BLUE + "; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: " + EWE_GREEN + ";";
+
+    private static final Insets BUTTON_PADDING = new Insets(5);
 
     public static String getEweBlue() {
         return EWE_BLUE;
@@ -22,6 +26,10 @@ public class Style {
 
     public static String getEweGrey(){
         return EWE_GREY;
+    }
+    
+    public static Insets getGap() {
+        return BUTTON_PADDING;
     }
 
 }

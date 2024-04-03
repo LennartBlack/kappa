@@ -19,6 +19,7 @@ public class PreviousViewedCablesPane extends VBox {
         Button cableButton = new Button();
         cableButton.setStyle(Style.getStandardDesign());
         cableButton.setText(cable.getId());
+        cableButton.setPrefWidth(70);
         addButton(cableButton);
         return cableButton;
     }

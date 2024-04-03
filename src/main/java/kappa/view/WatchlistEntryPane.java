@@ -28,7 +28,7 @@ public class WatchlistEntryPane extends HBox {
         this.watchlistElement = watchlistElement;
         this.cableIdButton = new Button(watchlistElement.getCable().getId());
         this.addNoteButton = new Button("Notiz hinzufügen");
-        this.editNoteButton = new Button("Edit Note");
+        this.editNoteButton = new Button("Notiz bearbeiten");
         this.deleteNoteButton = new Button("Notiz löschen");
         this.saveNoteButton = new Button("Notiz speichern");
         this.removeFromWatchlistButton = new Button("Aus Watchlist entfernen");

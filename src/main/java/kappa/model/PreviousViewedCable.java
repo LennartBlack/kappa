@@ -2,7 +2,7 @@ package kappa.model;
 
 import java.util.ArrayList;
 
-public class PreviousViewedCable extends ArrayList<Cable>{
+public class PreviousViewedCable extends ArrayList<Cable> {
 
     // Attributes
     public static final long serialVersionUID = 1L;
@@ -59,8 +59,10 @@ public class PreviousViewedCable extends ArrayList<Cable>{
         this.add(0, cable);
     }
 
-    public void removeLast() {
+    public Cable removeLast() {
+        Cable cable = this.get(this.size() - 1);
         this.remove(this.size() - 1);
+        return cable;
     }
 
     // Getters

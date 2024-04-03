@@ -20,6 +20,7 @@ public class PreviousViewedCablesPane extends VBox {
         cableButton.setStyle(Style.getStandardDesign());
         cableButton.setText(cable.getId());
         cableButton.setPrefWidth(70);
+        style(cableButton);
         addButton(cableButton);
         return cableButton;
     }
@@ -44,6 +45,10 @@ public class PreviousViewedCablesPane extends VBox {
 
     public void addFirst(Button button) {
         this.getChildren().add(0, button);
+    }
+
+    private void style(Button button) {
+        PreviousViewedCablesPane.setMargin(button, Style.getGap());
     }
 
     // Getter

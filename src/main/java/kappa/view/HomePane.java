@@ -1,14 +1,12 @@
 package kappa.view;
 
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class HomePane extends VBox {
-    
+
     public HomePane() {
         this.setAlignment(Pos.CENTER);
         Label titleLabel = new Label("Willkommen bei KAPPA");

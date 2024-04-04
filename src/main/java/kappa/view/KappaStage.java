@@ -19,7 +19,6 @@ public class KappaStage extends Stage {
     private HelpPane helpPane;
     private WatchlistPane watchlistPane;
     private PreviousViewedCablesPane previousViewedCablesPane;
-    private SearchCablePane searchCablePane;
 
     // Scenes
     private Scene signInScene;
@@ -95,13 +94,6 @@ public class KappaStage extends Stage {
         updateKappa("Kappa - Merkliste");
     }
 
-    // This method sets the search cable scene
-    public void showSearchCableScene() {
-        this.searchCablePane = new SearchCablePane();
-        this.kappaPane.setCenter(searchCablePane.getvBoxSearchCableLayout());
-        updateKappa("Kappa - Kabel suchen");
-    }
-
     /**
      * This method updates the primary stage with a new title and scene
      * It is meant to use after updating the KappaScene
@@ -117,13 +109,13 @@ public class KappaStage extends Stage {
 
     // Getters and Setters
     public boolean isPreviousViewedCablesPaneVisible() {
-        if(this.getKappaPane().getLeft() != null){
+        if (this.getKappaPane().getLeft() != null) {
             System.out.println(!this.getPreviousViewedCablesPane().isvBoxEmpty());
             return this.getPreviousViewedCablesPane().isvBoxEmpty();
         }
         return false;
     }
-    
+
     private Scene getKappaScene() {
         return this.kappeScene;
     }

@@ -17,6 +17,15 @@ public class CableGraphActionPane extends HBox {
         this.removeFromWatchlistButton = new Button("Von Merkliste entfernen");
         removeFromWatchlistButton.setStyle(Style.getStandardDesign());
         this.getChildren().addAll(this.addToWatchlistButton, this.removeFromWatchlistButton);
+        style();
+    }
+
+    // Methods
+    private void style() {
+        CableGraphActionPane.setMargin(addToWatchlistButton, Style.getGap());
+        CableGraphActionPane.setMargin(removeFromWatchlistButton, Style.getGap());
+        this.addToWatchlistButton.setPadding(Style.getGap());
+        this.removeFromWatchlistButton.setPadding(Style.getGap());
     }
 
     // Getter

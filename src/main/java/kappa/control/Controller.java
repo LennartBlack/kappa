@@ -14,16 +14,18 @@ import kappa.view.PreviousViewedCablesPane;
 import kappa.view.WatchlistEntryPane;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 public class Controller {
+
+    // Attributes
     private KappaStage stage;
     private PreviousViewedCable previousViewedCables;
     private PreviousViewedCablesPane previousViewedCablesPane;
     private CableCoreDataDB cableCoreDataDB;
     private Watchlist watchlist;
 
+    // Constructor
     public Controller(KappaStage stage, CableCoreDataDB cableCoreDataDB, Watchlist watchlist) {
         this.stage = stage;
         this.cableCoreDataDB = cableCoreDataDB;
@@ -81,7 +83,8 @@ public class Controller {
             this.stage.showWatchlistScene(cableCoreDataDB);
         });
 
-        // Eventhandler for the topWorkloadCable button to topWorkloadCable the home scene
+        // Eventhandler for the topWorkloadCable button to topWorkloadCable the home
+        // scene
         this.stage.getMenuPane().getTopWorkloadCableButton().setOnAction(e -> {
             this.stage.showCableWithTopWorkloudScene();
         });
@@ -106,6 +109,15 @@ public class Controller {
         });
 
     }
+
+    // Methods
+    /**
+     * This method trys to search for a cable in the cableCoreDataDB,
+     * shows the cablePane,
+     * adds the Eventhandlers for the buttons
+     * 
+     * @throws Exception if the cable is not found and shakes the InputField
+     */
     private void searchCable() {
         try {
             String cableId = this.stage.getMenuPane().getSearchCableTextField().getText();
@@ -114,7 +126,6 @@ public class Controller {
             }
             Cable cable = this.cableCoreDataDB.get(cableId);
             if (cable != null) {
-                System.out.println("show Cable" + cable.getId());
                 updatePreviousViewedCables(cable);
                 this.stage.showCablePane(cable);
                 addGraphActionPaneEventHandlers(cable);
@@ -126,8 +137,11 @@ public class Controller {
             shakeNode(this.stage.getMenuPane().getSearchCableTextField());
         }
     }
+
     /**
-     * This method loads WatchlistEntryPane for each Watchlist element and adds the eventhandlers to the buttons
+     * This method loads WatchlistEntryPane for each Watchlist element and adds the
+     * eventhandlers to the buttons
+     * 
      * @param watchlist
      */
     private void loadWatchlist(Watchlist watchlist) {
@@ -139,7 +153,7 @@ public class Controller {
                 WatchlistEntryPane watchlistEntryPane = (WatchlistEntryPane) this.stage.getWatchlistPane()
                         .getWatchlistVBox().getChildren().get(i);
                 String cableId = watchlistEntryPane.getWatchlistElement().getCable().getId();
-                
+
                 // Get Buttons from WatchlistEntryPane to add Eventhandlers
                 Button cableIdButton = watchlistEntryPane.getCableIdButton();
                 Button addNoteButton = watchlistEntryPane.getAddNoteButton();
@@ -147,7 +161,7 @@ public class Controller {
                 Button deleteNoteButton = watchlistEntryPane.getDeleteNoteButton();
                 Button saveNoteButton = watchlistEntryPane.getSaveNoteButton();
                 Button removeFromWatchlistButton = watchlistEntryPane.getRemoveFromWatchlistButton();
-                
+
                 // Add Eventhandlers to the Buttons
                 cableIdButton.setOnAction(e -> {
                     Cable cable = cableCoreDataDB.get(cableId);
@@ -191,7 +205,9 @@ public class Controller {
     }
 
     /**
-     * This method adds the Eventhandlers for the Buttons to add and remove a cable from the watchlist
+     * This method adds the Eventhandlers for the Buttons to add and remove a cable
+     * from the watchlist
+     * 
      * @param cable
      */
     private void addGraphActionPaneEventHandlers(Cable cable) {
@@ -206,7 +222,6 @@ public class Controller {
                 .setOnAction(e -> {
                     watchlist.removeCable(cable);
                     Watchlist.serializeHashMap(watchlist);
-                    // TODO entferne WatchlistEntryPane aus watchlistpane
                     this.stage.getWatchlistPane().removeWatchlistEntryPane(cable.getId());
                 });
     }

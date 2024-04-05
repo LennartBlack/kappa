@@ -1,14 +1,14 @@
 package kappa.model;
 
-public class AttributPair {
-    
+public class TableViewAttributeTriple {
+
     // Attribute
     private String attribute;
     private String value;
     private String unit;
 
     // Constructor
-    public AttributPair(String attribute, String value, String unit) {
+    public TableViewAttributeTriple(String attribute, String value, String unit) {
         this.attribute = attribute;
         this.value = value;
         this.unit = unit;
@@ -18,9 +18,11 @@ public class AttributPair {
     public String getAttribute() {
         return attribute;
     }
+
     public String getValue() {
         return value;
-    }    
+    }
+
     public String getUnit() {
         return unit;
     }

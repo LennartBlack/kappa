@@ -19,7 +19,6 @@ public class KappaStage extends Stage {
     private HelpPane helpPane;
     private WatchlistPane watchlistPane;
     private PreviousViewedCablesPane previousViewedCablesPane;
-
     // Scenes
     private Scene signInScene;
     private Scene kappeScene;
@@ -110,7 +109,6 @@ public class KappaStage extends Stage {
     // Getters and Setters
     public boolean isPreviousViewedCablesPaneVisible() {
         if (this.getKappaPane().getLeft() != null) {
-            System.out.println(!this.getPreviousViewedCablesPane().isvBoxEmpty());
             return this.getPreviousViewedCablesPane().isvBoxEmpty();
         }
         return false;

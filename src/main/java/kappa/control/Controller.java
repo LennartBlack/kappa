@@ -33,6 +33,18 @@ public class Controller {
         this.previousViewedCables = this.stage.getPreviousViewedCablesPane().getPreviousViewedCables();
         this.previousViewedCablesPane = this.stage.getPreviousViewedCablesPane();
 
+        handleSignInScene();
+        setSceneBuilderActions();
+        handleCableSearch();
+
+    }
+
+    // Methods
+
+    /**
+     * This method sets the Eventhandlers for the SignInScene
+     */
+    private void handleSignInScene() {
         // Eventhandler for the sign in button
         this.stage.getSignInPane().getSignInButton().setOnAction(e -> {
             String usernameInput = this.stage.getSignInPane().getUsernameInput();
@@ -60,7 +72,6 @@ public class Controller {
                 System.out.println("Hashing failed");
             }
         });
-
         // Eventhandler for the userField to jump to the passwordField
         this.stage.getSignInPane().getUserField().setOnAction(e -> {
             this.stage.getSignInPane().getPasswordField().requestFocus();
@@ -70,7 +81,26 @@ public class Controller {
         this.stage.getSignInPane().getPasswordField().setOnAction(e -> {
             this.stage.getSignInPane().getSignInButton().fire();
         });
+    }
 
+    /**
+     * This method sets the Eventhandlers to search for a cable
+     */
+    private void handleCableSearch() {
+        // Eventhandler for the searchCableTextField to search for a cable
+        this.stage.getMenuPane().getSearchCableTextField().setOnAction(e -> {
+            searchCable();
+        });
+        this.stage.getMenuPane().getSearchCableButton().setOnAction(e -> {
+            searchCable();
+        });
+    }
+
+    /**
+     * This method sets the Eventhandlers for the buttons to be able to switch
+     * between the scenes
+     */
+    private void setSceneBuilderActions() {
         // Eventhandler for the help button to show the help scene
         this.stage.getMenuPane().getHelpButton().setOnAction(e -> {
             this.stage.showHelpScene();
@@ -99,18 +129,8 @@ public class Controller {
         this.stage.getMenuPane().getLogOffButton().setOnAction(e -> {
             this.stage.showSignInSceneAfterLogout();
         });
-
-        // Eventhandler for the searchCableTextField to search for a cable
-        this.stage.getMenuPane().getSearchCableTextField().setOnAction(e -> {
-            searchCable();
-        });
-        this.stage.getMenuPane().getSearchCableButton().setOnAction(e -> {
-            searchCable();
-        });
-
     }
 
-    // Methods
     /**
      * This method trys to search for a cable in the cableCoreDataDB,
      * shows the cablePane,
@@ -269,7 +289,7 @@ public class Controller {
                 this.previousViewedCables.addFirst(cable);
             }
         }
-        this.stage.updateKappa("Kappa - Kabel Detailansicht" + cable.getId());
+        this.stage.updateKappa("Kappa - Kabel Detailansicht " + cable.getId());
     }
 
     /**

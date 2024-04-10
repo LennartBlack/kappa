@@ -2,66 +2,58 @@ package kappa;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
 
-public class test extends Application {
+import org.influxdb.InfluxDB;
+import org.influxdb.InfluxDBFactory;
+import org.influxdb.dto.Query;
+import org.influxdb.dto.QueryResult;
 
-    @Override
-    public void start(Stage primaryStage) {
-        // Erstellen der TableView
-        TableView<Person> tableView = new TableView<>();
-
-        // Erstellen der Spalten
-        TableColumn<Person, String> attributeColumn = new TableColumn<>("Attribut");
-        attributeColumn.setCellValueFactory(new PropertyValueFactory<>("attribute"));
-        attributeColumn.setStyle("-fx-alignment: CENTER_LEFT;");
-
-        TableColumn<Person, String> valueColumn = new TableColumn<>("Wert");
-        valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
-        valueColumn.setStyle("-fx-alignment: CENTER_RIGHT;");
-
-        // Hinzufügen der Spalten zur TableView
-        tableView.getColumns().addAll(attributeColumn, valueColumn);
-
-        // Hinzufügen von Daten zur TableView
-        tableView.getItems().addAll(
-                new Person("Name", "Lennart"),
-                new Person("Alter", "23"),
-                new Person("Ort", "Oldenburg")
-        );
-
-        // Erstellen der Szene und Hinzufügen der TableView zur Szene
-        VBox root = new VBox(tableView);
-        Scene scene = new Scene(root, 300, 200);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("TableView Beispiel");
-        primaryStage.show();
-    }
-
+public class test extends Application{
     public static void main(String[] args) {
         launch(args);
     }
+    @Override public void start(Stage stage) {
 
-    // Modellklasse für Personen
-    public static class Person {
-        private String attribute;
-        private String value;
+        stage.setTitle("Line Chart Sample");
 
-        public Person(String attribute, String value) {
-            this.attribute = attribute;
-            this.value = value;
-        }
+        //defining the axes
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Number of Month");
 
-        public String getAttribute() {
-            return attribute;
-        }
+        //creating the chart
+        final LineChart<Number,Number> lineChart = 
+                new LineChart<Number,Number>(xAxis,yAxis);
+                
+        lineChart.setTitle("Stock Monitoring, 2010");
 
-        public String getValue() {
-            return value;
-        }
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+        series.setName("My portfolio");
+        
+        //populating the series with data
+        series.getData().add(new XYChart.Data(1, 23));
+        series.getData().add(new XYChart.Data(2, 14));
+        series.getData().add(new XYChart.Data(3, 15));
+        series.getData().add(new XYChart.Data(4, 24));
+        series.getData().add(new XYChart.Data(5, 34));
+        series.getData().add(new XYChart.Data(6, 36));
+        series.getData().add(new XYChart.Data(7, 22));
+        series.getData().add(new XYChart.Data(8, 45));
+        series.getData().add(new XYChart.Data(9, 43));
+        series.getData().add(new XYChart.Data(10, 17));
+        series.getData().add(new XYChart.Data(11, 29));
+        series.getData().add(new XYChart.Data(12, 25));
+        
+        Scene scene  = new Scene(lineChart,800,600);
+        lineChart.getData().add(series);
+       
+        stage.setScene(scene);
+        stage.show();
     }
+    
 }

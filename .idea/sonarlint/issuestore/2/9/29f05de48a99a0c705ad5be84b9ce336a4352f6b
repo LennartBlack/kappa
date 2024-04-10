@@ -1,29 +1,11 @@
 
 P
-java:S1121'".Extract the assignment out of this expression.(ÄÛÁ¡ıÿÿÿÿ8óš‡¦ç1
-{
-java:S1450"^Remove the "cableDetailPane" field and declare it as a local variable in the relevant methods.(‹”îˆ8º¸™ãå1
-{
-java:S1450"^Remove the "graphActionPane" field and declare it as a local variable in the relevant methods.(İé—¼8º¸™ãå1
-z
-java:S1450"XRemove the "graphPane" field and declare it as a local variable in the relevant methods.(ö½œÅüÿÿÿÿ8º¸™ãå1
+java:S1121&".Extract the assignment out of this expression.(ÄÛÁ¡ıÿÿÿÿ8óš‡¦ç1
 y
-java:S1450"WRemove the "helpPane" field and declare it as a local variable in the relevant methods.(ÁÆ˜Äûÿÿÿÿ8î›‡¦ç1
+java:S1450"WRemove the "helpPane" field and declare it as a local variable in the relevant methods.(ÁÆ˜Äûÿÿÿÿ8î›‡¦ç1
 {
-java:S1450""^Remove the "searchCablePane" field and declare it as a local variable in the relevant methods.(Èú·8î›‡¦ç1
+java:S1450"^Remove the "searchCablePane" field and declare it as a local variable in the relevant methods.(Èú·8î›‡¦ç1
 …
-java:S1450"cRemove the "topWorkloadCablePane" field and declare it as a local variable in the relevant methods.(ø¥åÏıÿÿÿÿ8ï›‡¦ç1
-y
-java:S1450"\Remove the "watchlistPane" field and declare it as a local variable in the relevant methods.(¸¯ô¦8ï›‡¦ç1
-O
-java:S1135m"2Complete the task associated to this TODO comment.(×õ·¾8±œ‡¦ç1
-P
-java:S1128".Remove this unused import 'kappa.model.Cable'.(‚Úı¨ıÿÿÿÿ8Çœ‡¦ç1
-O
-java:S1128"2Remove this unused import 'kappa.model.Watchlist'.(œ¯†„8Èœ‡¦ç1
-Q
-java:S1128"4Remove this unused import 'java.io.FileInputStream'.(˜³ÉÓ8Èœ‡¦ç1
-M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8Éœ‡¦ç1
-Y
-java:S1128"7Remove this unused import 'javafx.scene.control.Label'.(ö²­ÿÿÿÿÿ8Éœ‡¦ç1
+java:S1450"cRemove the "topWorkloadCablePane" field and declare it as a local variable in the relevant methods.(ø¥åÏıÿÿÿÿ8ï›‡¦ç1
+S
+java:S1172]"6Remove this unused method parameter "cableCoreDataDB".(›ÿ–¸8ğáµì1

@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 public class KappaStage extends Stage {
-
+    // Attributes
     // Panes
     private BorderPane kappaPane;
     private CablePane cablePane;
@@ -29,6 +29,7 @@ public class KappaStage extends Stage {
     private Watchlist watchlist;
     private CableCoreDataDB cableCoreDataDB;
 
+    // Constructor
     public KappaStage(CableCoreDataDB cableCoreDataDB, Watchlist watchlist) {
         this.cableCoreDataDB = cableCoreDataDB;
         this.watchlist = watchlist;
@@ -42,6 +43,8 @@ public class KappaStage extends Stage {
         this.signInPane = new SignInPane();
     }
 
+    // Methods
+    
     // This method sets the sign in scene
     public void showSignInScene() {
         this.signInScene = new Scene(this.signInPane, 300, 450);

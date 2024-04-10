@@ -39,3 +39,5 @@ X
 (src/main/java/kappa/model/Watchlist.java,6\d\6d642b06490caa7ce4d45d940a7fca28e895261a
 [
 +src/main/java/kappa/view/WatchlistPane.java,b\4\b4098dca72ad7fe3821634b619ba53bca937aad8
+M
+src/main/java/kappa/test.java,0\8\08c193ae6de5d9d161b36bbe085708a842012738

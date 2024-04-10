@@ -11,10 +11,6 @@ M
 src/main/java/kappa/Main.java,0\1\01525925fd0b43200905d7e569ec93c1f1787fe2
 X
 (src/main/java/kappa/view/KappaStage.java,2\9\29f05de48a99a0c705ad5be84b9ce336a4352f6b
-]
--src/main/java/kappa/view/GraphActionPane.java,8\b\8b5387c62f3237b93f265401fcb48e034d483939
-W
-'src/main/java/kappa/view/GraphPane.java,5\d\5d7cd717fc25e2bf9857d9b622cff3ed7226a52e
 V
 &src/main/java/kappa/view/MenuPane.java,2\b\2bb241efc5ae4f36c16f96501ae6574566f6c2c2
 X

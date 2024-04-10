@@ -2,10 +2,8 @@ package kappa.view;
 
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import kappa.model.WatchlistElement;
@@ -34,9 +32,9 @@ public class WatchlistEntryPane extends HBox {
         this.editNoteButton = new Button("Notiz bearbeiten");
         this.deleteNoteButton = new Button("Notiz löschen");
         this.saveNoteButton = new Button("Notiz speichern");
-        this.removeFromWatchlistButton = new Button("Aus Watchlist entfernen");
+        this.removeFromWatchlistButton = new Button("Aus Merkliste entfernen");
         this.editDeletevBox = new VBox(editNoteButton, deleteNoteButton);
-        
+
         setStyle();
 
         if (isNoteEmpty()) {
@@ -51,7 +49,7 @@ public class WatchlistEntryPane extends HBox {
         this.getChildren().addAll(cableIdButton, removeFromWatchlistButton);
         addGraphPreview();
         this.noteLabel.setText(watchlistElement.getNote());
-        this.getChildren().addAll(editDeletevBox, noteLabel); 
+        this.getChildren().addAll(editDeletevBox, noteLabel);
     }
 
     public void createPaneWithoutNote() {
@@ -69,7 +67,7 @@ public class WatchlistEntryPane extends HBox {
         this.getChildren().addAll(saveNoteButton, noteTextField);
     }
 
-    private void setStyle(){
+    private void setStyle() {
         this.setPadding(Style.getGap());
         WatchlistEntryPane.setMargin(cableIdButton, Style.getGap());
         WatchlistEntryPane.setMargin(addNoteButton, Style.getGap());
@@ -81,7 +79,7 @@ public class WatchlistEntryPane extends HBox {
         this.setPrefHeight(120);
         this.setStyle("-fx-border-color: #5A5F5F;");
 
-        VBox.setMargin(editDeletevBox,Style.getGap());
+        VBox.setMargin(editDeletevBox, Style.getGap());
         editDeletevBox.setAlignment(Pos.CENTER_LEFT);
         VBox.setMargin(editNoteButton, Style.getGap());
         VBox.setMargin(deleteNoteButton, Style.getGap());
@@ -105,14 +103,14 @@ public class WatchlistEntryPane extends HBox {
         this.removeFromWatchlistButton.setStyle(Style.getStandardDesign());
         this.removeFromWatchlistButton.setPadding(Style.getGap());
     }
-   
+
     private void addGraphPreview() {
-    } 
+    }
 
     private boolean isNoteEmpty() {
-        return(watchlistElement.getNote().equals(""));
+        return (watchlistElement.getNote().equals(""));
     }
-    
+
     // Getter
     public TextArea getNoteLabel() {
         return noteLabel;
@@ -121,7 +119,7 @@ public class WatchlistEntryPane extends HBox {
     public Button getCableIdButton() {
         return cableIdButton;
     }
-    
+
     public Button getAddNoteButton() {
         return addNoteButton;
     }
@@ -145,7 +143,7 @@ public class WatchlistEntryPane extends HBox {
     public TextField getNoteTextField() {
         return noteTextField;
     }
-    
+
     public WatchlistElement getWatchlistElement() {
         return watchlistElement;
     }

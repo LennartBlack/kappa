@@ -29,42 +29,54 @@ public class WatchlistPane extends ScrollPane {
         constructWatchListPane();
     }
 
+    /**
+     * Removes a WatchlistEntryPane from the watchlistVBox
+     * 
+     * @param watchlistEntryPane
+     */
     public void removeWatchlistEntryPane(WatchlistEntryPane watchlistEntryPane) {
         watchlistVBox.getChildren().remove(watchlistEntryPane);
     }
 
+    /**
+     * Removes a new WatchlistEntryPane from the watchlistVBox
+     * 
+     * @param cableId
+     */
     public void removeWatchlistEntryPane(String cableId) {
         String keyToRemove = null;
         for (Map.Entry<String, WatchlistElement> entry : watchlist.entrySet()) {
-            if(entry.getValue().getCable().getId().equals(cableId)) {
+            if (entry.getValue().getCable().getId().equals(cableId)) {
                 keyToRemove = entry.getKey();
             }
         }
-        if(keyToRemove != null){
+        if (keyToRemove != null) {
             watchlist.remove(keyToRemove);
         }
     }
-    
+
+    /**
+     * Constructs the Watchlist Pane with all WatchlistEntryPanes
+     */
     public void constructWatchListPane() {
         this.watchlist = Watchlist.deserializeHashMap(this.cableCoreDataDB);
         watchlistVBox.getChildren().clear();
         titleLabel = new Label("Merkliste");
+        titleLabel.setPadding(Style.getGap());
         Double previousViewedCablePaneWidth = 0.0;
-        if(this.stage.getPreviousViewedCablesPane() != null){
+        if (this.stage.getPreviousViewedCablesPane() != null) {
             previousViewedCablePaneWidth = this.stage.getPreviousViewedCablesPane().getWidth();
         }
-        if(this.stage.isPreviousViewedCablesPaneVisible()) {
-            titleLabel.setPrefWidth(998); 
-        }
-        else{
+        if (this.stage.isPreviousViewedCablesPaneVisible()) {
+            titleLabel.setPrefWidth(998);
+        } else {
             titleLabel.setPrefWidth(this.stage.getWidth() - previousViewedCablePaneWidth - 19);
         }
-        
-        //titleLabel.setPrefWidth(Double.MAX_VALUE);
+
         titleLabel.setStyle(Style.getStandardDesign());
         titleLabel.setAlignment(Pos.CENTER);
         watchlistVBox.getChildren().add(titleLabel);
-        
+
         for (Map.Entry<String, WatchlistElement> entry : watchlist.entrySet()) {
             WatchlistEntryPane watchlistEntryPane = new WatchlistEntryPane(entry.getValue());
             watchlistVBox.getChildren().add(watchlistEntryPane);

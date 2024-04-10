@@ -12,6 +12,7 @@ public class Main extends Application {
         launch(args);
     }
 
+    @SuppressWarnings("exports")
     @Override
     public void start(Stage stageToIgnore) {
         // Kappa kappa = new Kappa(primaryStage);

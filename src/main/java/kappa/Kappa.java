@@ -7,7 +7,7 @@ import kappa.view.KappaStage;
 import kappa.model.CableCoreDataDB;
 import kappa.model.Watchlist;
 
-public class Main extends Application {
+public class Kappa extends Application {
     public static void main(String[] args) {
         launch(args);
     }
@@ -15,7 +15,6 @@ public class Main extends Application {
     @SuppressWarnings("exports")
     @Override
     public void start(Stage stageToIgnore) {
-        // Kappa kappa = new Kappa(primaryStage);
         CableCoreDataDB cableCoreDataDB = new CableCoreDataDB();
         Watchlist watchlist = Watchlist.deserializeHashMap(cableCoreDataDB);
         KappaStage stage = new KappaStage(cableCoreDataDB, watchlist);

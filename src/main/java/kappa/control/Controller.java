@@ -2,7 +2,7 @@ package kappa.control;
 
 import java.security.NoSuchAlgorithmException;
 import javafx.util.Duration;
-import kappa.Main;
+import kappa.Kappa;
 import kappa.model.Cable;
 import kappa.model.CableCoreDataDB;
 import kappa.model.PreviousViewedCable;
@@ -121,7 +121,7 @@ public class Controller {
 
         // Eventhandler for the newWindowSearch button to show the newWindowSearch scene
         this.stage.getMenuPane().getOpenNewWindow().setOnAction(e -> {
-            Main newWindow = new Main();
+            Kappa newWindow = new Kappa();
             newWindow.newSession();
         });
 

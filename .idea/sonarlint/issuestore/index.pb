@@ -3,14 +3,6 @@
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-M
-src/main/java/kappa/Main.java,0\1\01525925fd0b43200905d7e569ec93c1f1787fe2
-T
-$src/main/java/kappa/model/Kappa.java,b\1\b17dd436a4b9e9965b9017f9d6e7bc7f9b52d0b8
-W
-'src/main/java/kappa/view/GraphPane.java,5\d\5d7cd717fc25e2bf9857d9b622cff3ed7226a52e
-]
--src/main/java/kappa/view/GraphActionPane.java,8\b\8b5387c62f3237b93f265401fcb48e034d483939
 X
 (src/main/java/kappa/view/KappaStage.java,2\9\29f05de48a99a0c705ad5be84b9ce336a4352f6b
 ]
@@ -41,3 +33,5 @@ X
 +src/main/java/kappa/view/WatchlistPane.java,b\4\b4098dca72ad7fe3821634b619ba53bca937aad8
 M
 src/main/java/kappa/test.java,0\8\08c193ae6de5d9d161b36bbe085708a842012738
+]
+-src/main/java/kappa/model/InfluxDBManger.java,c\6\c6c914119cae43757f27930e4f6b30b97324ba33

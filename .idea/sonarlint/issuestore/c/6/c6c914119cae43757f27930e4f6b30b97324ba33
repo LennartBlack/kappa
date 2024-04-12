@@ -1,0 +1,13 @@
+
+H
+java:S1481"+Remove this unused "bucket" local variable.(έ«Θ8σενν1
+J
+java:S1481"(Remove this unused "org" local variable.(³πχτώÿÿÿÿ8©›ξν1
+R
+java:S1068"0Remove this unused "INFLUXDB_URL" private field.(γΦ©Ψϋÿÿÿÿ8υενν1
+N
+java:S1068",Remove this unused "USERNAME" private field.(Ύ±ούÿÿÿÿ8υενν1
+N
+java:S1068",Remove this unused "PASSWORD" private field.(΄ί³¥ϋÿÿÿÿ8υενν1
+I
+java:S1068",Remove this unused "DATABASE" private field.(Κ» 8υενν1

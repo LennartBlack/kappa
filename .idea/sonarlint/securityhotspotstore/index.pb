@@ -5,10 +5,6 @@
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 ]
 -src/main/java/kappa/view/CableDetailPane.java,f\d\fda6f935730896e541bab39016bcc8a5e16e75e1
-T
-$src/main/java/kappa/model/Kappa.java,b\1\b17dd436a4b9e9965b9017f9d6e7bc7f9b52d0b8
-M
-src/main/java/kappa/Main.java,0\1\01525925fd0b43200905d7e569ec93c1f1787fe2
 X
 (src/main/java/kappa/view/KappaStage.java,2\9\29f05de48a99a0c705ad5be84b9ce336a4352f6b
 V
@@ -37,3 +33,5 @@ X
 +src/main/java/kappa/view/WatchlistPane.java,b\4\b4098dca72ad7fe3821634b619ba53bca937aad8
 M
 src/main/java/kappa/test.java,0\8\08c193ae6de5d9d161b36bbe085708a842012738
+]
+-src/main/java/kappa/model/InfluxDBManger.java,c\6\c6c914119cae43757f27930e4f6b30b97324ba33

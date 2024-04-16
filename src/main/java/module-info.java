@@ -5,6 +5,7 @@ module Kappa {
     requires javafx.base;
     requires javafx.controls;
     requires influxdb.java;
+    requires java.sql;
 
     opens kappa to influxdb.java, influxdb.client.java;
     opens kappa.model to javafx.base;

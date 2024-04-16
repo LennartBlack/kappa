@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MySqlManager {
 
@@ -21,7 +24,11 @@ public class MySqlManager {
     private static final String URL = "jdbc:mysql://localhost:3306/mars";
     private static final String USER = "user_2";
     private static final String PASSWORD = "1234";
-
+    private static final String START_DATE_OF_RECORDING_STR = "2023-01-01 00:00:00";
+    private static final String END_DATE_OF_RECORDING_STR = "2023-12-31 23:45:00";
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final LocalDateTime START_DATE_OF_RECORDING_LDT = LocalDateTime.parse(START_DATE_OF_RECORDING_STR, formatter);
+    private static final LocalDateTime END_DATE_OF_RECORDING_LDT = LocalDateTime.parse(END_DATE_OF_RECORDING_STR, formatter);
 
     /**
      * Builds a SQL-Query for the given calbelId
@@ -29,7 +36,57 @@ public class MySqlManager {
      * @return
      */
     public static String buildQuery(String calbelId){
-        String sqlQuery = "SELECT date, ampere FROM ewes WHERE techplatz = 'BA57' LIMIT 30000;" ;
+        String sqlQuery = "SELECT date, ampere FROM ewes WHERE techplatz = '" + calbelId + "' LIMIT 30000;" ;
+        return sqlQuery;
+    }
+
+    public static String buildQueryBetweenGivenDates(String calbelId, String startDate, String endDate){
+        String sqlQuery = "SELECT date, ampere FROM ewes WHERE techplatz = '" + calbelId + "' AND date BETWEEN '" + startDate + "' AND '" + endDate + "';" ;
+        return sqlQuery;
+    }
+    public static String buildQueryLastTenDays(String calbelId){
+        String sqlQuery = "SELECT date, ampere " +
+        "FROM ewes " + 
+        "WHERE techplatz = '" + calbelId +
+        "' AND date > '" + END_DATE_OF_RECORDING_LDT.minusDays(10).toString() + "' " + 
+        "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
+        return sqlQuery;
+    }
+    public static String buildQueryLastThreeMonths(String calbelId){
+        String sqlQuery = "SELECT date, ampere " +
+        "FROM ewes " + 
+        "WHERE techplatz = '" + calbelId +
+        "' AND date < '" + END_DATE_OF_RECORDING_LDT.minusMonths(3).toString() + "' " + 
+        "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
+        return sqlQuery;
+    }
+    public static String buildQueryLastSixMonths(String calbelId){
+        String sqlQuery = "SELECT date, ampere " +
+        "FROM ewes " + 
+        "WHERE techplatz = '" + calbelId +
+        "' AND date < '" + END_DATE_OF_RECORDING_LDT.minusMonths(6).toString() + "' " + 
+        "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
+        return sqlQuery;
+    }
+    public static String buildQueryLastNineMonths(String calbelId){
+        String sqlQuery = "SELECT date, ampere " +
+        "FROM ewes " + 
+        "WHERE techplatz = '" + calbelId +
+        "' AND date < '" + END_DATE_OF_RECORDING_LDT.minusMonths(9).toString() + "' " + 
+        "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
+        return sqlQuery;
+    }
+    public static String buildQueryLastTwelveMonths(String calbelId){
+        String sqlQuery = "SELECT date, ampere " +
+        "FROM ewes " + 
+        "WHERE techplatz = '" + calbelId +
+        "' AND date < '" + END_DATE_OF_RECORDING_LDT.minusMonths(12).toString() + "' " + 
+        "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
+        return sqlQuery;
+    }
+
+    public static String buildQueryFullRecordTime(String calbelId){
+        String sqlQuery = "SELECT date, ampere FROM ewes WHERE techplatz = '" + calbelId + "' AND date BETWEEN '" + START_DATE_OF_RECORDING_STR + "' AND '" + END_DATE_OF_RECORDING_STR + "';" ;
         return sqlQuery;
     }
 
@@ -46,10 +103,10 @@ public class MySqlManager {
         }
         catch (SQLSyntaxErrorException sqlSyntaxErrorException){
            sqlSyntaxErrorException.printStackTrace();
-            System.out.println("Kritische Fehler: SQL-Syntax-Fehler. Bitte kontaktieren Sie den Anwendungsadministrator.");
+            System.out.println("SQL-Syntax Fehler: Bitte kontaktieren Sie den Anwendungsadministrator.");
         } catch (SQLException e) {
-            System.out.println(e);
-            System.out.println("Kritische Fehler: SQL-Fehler. Bitte kontaktieren Sie den Anwendungsadministrator.");
+            e.printStackTrace();
+            System.out.println("Datenbank Fehler: Bitte kontaktieren Sie den Anwendungsadministrator.");
         }
         return null;   
     }
@@ -66,9 +123,9 @@ public class MySqlManager {
 
             return connection;
         } catch (ClassNotFoundException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } catch (SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return null;
     }

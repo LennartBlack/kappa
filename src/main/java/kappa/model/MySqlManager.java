@@ -1,13 +1,11 @@
 package kappa.model;
 
-import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,7 +25,6 @@ public class MySqlManager {
     private static final String START_DATE_OF_RECORDING_STR = "2023-01-01 00:00:00";
     private static final String END_DATE_OF_RECORDING_STR = "2023-12-31 23:45:00";
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private static final LocalDateTime START_DATE_OF_RECORDING_LDT = LocalDateTime.parse(START_DATE_OF_RECORDING_STR, formatter);
     private static final LocalDateTime END_DATE_OF_RECORDING_LDT = LocalDateTime.parse(END_DATE_OF_RECORDING_STR, formatter);
 
     /**
@@ -36,12 +33,27 @@ public class MySqlManager {
      * @return
      */
     public static String buildQuery(String calbelId){
-        String sqlQuery = "SELECT date, ampere FROM ewes WHERE techplatz = '" + calbelId + "' LIMIT 30000;" ;
+        String sqlQuery = "SELECT date, ampere FROM ewes WHERE techplatz = '" + calbelId + "';" ;
         return sqlQuery;
     }
-
-    public static String buildQueryBetweenGivenDates(String calbelId, String startDate, String endDate){
+    public static String buildQueryStartOfRecords(String calbelId){
+        String sqlQuery = "SELECT date FROM ewes WHERE techplatz = '" + calbelId + "' ORDER BY date ASC LIMIT 1;" ;
+        return sqlQuery;
+    }
+    public static String buildQueryEndOfRecords(String calbelId){
+        String sqlQuery = "SELECT date FROM ewes WHERE techplatz = '" + calbelId + "' ORDER BY date DESC LIMIT 1;" ;
+        return sqlQuery;
+    }
+    public static String buildQueryBetweenDates(String calbelId, String startDate, String endDate){
         String sqlQuery = "SELECT date, ampere FROM ewes WHERE techplatz = '" + calbelId + "' AND date BETWEEN '" + startDate + "' AND '" + endDate + "';" ;
+        return sqlQuery;
+    }
+    public static String buildQueryLastFiveDays(String calbelId){
+        String sqlQuery = "SELECT date, ampere " +
+        "FROM ewes " + 
+        "WHERE techplatz = '" + calbelId +
+        "' AND date > '" + END_DATE_OF_RECORDING_LDT.minusDays(5).toString() + "' " + 
+        "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
         return sqlQuery;
     }
     public static String buildQueryLastTenDays(String calbelId){
@@ -56,7 +68,7 @@ public class MySqlManager {
         String sqlQuery = "SELECT date, ampere " +
         "FROM ewes " + 
         "WHERE techplatz = '" + calbelId +
-        "' AND date < '" + END_DATE_OF_RECORDING_LDT.minusMonths(3).toString() + "' " + 
+        "' AND date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(3).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
         return sqlQuery;
     }
@@ -64,7 +76,7 @@ public class MySqlManager {
         String sqlQuery = "SELECT date, ampere " +
         "FROM ewes " + 
         "WHERE techplatz = '" + calbelId +
-        "' AND date < '" + END_DATE_OF_RECORDING_LDT.minusMonths(6).toString() + "' " + 
+        "' AND date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(6).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
         return sqlQuery;
     }
@@ -72,7 +84,7 @@ public class MySqlManager {
         String sqlQuery = "SELECT date, ampere " +
         "FROM ewes " + 
         "WHERE techplatz = '" + calbelId +
-        "' AND date < '" + END_DATE_OF_RECORDING_LDT.minusMonths(9).toString() + "' " + 
+        "' AND date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(9).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
         return sqlQuery;
     }
@@ -80,7 +92,7 @@ public class MySqlManager {
         String sqlQuery = "SELECT date, ampere " +
         "FROM ewes " + 
         "WHERE techplatz = '" + calbelId +
-        "' AND date < '" + END_DATE_OF_RECORDING_LDT.minusMonths(12).toString() + "' " + 
+        "' AND date > '" + START_DATE_OF_RECORDING_STR + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
         return sqlQuery;
     }

@@ -244,6 +244,15 @@ public class Controller {
                     Watchlist.serializeHashMap(watchlist);
                     this.stage.getWatchlistPane().removeWatchlistEntryPane(cable.getId());
                 });
+        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getFullRecordTime().setOnAction(e -> {
+            this.stage.getCablePane().getCableDetailPane().getGraphPane().showMaxPeriod();
+        });
+        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getPreviousPeriod().setOnAction(e -> {
+            this.stage.getCablePane().getCableDetailPane().getGraphPane().showPreviousPeriod();            
+        });
+        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getNextPeriod().setOnAction(e -> {
+            this.stage.getCablePane().getCableDetailPane().getGraphPane().showNextPeriod();            
+        });
     }
 
     /**

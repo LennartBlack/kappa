@@ -66,7 +66,7 @@ public class KappaStage extends Stage {
         this.cablePane = new CablePane(cable);
         this.kappaPane.setCenter(cablePane);
         this.kappaPane.setLeft(this.previousViewedCablesPane);
-        updateKappa("Kappa - Kabel Detailansicht" + cable.getId());
+        updateKappa("Kappa - Kabel Detailansicht " + cable.getId());
     }
 
     // This method sets the cable detail scene

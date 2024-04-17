@@ -4,20 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.TreeMap;
-import javafx.collections.FXCollections;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import kappa.model.Cable;
 import kappa.model.MySqlManager;
@@ -25,107 +17,248 @@ import kappa.model.MySqlManager;
 public class CableGraphPane extends VBox {
 
     // Attributes
+    private Cable cable;
     private LocalDateTime currentStartDate;
     private LocalDateTime currentEndDate;
-    private Double Apamcity;
+    private LocalDateTime startOfRecords;
+    private LocalDateTime endOfRecords;
+    private Map<LocalDateTime, Double> ampereDate;
+    private Map<LocalDateTime, Double> workloudData;
+    private LineChart<String, Number> lineChart;
+    private XYChart.Series<String, Number> ampereSeries;
+    private XYChart.Series<String, Number> workloudSeries;
+    private CategoryAxis xAxis;
+    private NumberAxis yAxis;
+    private String period = "3 Months";
 
     // Constructor
     public CableGraphPane(Cable cable) {
-        this.Apamcity = cable.getAmpacity();
+        this.cable = cable;
         try {
             // Get Data from Database
             MySqlManager.getConnection();
-            String query = MySqlManager.buildQueryLastTenDays(cable.getId());
+            String startOfRecordsQuery = MySqlManager.buildQueryStartOfRecords(cable.getId());
+            ResultSet resultSetStart = MySqlManager.executeQuery(startOfRecordsQuery);
+            if(resultSetStart.next()){
+                this.startOfRecords = resultSetStart.getTimestamp("date").toLocalDateTime();
+            }
+
+            String endOfRecordsQuery = MySqlManager.buildQueryEndOfRecords(cable.getId());
+            ResultSet resultSetEnd = MySqlManager.executeQuery(endOfRecordsQuery);
+            if(resultSetEnd.next()){
+                this.endOfRecords = resultSetEnd.getTimestamp("date").toLocalDateTime();
+            }
+            
+            String query = MySqlManager.buildQueryLastThreeMonths(cable.getId());
             ResultSet resultSet = MySqlManager.executeQuery(query);
 
-            // Map Data with TreeMap so it is sorted by date
-            Map<LocalDateTime, Double> data = new TreeMap<>();
-            
-            while(resultSet.next()){
-                Timestamp timestamp = resultSet.getTimestamp("date");
-                LocalDateTime dateTime = timestamp.toLocalDateTime();
-                double ampere = resultSet.getDouble("ampere");
-                data.put(dateTime, ampere);
-            }
-
-            // Create Chart
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName(cable.getId());
-
-            // Create Axis
-            CategoryAxis xAxis = new CategoryAxis();
-            NumberAxis yAxis = new NumberAxis();
-            yAxis.setLowerBound(0.0);
-            yAxis.setUpperBound(cable.getAmpacity() * 1.2);
-            xAxis.setLabel("Zeit");
-            yAxis.setLabel("Amperewerte");
-
-            // Create LineChart
-            LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
-            lineChart.setTitle(cable.getId());
-
-            // Add Data to Chart
-            for (Map.Entry<LocalDateTime, Double> entry : data.entrySet()) {
-                series.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
-            }
-       
-            lineChart.getData().add(series);
-            lineChart.setCreateSymbols(false);
-
-            // Add Chart to Pane
-            this.getChildren().add(lineChart);
-            addButtons();
+            mapData(resultSet, cable);
+            createGraph(cable);
+            lineChart.getData().add(ampereSeries);
+            lineChart.getData().add(workloudSeries);
+            this.lineChart.setCreateSymbols(false);
+            this.getChildren().add(this.lineChart);
     } catch (SQLException e) {
         e.printStackTrace();
     }
     }
 
     // Methods
-    private void addButtons() {
-        HBox lastMonthsButtonPane = new HBox();
-        lastMonthsButtonPane.setSpacing(4);
-
-        Button lastThreeMonths = new Button("Letzte 3 Monate");
-        lastThreeMonths.setStyle(Style.getStandardDesign());
-        lastThreeMonths.setPadding(Style.getGap());
-
-        Button lastSixMonths = new Button("Letzte 6 Monate");
-        lastSixMonths.setStyle(Style.getStandardDesign());
-        lastSixMonths.setPadding(Style.getGap());
-
-        Button lastNineMonths = new Button("Letzte 9 Monate");
-        lastNineMonths.setStyle(Style.getStandardDesign());
-        lastNineMonths.setPadding(Style.getGap());
-
-        Button lastTwelveMonths = new Button("Letzte 12 Monate");
-        lastTwelveMonths.setStyle(Style.getStandardDesign());
-        lastTwelveMonths.setPadding(Style.getGap());
-
-        lastMonthsButtonPane.getChildren().addAll(lastThreeMonths, lastSixMonths, lastNineMonths, lastTwelveMonths);
-
-        HBox resetGraphButtonPaneBox = new HBox();
-        resetGraphButtonPaneBox.setSpacing(5);
-
-        Button fullRecordTime = new Button("Gesamte Aufzeichnungszeit");
-        fullRecordTime.setStyle(Style.getStandardDesign());
-        fullRecordTime.setPadding(Style.getGap());
-
-        Button previousThreeMonths = new Button("Vorherige 3 Monate");
-        previousThreeMonths.setStyle(Style.getStandardDesign());
-        previousThreeMonths.setPadding(Style.getGap());
+    private void createGraph(Cable cable){
+        this.ampereSeries = new XYChart.Series<>();
+        this.workloudSeries = new XYChart.Series<>();
+        this.ampereSeries.setName(this.cable.getId());
+        this.workloudSeries.setName("prozentuale Auslastung");
         
-        Button nextThreeMonths = new Button("Nächste 3 Monate");
-        nextThreeMonths.setStyle(Style.getStandardDesign());
-        nextThreeMonths.setPadding(Style.getGap());
+        // Create Chart Axis
+        this.xAxis = new CategoryAxis();
+        this.yAxis = new NumberAxis();
+        //yAxis.setLowerBound(0.0);
+        //yAxis.setUpperBound(cable.getAmpacity() * 1.2);
+        //yAxis.setUpperBound(10.0);
+        this.xAxis.setLabel("Zeit");
+        this.yAxis.setLabel("Amperewerte");
 
-        resetGraphButtonPaneBox.getChildren().addAll(previousThreeMonths, fullRecordTime, nextThreeMonths);
+        // Create LineChart
+        this.lineChart = new LineChart<>(xAxis, yAxis);
+        this.lineChart.setTitle(this.cable.getId());
         
-        this.setMargin(lastMonthsButtonPane, Style.getGap());
-        this.setMargin(lastThreeMonths, Style.getGap());
-        this.setMargin(resetGraphButtonPaneBox, Style.getGap());
-        this.setMargin(previousThreeMonths, Style.getGap());
-
-        this.getChildren().addAll(lastMonthsButtonPane, resetGraphButtonPaneBox);
+        // Add Ampere Data to Chart
+        for (Map.Entry<LocalDateTime, Double> entry : this.ampereDate.entrySet()) {
+            this.ampereSeries.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
+        }
+        // Add Workload Data to Chart
+        for (Map.Entry<LocalDateTime, Double> entry : this.workloudData.entrySet()) {
+            this.workloudSeries.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
+        }
     }
     
+    private void mapData(ResultSet resultSet, Cable cable) {
+        try{
+            this.workloudData = new TreeMap<>();
+
+            double cableAmpacity = cable.getAmpacity();
+            double tempAmpere = Double.MIN_VALUE;
+            resultSet.next();
+            this.currentStartDate = resultSet.getTimestamp("date").toLocalDateTime();
+            resultSet.previous();
+            while(resultSet.next()){
+                double ampere = resultSet.getDouble("ampere");
+                if(tempAmpere != ampere){
+                    LocalDateTime dateTime = resultSet.getTimestamp("date").toLocalDateTime();
+                    double workloud = resultSet.getDouble("ampere") / cableAmpacity * 100.0;
+                    if(workloud < 0.0){
+                        workloud = workloud * -1;
+                    }
+                    this.workloudData.put(dateTime, workloud);
+                }
+                tempAmpere = resultSet.getDouble("ampere");
+                // Ensure a second entry is added so that not only the first entry is added if the values are all the same
+                if(resultSet.isLast()){
+                    LocalDateTime dateTime = resultSet.getTimestamp("date").toLocalDateTime();
+                    this.currentEndDate = dateTime;
+                    double workloud = resultSet.getDouble("ampere") / cableAmpacity * 100.0;
+                    if(workloud < 0.0){
+                        workloud = workloud * -1;
+                    }
+                    this.workloudData.put(dateTime, workloud);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void showPreviousPeriod(){
+        System.out.println("start of Records:" + this.startOfRecords + " end of records: " + this.endOfRecords);
+        if(currentStartDate.minusMonths(3).isBefore(startOfRecords)){
+            System.out.println("überragt max range");
+            this.currentStartDate = startOfRecords;
+            this.currentEndDate = currentStartDate.plusMonths(3);
+        } else {
+            System.out.println("üist in range");
+            this.currentStartDate = currentStartDate.minusMonths(3);
+            this.currentEndDate = currentEndDate.minusMonths(3);
+        }
+        System.out.println("Start:" + currentStartDate + " End:" + currentEndDate);
+        showGraphBetweenDates(currentStartDate, currentEndDate);
+    }
+    public void showPrevPeriod(){
+        switch(period){
+            case "5 Days":
+                if(currentStartDate.minusDays(5).isBefore(startOfRecords)){
+                    this.currentStartDate = startOfRecords;
+                    this.currentEndDate = currentStartDate.plusDays(5);
+                } else {
+                    this.currentStartDate = currentStartDate.minusDays(5);
+                    this.currentEndDate = currentEndDate.minusDays(5);
+                }
+                break;
+            case "10 Days":
+            if(currentStartDate.minusDays(10).isBefore(startOfRecords)){
+                this.currentStartDate = startOfRecords;
+                this.currentEndDate = currentStartDate.plusDays(10);
+            } else {
+                this.currentStartDate = currentStartDate.minusDays(10);
+                this.currentEndDate = currentEndDate.minusDays(10);
+            }
+            break;
+            case "1 Month":
+                if(currentStartDate.minusMonths(1).isBefore(startOfRecords)){
+                    System.out.println("überragt max range");
+                    this.currentStartDate = startOfRecords;
+                    this.currentEndDate = currentStartDate.plusMonths(1);
+                } else {
+                    System.out.println("üist in range");
+                    this.currentStartDate = currentStartDate.minusMonths(1);
+                    this.currentEndDate = currentEndDate.minusMonths(1);
+                }
+                break;
+            case "3 Months":
+            if(currentStartDate.minusMonths(3).isBefore(startOfRecords)){
+                System.out.println("überragt max range");
+                this.currentStartDate = startOfRecords;
+                this.currentEndDate = currentStartDate.plusMonths(3);
+            } else {
+                System.out.println("üist in range");
+                this.currentStartDate = currentStartDate.minusMonths(3);
+                this.currentEndDate = currentEndDate.minusMonths(3);
+            }
+            break;
+            case "6 Months":
+            if(currentStartDate.minusMonths(6).isBefore(startOfRecords)){
+                System.out.println("überragt max range");
+                this.currentStartDate = startOfRecords;
+                this.currentEndDate = currentStartDate.plusMonths(6);
+            } else {
+                System.out.println("üist in range");
+                this.currentStartDate = currentStartDate.minusMonths(6);
+                this.currentEndDate = currentEndDate.minusMonths(6);
+            }
+            break;
+        }
+        showGraphBetweenDates(currentStartDate, currentEndDate);
+
+    }
+    private void showGraphBetweenDates(LocalDateTime startDate, LocalDateTime endDate){
+        this.lineChart.getData().clear();
+        String query = MySqlManager.buildQueryBetweenDates(cable.getId(), startDate.toString(), endDate.toString());
+        ResultSet resultSet = MySqlManager.executeQuery(query);
+        mapData(resultSet, cable);
+        createGraph(cable);
+        lineChart.getData().add(ampereSeries);
+        lineChart.getData().add(workloudSeries);
+        this.lineChart.setCreateSymbols(false);
+        this.getChildren().remove(0);
+        this.getChildren().add(this.lineChart);
+    }
+    public void showNextPeriod(){
+        System.out.println("start of Records:" + this.startOfRecords + " end of records: " + this.endOfRecords);
+    
+        if(currentEndDate.plusMonths(3).isAfter(endOfRecords)){
+            System.out.println("überragt max range");
+            this.currentEndDate = endOfRecords;
+            this.currentStartDate = currentEndDate.minusMonths(3);
+        } else {
+            System.out.println("üist in range");
+            this.currentEndDate = currentEndDate.plusMonths(3);
+            this.currentStartDate = currentStartDate.plusMonths(3);
+        }
+        System.out.println("Start:" + currentStartDate + " End:" + currentEndDate);
+        showGraphBetweenDates(currentStartDate, currentEndDate);
+    }
+    public void showMaxPeriod(){
+        this.lineChart.getData().clear();
+        String query = MySqlManager.buildQueryFullRecordTime(this.cable.getId());
+        ResultSet resultSet = MySqlManager.executeQuery(query);
+        mapData(resultSet, this.cable);
+        createGraph(cable);
+        lineChart.getData().add(ampereSeries);
+        lineChart.getData().add(workloudSeries);
+        this.lineChart.setCreateSymbols(false);
+        this.getChildren().remove(0);
+        this.getChildren().add(this.lineChart);
+    }
+    public void showLastThreeMonths(){
+        
+    }
+    public void showLastSixMonths(){
+        
+    }
+    public void showLastNineMonths(){
+        
+    }
+    
+    public void showLastTwelveMonths(){
+        
+    }
+    
+    
+    // Getter & Setter
+    public String getPeriod() {
+        return period;
+    }
+    public void setPeriod(String period) {
+        this.period = period;
+    }
 }

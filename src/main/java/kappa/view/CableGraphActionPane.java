@@ -22,32 +22,14 @@ public class CableGraphActionPane extends VBox {
     private Button oneMonthButton;
     private Button threeMonthsButton;
     private Button sixMonthsButton;
+    private HBox periodPane;
+    private HBox resetGraphButtonPaneBox;
+    private HBox watchlistButtonPane;
     
 
     // Constructor
     public CableGraphActionPane(Cable cable) {
-        addButtons();
-
-        HBox watchlistButtonPane = new HBox();
-
-        this.addToWatchlistButton = new Button("Zur Merkliste hinzufügen");
-        addToWatchlistButton.setStyle(Style.getStandardDesign());
-        addToWatchlistButton.setPadding(Style.getGap());
-        
-        this.removeFromWatchlistButton = new Button("Von Merkliste entfernen");
-        removeFromWatchlistButton.setStyle(Style.getStandardDesign());
-        removeFromWatchlistButton.setPadding(Style.getGap());
-        
-        CableGraphActionPane.setMargin(watchlistButtonPane, Style.getGap());
-        watchlistButtonPane.getChildren().addAll(this.addToWatchlistButton, this.removeFromWatchlistButton);
-        
-        this.getChildren().add(watchlistButtonPane);
-        style();
-    }
-
-    // Methods
-    private void addButtons() {
-        HBox periodPane = new HBox();
+        this.periodPane = new HBox();
         periodPane.setSpacing(4);
 
         this.fiveDaysButton = new Button("5 Tage");
@@ -72,8 +54,8 @@ public class CableGraphActionPane extends VBox {
 
         periodPane.getChildren().addAll(fiveDaysButton, tenDaysButton, oneMonthButton, threeMonthsButton, sixMonthsButton);
 
-        HBox resetGraphButtonPaneBox = new HBox();
-        resetGraphButtonPaneBox.setSpacing(5);
+        this.resetGraphButtonPaneBox = new HBox();
+        this.resetGraphButtonPaneBox.setSpacing(5);
 
         this.fullRecordTime = new Button("Gesamte Aufzeichnungszeit");
         fullRecordTime.setStyle(Style.getStandardDesign());
@@ -87,26 +69,40 @@ public class CableGraphActionPane extends VBox {
         nextPeriod.setStyle(Style.getStandardDesign());
         nextPeriod.setPadding(Style.getGap());
 
-        resetGraphButtonPaneBox.getChildren().addAll(previousPeriod, fullRecordTime, nextPeriod);
-        
-        CableDetailPane.setMargin(periodPane, Style.getGap());
-        CableDetailPane.setMargin(tenDaysButton, Style.getGap());
-        CableDetailPane.setMargin(resetGraphButtonPaneBox, Style.getGap());
-        CableDetailPane.setMargin(previousPeriod, Style.getGap());
+        resetGraphButtonPaneBox.getChildren().addAll(previousPeriod, fullRecordTime, nextPeriod);  
 
+        this.watchlistButtonPane = new HBox();
+        this.watchlistButtonPane.setSpacing(4);
+
+
+        this.addToWatchlistButton = new Button("Zur Merkliste hinzufügen");
+        addToWatchlistButton.setStyle(Style.getStandardDesign());
+        addToWatchlistButton.setPadding(Style.getGap());
+        
+        this.removeFromWatchlistButton = new Button("Von Merkliste entfernen");
+        removeFromWatchlistButton.setStyle(Style.getStandardDesign());
+        removeFromWatchlistButton.setPadding(Style.getGap());
+        
+        watchlistButtonPane.getChildren().addAll(this.addToWatchlistButton, this.removeFromWatchlistButton);
+        
         Region spacer = new Region();
         spacer.setMaxHeight(10.0);
         VBox.setVgrow(spacer, Priority.ALWAYS);
-        
+
+        this.getChildren().addAll(periodPane, spacer, resetGraphButtonPaneBox, watchlistButtonPane);
+
+        style();
+    }
+
+    // Methods
+    private void style() {
         CableGraphActionPane.setMargin(periodPane, Style.getGap());
         CableGraphActionPane.setMargin(resetGraphButtonPaneBox, Style.getGap());
-        this.getChildren().addAll(periodPane, spacer, resetGraphButtonPaneBox);
-    }
-    private void style() {
+        CableGraphActionPane.setMargin(tenDaysButton, Style.getGap());
+        CableGraphActionPane.setMargin(previousPeriod, Style.getGap());
         CableGraphActionPane.setMargin(addToWatchlistButton, Style.getGap());
         CableGraphActionPane.setMargin(removeFromWatchlistButton, Style.getGap());
-        this.addToWatchlistButton.setPadding(Style.getGap());
-        this.removeFromWatchlistButton.setPadding(Style.getGap());
+        CableGraphActionPane.setMargin(watchlistButtonPane, Style.getGap());
     }
 
     // Getter
@@ -125,5 +121,19 @@ public class CableGraphActionPane extends VBox {
     public Button getNextPeriod() {
         return nextPeriod;
     }
-   
+    public Button getFiveDaysButton(){
+        return this.fiveDaysButton;
+    }
+    public Button getTenDaysButton(){
+        return this.tenDaysButton;
+    }
+    public Button getOneMonthButton(){
+        return this.oneMonthButton;
+    }
+    public Button getThreeMonthButton(){
+        return this.threeMonthsButton;
+    }
+    public Button getSixMonthButton(){
+        return this.sixMonthsButton;
+    }
 }

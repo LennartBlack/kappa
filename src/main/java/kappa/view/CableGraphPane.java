@@ -34,6 +34,8 @@ public class CableGraphPane extends VBox {
         try {
             // Get Data from Database
             MySqlManager.getConnection();
+
+            // Get start and end of records
             String startOfRecordsQuery = MySqlManager.buildQueryStartOfRecords(cable.getId());
             ResultSet resultSetStart = MySqlManager.executeQuery(startOfRecordsQuery);
             if(resultSetStart.next()){
@@ -46,34 +48,30 @@ public class CableGraphPane extends VBox {
                 this.endOfRecords = resultSetEnd.getTimestamp("date").toLocalDateTime();
             }
             
+            // Get Data for initial Graph
             String query = MySqlManager.buildQueryLastThreeMonths(cable.getId());
             ResultSet resultSet = MySqlManager.executeQuery(query);
 
+            mapData(resultSet);
 
-            mapData(resultSet, cable);
-
-            createGraph(cable);
+            createGraph();
 
             lineChart.getData().add(workloudSeries);
             this.lineChart.setCreateSymbols(false);
             this.getChildren().add(this.lineChart);
     } catch (SQLException e) {
-        System.out.println("Error in cableGraphPane Constructor");
         e.printStackTrace();
     }
     }
 
     // Methods
-    private void createGraph(Cable cable){
+    private void createGraph(){
         this.workloudSeries = new XYChart.Series<>();
         this.workloudSeries.setName("prozentuale Auslastung");
         
         // Create Chart Axis
         this.xAxis = new CategoryAxis();
         this.yAxis = new NumberAxis();
-        //yAxis.setLowerBound(0.0);
-        //yAxis.setUpperBound(cable.getAmpacity() * 1.2);
-        //yAxis.setUpperBound(10.0);
         this.xAxis.setLabel("Zeit");
         this.yAxis.setLabel("Prozentuale Auslastung");
 
@@ -87,10 +85,10 @@ public class CableGraphPane extends VBox {
         }
     }
     
-    private void mapData(ResultSet resultSet, Cable cable) {
+    private void mapData(ResultSet resultSet) {
         try{
             this.workloudData = new TreeMap<>();
-            double cableAmpacity = cable.getAmpacity();
+            double cableAmpacity = this.cable.getAmpacity();
             double tempAmpere = Double.MIN_VALUE;
             while(resultSet.next()){
                 if(resultSet.isFirst()){
@@ -121,121 +119,147 @@ public class CableGraphPane extends VBox {
         }
     }
     
-    public void showPreviousPeriod(){
-        System.out.println("start of Records:" + this.startOfRecords + " end of records: " + this.endOfRecords);
-        if(currentStartDate.minusMonths(3).isBefore(startOfRecords)){
-            System.out.println("überragt max range");
-            this.currentStartDate = startOfRecords;
-            this.currentEndDate = currentStartDate.plusMonths(3);
-        } else {
-            System.out.println("üist in range");
-            this.currentStartDate = currentStartDate.minusMonths(3);
-            this.currentEndDate = currentEndDate.minusMonths(3);
-        }
-        System.out.println("Start:" + currentStartDate + " End:" + currentEndDate);
-        showGraphBetweenDates(currentStartDate, currentEndDate);
-    }
+    
     public void showPrevPeriod(){
         switch(period){
-            case "5 Days":
+            case "5 days":
                 if(currentStartDate.minusDays(5).isBefore(startOfRecords)){
                     this.currentStartDate = startOfRecords;
                     this.currentEndDate = currentStartDate.plusDays(5);
                 } else {
                     this.currentStartDate = currentStartDate.minusDays(5);
-                    this.currentEndDate = currentEndDate.minusDays(5);
+                    this.currentEndDate = currentStartDate.plusDays(5);
                 }
                 break;
-            case "10 Days":
+            case "10 days":
             if(currentStartDate.minusDays(10).isBefore(startOfRecords)){
                 this.currentStartDate = startOfRecords;
                 this.currentEndDate = currentStartDate.plusDays(10);
             } else {
                 this.currentStartDate = currentStartDate.minusDays(10);
-                this.currentEndDate = currentEndDate.minusDays(10);
+                this.currentEndDate = currentStartDate.plusDays(10);
             }
             break;
-            case "1 Month":
+            case "1 month":
                 if(currentStartDate.minusMonths(1).isBefore(startOfRecords)){
                     System.out.println("überragt max range");
                     this.currentStartDate = startOfRecords;
                     this.currentEndDate = currentStartDate.plusMonths(1);
                 } else {
-                    System.out.println("üist in range");
                     this.currentStartDate = currentStartDate.minusMonths(1);
-                    this.currentEndDate = currentEndDate.minusMonths(1);
+                    this.currentEndDate = currentStartDate.plusMonths(1);
                 }
                 break;
-            case "3 Months":
-            if(currentStartDate.minusMonths(3).isBefore(startOfRecords)){
-                System.out.println("überragt max range");
-                this.currentStartDate = startOfRecords;
-                this.currentEndDate = currentStartDate.plusMonths(3);
-            } else {
-                System.out.println("üist in range");
-                this.currentStartDate = currentStartDate.minusMonths(3);
-                this.currentEndDate = currentEndDate.minusMonths(3);
-            }
-            break;
-            case "6 Months":
-            if(currentStartDate.minusMonths(6).isBefore(startOfRecords)){
-                System.out.println("überragt max range");
-                this.currentStartDate = startOfRecords;
-                this.currentEndDate = currentStartDate.plusMonths(6);
-            } else {
-                System.out.println("üist in range");
-                this.currentStartDate = currentStartDate.minusMonths(6);
-                this.currentEndDate = currentEndDate.minusMonths(6);
-            }
-            break;
+            case "3 months":
+                if(currentStartDate.minusMonths(3).isBefore(startOfRecords)){
+                    this.currentStartDate = startOfRecords;
+                    this.currentEndDate = currentStartDate.plusMonths(3);
+                } else {
+                    this.currentStartDate = currentStartDate.minusMonths(3);
+                    this.currentEndDate = currentStartDate.plusMonths(3);
+                }
+                break;
+            case "6 months":
+                if(currentStartDate.minusMonths(6).isBefore(startOfRecords)){
+                    System.out.println("überragt max range");
+                    this.currentStartDate = startOfRecords;
+                    this.currentEndDate = currentStartDate.plusMonths(6);
+                } else {
+                    this.currentStartDate = currentStartDate.minusMonths(6);
+                    this.currentEndDate = currentStartDate.plusMonths(6);
+                }
+                break;
         }
         showGraphBetweenDates(currentStartDate, currentEndDate);
 
     }
-    private void showGraphBetweenDates(LocalDateTime startDate, LocalDateTime endDate){
-        this.lineChart.getData().clear();
-        String query = MySqlManager.buildQueryBetweenDates(cable.getId(), startDate.toString(), endDate.toString());
-        ResultSet resultSet = MySqlManager.executeQuery(query);
-        mapData(resultSet, cable);
-        createGraph(cable);
-        lineChart.getData().add(workloudSeries);
-        this.lineChart.setCreateSymbols(false);
-        this.getChildren().remove(0);
-        this.getChildren().add(this.lineChart);
-    }
-    public void showNextPeriod(){
-        System.out.println("start of Records:" + this.startOfRecords + " end of records: " + this.endOfRecords);
-    
-        if(currentEndDate.plusMonths(3).isAfter(endOfRecords)){
-            System.out.println("überragt max range");
-            this.currentEndDate = endOfRecords;
-            this.currentStartDate = currentEndDate.minusMonths(3);
-        } else {
-            System.out.println("üist in range");
-            this.currentEndDate = currentEndDate.plusMonths(3);
-            this.currentStartDate = currentStartDate.plusMonths(3);
+    public void showNxtPerioud(){
+        switch(period){
+            case "5 days":
+                if(currentEndDate.plusDays(5).isAfter(endOfRecords)){
+                    this.currentEndDate = endOfRecords;
+                    this.currentStartDate = currentEndDate.minusDays(5);
+                } else {
+                    this.currentStartDate = currentStartDate.plusDays(5);
+                    this.currentEndDate = currentStartDate.plusDays(5);
+                }
+                break;
+            case "10 days":
+            if(currentEndDate.plusDays(10).isAfter(endOfRecords)){
+                this.currentEndDate = endOfRecords;
+                this.currentStartDate = currentEndDate.minusDays(10);
+            } else {
+                this.currentStartDate = currentStartDate.plusDays(10);
+                this.currentEndDate = currentStartDate.plusDays(10);
+            }
+            break;
+            case "1 month":
+                if(currentEndDate.plusMonths(1).isAfter(endOfRecords)){
+                    this.currentEndDate = endOfRecords;
+                    this.currentStartDate = currentEndDate.minusMonths(1);
+                } else {
+                    this.currentStartDate = currentStartDate.plusMonths(1);
+                    this.currentEndDate = currentStartDate.plusMonths(1);
+                }
+                break;
+            case "3 months":
+            if(currentEndDate.plusMonths(3).isAfter(endOfRecords)){
+                this.currentEndDate = endOfRecords;
+                this.currentStartDate = currentEndDate.minusMonths(3);
+            } else {
+                this.currentStartDate = currentStartDate.plusMonths(3);
+                this.currentEndDate = currentStartDate.plusMonths(3);
+            }
+            break;
+            case "6 months":
+            if(currentEndDate.plusMonths(6).isAfter(endOfRecords)){
+                this.currentEndDate = endOfRecords;
+                this.currentStartDate = currentEndDate.minusMonths(6);
+            } else {
+                this.currentStartDate = currentStartDate.plusMonths(6);
+                this.currentEndDate = currentStartDate.plusMonths(6);
+            }
+            break;
         }
-        System.out.println("Start:" + currentStartDate + " End:" + currentEndDate);
         showGraphBetweenDates(currentStartDate, currentEndDate);
     }
+
+    private void showGraphBetweenDates(LocalDateTime startDate, LocalDateTime endDate){
+        String query = MySqlManager.buildQueryBetweenDates(cable.getId(), startDate.toString(), endDate.toString());
+        ResultSet resultSet = MySqlManager.executeQuery(query);
+        updateGraph(resultSet);
+    }
+    
     public void showMaxPeriod(){
         this.lineChart.getData().clear();
         String query = MySqlManager.buildQueryFullRecordTime(this.cable.getId());
         ResultSet resultSet = MySqlManager.executeQuery(query);
-        mapData(resultSet, this.cable);
-        createGraph(cable);
+        mapData(resultSet);
+        createGraph();
         lineChart.getData().add(workloudSeries);
         this.lineChart.setCreateSymbols(false);
         this.getChildren().remove(0);
         this.getChildren().add(this.lineChart);
     }
-    
+    private void updateGraph(ResultSet resultSet){
+        System.out.println("records: from :" + this.startOfRecords + " to: "+ this.endOfRecords);
+        System.out.println("current: from :" + this.currentStartDate + " to: "+ this.currentEndDate);
+        
+        this.lineChart.getData().clear();
+        mapData(resultSet);
+        createGraph();
+        lineChart.getData().add(workloudSeries);
+        this.lineChart.setCreateSymbols(false);
+        this.getChildren().remove(0);
+        this.getChildren().add(this.lineChart);
+    }
     
     // Getter & Setter
     public String getPeriod() {
         return period;
     }
     public void setPeriod(String period) {
+        System.out.println(period);
         this.period = period;
     }
 }

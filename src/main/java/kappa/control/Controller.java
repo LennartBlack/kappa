@@ -251,10 +251,25 @@ public class Controller {
                 this.stage.getCablePane().getCableDetailPane().getGraphPane().showMaxPeriod();
             });
             this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getPreviousPeriod().setOnAction(e -> {
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().showPreviousPeriod();            
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().showPrevPeriod();         
             });
             this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getNextPeriod().setOnAction(e -> {
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().showNextPeriod();            
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().showNxtPerioud();         
+            });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getFiveDaysButton().setOnAction(e ->{
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("5 days");
+            });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getTenDaysButton().setOnAction(e ->{
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("10 days");
+            });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getOneMonthButton().setOnAction(e ->{
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("1 month");
+            });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getThreeMonthButton().setOnAction(e ->{
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("3 months");
+            });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getSixMonthButton().setOnAction(e ->{
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("6 months");
             });
         }
         catch(Exception e){

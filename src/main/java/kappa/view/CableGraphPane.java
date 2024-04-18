@@ -2,7 +2,6 @@ package kappa.view;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.TreeMap;
@@ -22,10 +21,8 @@ public class CableGraphPane extends VBox {
     private LocalDateTime currentEndDate;
     private LocalDateTime startOfRecords;
     private LocalDateTime endOfRecords;
-    private Map<LocalDateTime, Double> ampereDate;
     private Map<LocalDateTime, Double> workloudData;
     private LineChart<String, Number> lineChart;
-    private XYChart.Series<String, Number> ampereSeries;
     private XYChart.Series<String, Number> workloudSeries;
     private CategoryAxis xAxis;
     private NumberAxis yAxis;
@@ -52,22 +49,23 @@ public class CableGraphPane extends VBox {
             String query = MySqlManager.buildQueryLastThreeMonths(cable.getId());
             ResultSet resultSet = MySqlManager.executeQuery(query);
 
+
             mapData(resultSet, cable);
+
             createGraph(cable);
-            lineChart.getData().add(ampereSeries);
+
             lineChart.getData().add(workloudSeries);
             this.lineChart.setCreateSymbols(false);
             this.getChildren().add(this.lineChart);
     } catch (SQLException e) {
+        System.out.println("Error in cableGraphPane Constructor");
         e.printStackTrace();
     }
     }
 
     // Methods
     private void createGraph(Cable cable){
-        this.ampereSeries = new XYChart.Series<>();
         this.workloudSeries = new XYChart.Series<>();
-        this.ampereSeries.setName(this.cable.getId());
         this.workloudSeries.setName("prozentuale Auslastung");
         
         // Create Chart Axis
@@ -77,16 +75,12 @@ public class CableGraphPane extends VBox {
         //yAxis.setUpperBound(cable.getAmpacity() * 1.2);
         //yAxis.setUpperBound(10.0);
         this.xAxis.setLabel("Zeit");
-        this.yAxis.setLabel("Amperewerte");
+        this.yAxis.setLabel("Prozentuale Auslastung");
 
         // Create LineChart
         this.lineChart = new LineChart<>(xAxis, yAxis);
         this.lineChart.setTitle(this.cable.getId());
         
-        // Add Ampere Data to Chart
-        for (Map.Entry<LocalDateTime, Double> entry : this.ampereDate.entrySet()) {
-            this.ampereSeries.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
-        }
         // Add Workload Data to Chart
         for (Map.Entry<LocalDateTime, Double> entry : this.workloudData.entrySet()) {
             this.workloudSeries.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
@@ -96,13 +90,11 @@ public class CableGraphPane extends VBox {
     private void mapData(ResultSet resultSet, Cable cable) {
         try{
             this.workloudData = new TreeMap<>();
-
             double cableAmpacity = cable.getAmpacity();
             double tempAmpere = Double.MIN_VALUE;
-            resultSet.next();
-            this.currentStartDate = resultSet.getTimestamp("date").toLocalDateTime();
-            resultSet.previous();
             while(resultSet.next()){
+                if(resultSet.isFirst()){
+                    this.currentStartDate = resultSet.getTimestamp("date").toLocalDateTime();              }
                 double ampere = resultSet.getDouble("ampere");
                 if(tempAmpere != ampere){
                     LocalDateTime dateTime = resultSet.getTimestamp("date").toLocalDateTime();
@@ -206,7 +198,6 @@ public class CableGraphPane extends VBox {
         ResultSet resultSet = MySqlManager.executeQuery(query);
         mapData(resultSet, cable);
         createGraph(cable);
-        lineChart.getData().add(ampereSeries);
         lineChart.getData().add(workloudSeries);
         this.lineChart.setCreateSymbols(false);
         this.getChildren().remove(0);
@@ -233,24 +224,10 @@ public class CableGraphPane extends VBox {
         ResultSet resultSet = MySqlManager.executeQuery(query);
         mapData(resultSet, this.cable);
         createGraph(cable);
-        lineChart.getData().add(ampereSeries);
         lineChart.getData().add(workloudSeries);
         this.lineChart.setCreateSymbols(false);
         this.getChildren().remove(0);
         this.getChildren().add(this.lineChart);
-    }
-    public void showLastThreeMonths(){
-        
-    }
-    public void showLastSixMonths(){
-        
-    }
-    public void showLastNineMonths(){
-        
-    }
-    
-    public void showLastTwelveMonths(){
-        
     }
     
     

@@ -59,27 +59,32 @@ public class WatchlistPane extends ScrollPane {
      * Constructs the Watchlist Pane with all WatchlistEntryPanes
      */
     public void constructWatchListPane() {
-        this.watchlist = Watchlist.deserializeHashMap(this.cableCoreDataDB);
-        watchlistVBox.getChildren().clear();
-        titleLabel = new Label("Merkliste");
-        titleLabel.setPadding(Style.getGap());
-        Double previousViewedCablePaneWidth = 0.0;
-        if (this.stage.getPreviousViewedCablesPane() != null) {
-            previousViewedCablePaneWidth = this.stage.getPreviousViewedCablesPane().getWidth();
-        }
-        if (this.stage.isPreviousViewedCablesPaneVisible()) {
-            titleLabel.setPrefWidth(998);
-        } else {
-            titleLabel.setPrefWidth(this.stage.getWidth() - previousViewedCablePaneWidth - 19);
-        }
+        try{      
+            this.watchlist = Watchlist.deserializeHashMap(this.cableCoreDataDB);
+            watchlistVBox.getChildren().clear();
+            titleLabel = new Label("Merkliste");
+            titleLabel.setPadding(Style.getGap());
+            Double previousViewedCablePaneWidth = 0.0;
+            if (this.stage.getPreviousViewedCablesPane() != null) {
+                previousViewedCablePaneWidth = this.stage.getPreviousViewedCablesPane().getWidth();
+            }
+            if (this.stage.isPreviousViewedCablesPaneVisible()) {
+                titleLabel.setPrefWidth(998);
+            } else {
+                titleLabel.setPrefWidth(this.stage.getWidth() - previousViewedCablePaneWidth - 19);
+            }
 
-        titleLabel.setStyle(Style.getStandardDesign());
-        titleLabel.setAlignment(Pos.CENTER);
-        watchlistVBox.getChildren().add(titleLabel);
+            titleLabel.setStyle(Style.getStandardDesign());
+            titleLabel.setAlignment(Pos.CENTER);
+            watchlistVBox.getChildren().add(titleLabel);
 
-        for (Map.Entry<String, WatchlistElement> entry : watchlist.entrySet()) {
-            WatchlistEntryPane watchlistEntryPane = new WatchlistEntryPane(entry.getValue());
-            watchlistVBox.getChildren().add(watchlistEntryPane);
+            for (Map.Entry<String, WatchlistElement> entry : watchlist.entrySet()) {
+                WatchlistEntryPane watchlistEntryPane = new WatchlistEntryPane(entry.getValue());
+                watchlistVBox.getChildren().add(watchlistEntryPane);
+            }
+        }
+        catch(Exception e){
+            System.out.println("Error in watchlistpane construct watchlist");
         }
     }
 

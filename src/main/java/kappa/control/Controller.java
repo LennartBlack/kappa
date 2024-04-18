@@ -145,8 +145,11 @@ public class Controller {
                 throw new Exception();
             }
             Cable cable = this.cableCoreDataDB.get(cableId);
+            System.out.println(cable != null);
             if (cable != null) {
                 updatePreviousViewedCables(cable);
+
+                // Hier passiert der fehler
                 this.stage.showCablePane(cable);
                 addGraphActionPaneEventHandlers(cable);
                 this.stage.getWatchlistPane().constructWatchListPane();
@@ -231,28 +234,33 @@ public class Controller {
      * @param cable
      */
     private void addGraphActionPaneEventHandlers(Cable cable) {
-        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getAddToWatchlistButton()
+        try{
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getAddToWatchlistButton()
                 .setOnAction(e -> {
                     watchlist.addCable(cable);
                     Watchlist.serializeHashMap(watchlist);
                     this.stage.getWatchlistPane().constructWatchListPane();
                 });
-
-        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getRemoveFromWatchlistButton()
-                .setOnAction(e -> {
-                    watchlist.removeCable(cable);
-                    Watchlist.serializeHashMap(watchlist);
-                    this.stage.getWatchlistPane().removeWatchlistEntryPane(cable.getId());
-                });
-        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getFullRecordTime().setOnAction(e -> {
-            this.stage.getCablePane().getCableDetailPane().getGraphPane().showMaxPeriod();
-        });
-        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getPreviousPeriod().setOnAction(e -> {
-            this.stage.getCablePane().getCableDetailPane().getGraphPane().showPreviousPeriod();            
-        });
-        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getNextPeriod().setOnAction(e -> {
-            this.stage.getCablePane().getCableDetailPane().getGraphPane().showNextPeriod();            
-        });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getRemoveFromWatchlistButton()
+                    .setOnAction(e -> {
+                        watchlist.removeCable(cable);
+                        Watchlist.serializeHashMap(watchlist);
+                        this.stage.getWatchlistPane().removeWatchlistEntryPane(cable.getId());
+                    });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getFullRecordTime().setOnAction(e -> {
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().showMaxPeriod();
+            });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getPreviousPeriod().setOnAction(e -> {
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().showPreviousPeriod();            
+            });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getNextPeriod().setOnAction(e -> {
+                this.stage.getCablePane().getCableDetailPane().getGraphPane().showNextPeriod();            
+            });
+        }
+        catch(Exception e){
+            System.out.println("Error in controller addGraphActionPaneEventHandlers");
+        }
+        
     }
 
     /**

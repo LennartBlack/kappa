@@ -37,10 +37,9 @@ public class CableInfoPane extends VBox {
                 new TableViewAttributeTriple("Start", cable.getStart(), ""),
                 new TableViewAttributeTriple("End", cable.getEnd(), ""),
                 new TableViewAttributeTriple("Widerstand", cable.getResistance().toString(), "Ohm"),
-                new TableViewAttributeTriple("Reactance", cable.getReactance().toString(), "Ohm"),
+                new TableViewAttributeTriple("Reaktanz", cable.getReactance().toString(), "Ohm"),
                 new TableViewAttributeTriple("Nennstrom", cable.getAmpacity().toString(), "A"),
-                new TableViewAttributeTriple("Strom", cable.getElectricity().toString(), "kV"),
-                new TableViewAttributeTriple("Länge", cable.getLength().toString(), "km"),
+                new TableViewAttributeTriple("Länge", cable.getLength().toString(), "m"),
                 new TableViewAttributeTriple("Baujahr", Integer.toString(cable.getYearOfConstruction()), ""),
                 new TableViewAttributeTriple("Durchmesser", Integer.toString(cable.getCrossSection()), "mm²"));
         tableView.setFixedCellSize(24);

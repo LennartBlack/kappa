@@ -12,7 +12,6 @@ public class Cable implements Serializable {
     private Double resistance;
     private Double reactance;
     private Double ampacity;
-    private Double electricity;
     private Double length;
     private int yearOfConstruction;
     private int CrossSection;
@@ -32,15 +31,13 @@ public class Cable implements Serializable {
      * @param yearOfConstruction
      * @param CrossSection
      */
-    public Cable(String id, String start, String end, Double resistance, Double reactance, Double ampacity,
-            Double electricity, Double length, int yearOfConstruction, int CrossSection) {
+    public Cable(String id, String start, String end, Double resistance, Double reactance, Double ampacity, Double length, int yearOfConstruction, int CrossSection) {
         this.id = id;
         this.start = start;
         this.end = end;
         this.resistance = resistance;
         this.reactance = reactance;
         this.ampacity = ampacity;
-        this.electricity = electricity;
         this.length = length;
         this.yearOfConstruction = yearOfConstruction;
         this.CrossSection = CrossSection;
@@ -69,10 +66,6 @@ public class Cable implements Serializable {
 
     public Double getAmpacity() {
         return ampacity;
-    }
-
-    public Double getElectricity() {
-        return electricity;
     }
 
     public Double getLength() {

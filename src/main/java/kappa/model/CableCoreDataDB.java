@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 public class CableCoreDataDB extends HashMap<String, Cable> {
 
+    // Constructor
     public CableCoreDataDB() {
         super();
         try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/leitungsgebilde.csv"))) {
@@ -21,12 +22,11 @@ public class CableCoreDataDB extends HashMap<String, Cable> {
                     Double resistance = checkAndParseDouble(parts[3]);
                     Double reactance = checkAndParseDouble(parts[4]);
                     Double ampacity = checkAndParseDouble(parts[5]);
-                    Double electricity = checkAndParseDouble(parts[6]);
                     Double length = checkAndParseDouble(parts[7]);
                     int yearOfConstruction = checkAndParseInt(parts[8]);
                     int crossSection = checkAndParseInt(parts[9]);
 
-                    Cable cable = new Cable(id, start, end, resistance, reactance, ampacity, electricity, length,
+                    Cable cable = new Cable(id, start, end, resistance, reactance, ampacity, length,
                             yearOfConstruction, crossSection);
 
                     this.put(cable.getId(), cable);
@@ -37,6 +37,8 @@ public class CableCoreDataDB extends HashMap<String, Cable> {
         }
     }
 
+
+    // Methods
     private String checkAndParse(String value) {
         return (value != null && !value.isEmpty()) ? value : "";
     }

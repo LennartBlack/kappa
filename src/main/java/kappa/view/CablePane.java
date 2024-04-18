@@ -12,8 +12,11 @@ public class CablePane extends BorderPane {
 
     // Constructor
     public CablePane(Cable cable) {
+        System.out.println("CablePane Konstruktor");
         this.cableInfoPane = new CableInfoPane(cable);
+        System.out.println("CablePane Konstruktor2");
         this.cableDetailPane = new CableDetailPane(cable);
+        System.out.println("CablePane Konstruktor3");
         this.setLeft(this.cableInfoPane);
         this.setCenter(this.cableDetailPane);
     }

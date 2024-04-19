@@ -3,6 +3,7 @@ package kappa.view;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.TreeMap;
 import javafx.scene.chart.CategoryAxis;
@@ -24,9 +25,7 @@ public class CableGraphPane extends VBox {
     private Map<LocalDateTime, Double> workloudData;
     private LineChart<String, Number> lineChart;
     private XYChart.Series<String, Number> workloudSeries;
-    private CategoryAxis xAxis;
-    private NumberAxis yAxis;
-    private String period = "3 Months";
+    private String period = "3 Monate";
 
     // Constructor
     public CableGraphPane(Cable cable) {
@@ -70,18 +69,24 @@ public class CableGraphPane extends VBox {
         this.workloudSeries.setName("prozentuale Auslastung");
         
         // Create Chart Axis
-        this.xAxis = new CategoryAxis();
-        this.yAxis = new NumberAxis();
-        this.xAxis.setLabel("Zeit");
-        this.yAxis.setLabel("Prozentuale Auslastung");
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String currentStartDateToVisualize = currentStartDate.format(outputFormatter);
+        String currentEndDateToVisualize = currentEndDate.format(outputFormatter);
+        xAxis.setLabel("Zeit mit der Ausschnittgröße: " + this.period + " vom " + currentStartDateToVisualize + " bis zum " + currentEndDateToVisualize);
+        yAxis.setLabel("Prozentuale Auslastung in %");
 
         // Create LineChart
         this.lineChart = new LineChart<>(xAxis, yAxis);
         this.lineChart.setTitle(this.cable.getId());
+        this.lineChart.setLegendVisible(false);
         
         // Add Workload Data to Chart
         for (Map.Entry<LocalDateTime, Double> entry : this.workloudData.entrySet()) {
-            this.workloudSeries.getData().add(new XYChart.Data<>(entry.getKey().toString(), entry.getValue()));
+            XYChart.Data<String, Number> data = new XYChart.Data<>(entry.getKey().toString(), entry.getValue());
+            this.workloudSeries.getData().add(data);
         }
     }
     
@@ -122,7 +127,7 @@ public class CableGraphPane extends VBox {
     
     public void showPrevPeriod(){
         switch(period){
-            case "5 days":
+            case "5 Tage":
                 if(currentStartDate.minusDays(5).isBefore(startOfRecords)){
                     this.currentStartDate = startOfRecords;
                     this.currentEndDate = currentStartDate.plusDays(5);
@@ -131,7 +136,7 @@ public class CableGraphPane extends VBox {
                     this.currentEndDate = currentStartDate.plusDays(5);
                 }
                 break;
-            case "10 days":
+            case "10 Tage":
             if(currentStartDate.minusDays(10).isBefore(startOfRecords)){
                 this.currentStartDate = startOfRecords;
                 this.currentEndDate = currentStartDate.plusDays(10);
@@ -140,9 +145,8 @@ public class CableGraphPane extends VBox {
                 this.currentEndDate = currentStartDate.plusDays(10);
             }
             break;
-            case "1 month":
+            case "1 Monat":
                 if(currentStartDate.minusMonths(1).isBefore(startOfRecords)){
-                    System.out.println("überragt max range");
                     this.currentStartDate = startOfRecords;
                     this.currentEndDate = currentStartDate.plusMonths(1);
                 } else {
@@ -150,7 +154,7 @@ public class CableGraphPane extends VBox {
                     this.currentEndDate = currentStartDate.plusMonths(1);
                 }
                 break;
-            case "3 months":
+            case "3 Monate":
                 if(currentStartDate.minusMonths(3).isBefore(startOfRecords)){
                     this.currentStartDate = startOfRecords;
                     this.currentEndDate = currentStartDate.plusMonths(3);
@@ -159,9 +163,8 @@ public class CableGraphPane extends VBox {
                     this.currentEndDate = currentStartDate.plusMonths(3);
                 }
                 break;
-            case "6 months":
+            case "6 Monate":
                 if(currentStartDate.minusMonths(6).isBefore(startOfRecords)){
-                    System.out.println("überragt max range");
                     this.currentStartDate = startOfRecords;
                     this.currentEndDate = currentStartDate.plusMonths(6);
                 } else {
@@ -242,8 +245,6 @@ public class CableGraphPane extends VBox {
         this.getChildren().add(this.lineChart);
     }
     private void updateGraph(ResultSet resultSet){
-        System.out.println("records: from :" + this.startOfRecords + " to: "+ this.endOfRecords);
-        System.out.println("current: from :" + this.currentStartDate + " to: "+ this.currentEndDate);
         
         this.lineChart.getData().clear();
         mapData(resultSet);
@@ -259,7 +260,6 @@ public class CableGraphPane extends VBox {
         return period;
     }
     public void setPeriod(String period) {
-        System.out.println(period);
         this.period = period;
     }
 }

@@ -6,6 +6,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import kappa.model.Cable;
+import kappa.model.Watchlist;
 
 
 
@@ -25,10 +26,12 @@ public class CableGraphActionPane extends VBox {
     private HBox periodPane;
     private HBox resetGraphButtonPaneBox;
     private HBox watchlistButtonPane;
+    private Watchlist watchlist;
     
 
     // Constructor
-    public CableGraphActionPane(Cable cable) {
+    public CableGraphActionPane(Cable cable, Watchlist watchlist) {
+        this.watchlist = watchlist;
         this.periodPane = new HBox();
         periodPane.setSpacing(4);
 
@@ -82,8 +85,14 @@ public class CableGraphActionPane extends VBox {
         this.removeFromWatchlistButton = new Button("Von Merkliste entfernen");
         removeFromWatchlistButton.setStyle(Style.getStandardDesign());
         removeFromWatchlistButton.setPadding(Style.getGap());
-        
+
         watchlistButtonPane.getChildren().addAll(this.addToWatchlistButton, this.removeFromWatchlistButton);
+        
+        if(this.watchlist.containsCable(cable)) {
+            watchlistButtonPane.getChildren().remove(this.addToWatchlistButton);
+        } else {
+            watchlistButtonPane.getChildren().remove(this.removeFromWatchlistButton);
+        }
         
         Region spacer = new Region();
         spacer.setMaxHeight(10.0);
@@ -104,7 +113,15 @@ public class CableGraphActionPane extends VBox {
         CableGraphActionPane.setMargin(removeFromWatchlistButton, Style.getGap());
         CableGraphActionPane.setMargin(watchlistButtonPane, Style.getGap());
     }
-
+    public void updateWatchlistButtons(Cable cable) {
+        if(this.watchlist.containsCable(cable)) {
+            watchlistButtonPane.getChildren().add(this.removeFromWatchlistButton);
+            watchlistButtonPane.getChildren().remove(this.addToWatchlistButton);
+        } else {
+            watchlistButtonPane.getChildren().remove(this.removeFromWatchlistButton);
+            watchlistButtonPane.getChildren().add(this.addToWatchlistButton);
+        }
+    }
     // Getter
     public Button getAddToWatchlistButton() {
         return this.addToWatchlistButton;

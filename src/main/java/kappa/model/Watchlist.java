@@ -13,6 +13,7 @@ public class Watchlist extends HashMap<String, WatchlistElement>{
     // Attributes
     private static final long serialVersionUID = 1L;
     private CableCoreDataDB cableCoreDataDB;
+    private static String fileName = "watchlist.ser";
 
     // Constructor
     private Watchlist(CableCoreDataDB cableCoreDataDB) {
@@ -37,15 +38,20 @@ public class Watchlist extends HashMap<String, WatchlistElement>{
         this.remove(cableId);
     }
 
+    public boolean containsCable(Cable cable) {
+        return this.containsKey(cable.getId());
+    }
+    
     /**
      * Serialize the watchlist to a file
      * @param watchlist
      */
     public static void serializeHashMap(Watchlist watchlist) {
-        try (FileOutputStream fileOut = new FileOutputStream("watchlist.ser");
+        try (FileOutputStream fileOut = new FileOutputStream(Watchlist.fileName);
                 ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(watchlist);
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -56,16 +62,15 @@ public class Watchlist extends HashMap<String, WatchlistElement>{
      */
     public static Watchlist deserializeHashMap(CableCoreDataDB cableCoreDataDB) {
         Watchlist watchlist = new Watchlist(cableCoreDataDB);
-        File file = new File("watchlist.ser");
-        if (!file.exists()) {
-            return watchlist;
-        } else if (file.length() == 0) {
+        File file = new File(Watchlist.fileName);
+        if (!file.exists() || file.length() == 0) {
             return watchlist;
         }
-        try (FileInputStream fileIn = new FileInputStream("watchlist.ser");
+        try (FileInputStream fileIn = new FileInputStream(Watchlist.fileName);
                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
             watchlist = (Watchlist) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return watchlist;
     }

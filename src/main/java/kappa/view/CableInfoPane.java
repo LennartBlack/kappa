@@ -43,13 +43,12 @@ public class CableInfoPane extends VBox {
                 new TableViewAttributeTriple("Baujahr", Integer.toString(cable.getYearOfConstruction()), ""),
                 new TableViewAttributeTriple("Durchmesser", Integer.toString(cable.getCrossSection()), "mm²"));
         tableView.setFixedCellSize(24);
-        Double verticalMutliplier = 11.09;
-        Double horizontalMultiplier = 9.29;
+        Double verticalMutliplier = 10.09;
+        Double horizontalMultiplier = 9.07;
         tableView.setPrefHeight(tableView.getFixedCellSize() * verticalMutliplier);
         tableView.setPrefWidth(tableView.getFixedCellSize() * horizontalMultiplier);
-        // tableView.prefHeightProperty().bind(tableView.fixedCellSizeProperty().multiply(verticalMutliplier));
-        // tableView.prefWidthProperty().bind(tableView.fixedCellSizeProperty().multiply(horizontalMultiplier));
         tableView.setMaxWidth(tableView.getFixedCellSize() * horizontalMultiplier);
+        tableView.setMaxHeight(tableView.getFixedCellSize() * verticalMutliplier);
         this.getChildren().add(tableView);
     }
 }

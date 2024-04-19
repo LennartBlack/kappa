@@ -69,18 +69,14 @@ public class Controller {
                     clearSignInInputs();
                 }
             } catch (NoSuchAlgorithmException ex) {
-                System.out.println("Hashing failed");
+                ex.printStackTrace();
             }
         });
         // Eventhandler for the userField to jump to the passwordField
-        this.stage.getSignInPane().getUserField().setOnAction(e -> {
-            this.stage.getSignInPane().getPasswordField().requestFocus();
-        });
+        this.stage.getSignInPane().getUserField().setOnAction(e -> this.stage.getSignInPane().getPasswordField().requestFocus());
 
         // Eventhandler for the passwordField to trigger the sign in button
-        this.stage.getSignInPane().getPasswordField().setOnAction(e -> {
-            this.stage.getSignInPane().getSignInButton().fire();
-        });
+        this.stage.getSignInPane().getPasswordField().setOnAction(e -> this.stage.getSignInPane().getSignInButton().fire());
     }
 
     /**
@@ -88,12 +84,8 @@ public class Controller {
      */
     private void handleCableSearch() {
         // Eventhandler for the searchCableTextField to search for a cable
-        this.stage.getMenuPane().getSearchCableTextField().setOnAction(e -> {
-            searchCable();
-        });
-        this.stage.getMenuPane().getSearchCableButton().setOnAction(e -> {
-            searchCable();
-        });
+        this.stage.getMenuPane().getSearchCableTextField().setOnAction(e ->searchCable());
+        this.stage.getMenuPane().getSearchCableButton().setOnAction(e -> searchCable());
     }
 
     /**
@@ -102,9 +94,7 @@ public class Controller {
      */
     private void setSceneBuilderActions() {
         // Eventhandler for the help button to show the help scene
-        this.stage.getMenuPane().getHelpButton().setOnAction(e -> {
-            this.stage.showHelpScene();
-        });
+        this.stage.getMenuPane().getHelpButton().setOnAction(e -> this.stage.showHelpScene());
 
         // Eventhandler for the watchlist button to show the watchlist scene
         this.stage.getMenuPane().getWatchlistButton().setOnAction(e -> {
@@ -115,9 +105,7 @@ public class Controller {
 
         // Eventhandler for the topWorkloadCable button to topWorkloadCable the home
         // scene
-        this.stage.getMenuPane().getTopWorkloadCableButton().setOnAction(e -> {
-            this.stage.showCableWithTopWorkloudScene();
-        });
+        this.stage.getMenuPane().getTopWorkloadCableButton().setOnAction(e -> this.stage.showCableWithTopWorkloudScene());
 
         // Eventhandler for the newWindowSearch button to show the newWindowSearch scene
         this.stage.getMenuPane().getOpenNewWindow().setOnAction(e -> {
@@ -126,9 +114,7 @@ public class Controller {
         });
 
         // Eventhandler for the logOff button to show the sign in scene
-        this.stage.getMenuPane().getLogOffButton().setOnAction(e -> {
-            this.stage.showSignInSceneAfterLogout();
-        });
+        this.stage.getMenuPane().getLogOffButton().setOnAction(e -> this.stage.showSignInSceneAfterLogout());
     }
 
     /**
@@ -145,7 +131,6 @@ public class Controller {
                 throw new Exception();
             }
             Cable cable = this.cableCoreDataDB.get(cableId);
-            System.out.println(cable != null);
             if (cable != null) {
                 updatePreviousViewedCables(cable);
 
@@ -219,9 +204,7 @@ public class Controller {
                     this.stage.getWatchlistPane().removeWatchlistEntryPane(watchlistEntryPane);
                     this.stage.showWatchlistScene(cableCoreDataDB);
                 });
-                watchlistEntryPane.getNoteTextField().setOnAction(e -> {
-                    saveNoteButton.fire();
-                });
+                watchlistEntryPane.getNoteTextField().setOnAction(e -> saveNoteButton.fire());
             }
         }
         this.stage.showWatchlistScene(cableCoreDataDB);
@@ -240,40 +223,26 @@ public class Controller {
                     watchlist.addCable(cable);
                     Watchlist.serializeHashMap(watchlist);
                     this.stage.getWatchlistPane().constructWatchListPane();
+                    this.stage.getCablePane().getCableDetailPane().getGraphActionPane().updateWatchlistButtons(cable);
                 });
             this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getRemoveFromWatchlistButton()
                     .setOnAction(e -> {
                         watchlist.removeCable(cable);
                         Watchlist.serializeHashMap(watchlist);
                         this.stage.getWatchlistPane().removeWatchlistEntryPane(cable.getId());
+                        this.stage.getCablePane().getCableDetailPane().getGraphActionPane().updateWatchlistButtons(cable);
                     });
-            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getFullRecordTime().setOnAction(e -> {
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().showMaxPeriod();
-            });
-            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getPreviousPeriod().setOnAction(e -> {
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().showPrevPeriod();         
-            });
-            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getNextPeriod().setOnAction(e -> {
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().showNxtPerioud();         
-            });
-            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getFiveDaysButton().setOnAction(e ->{
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("5 days");
-            });
-            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getTenDaysButton().setOnAction(e ->{
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("10 days");
-            });
-            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getOneMonthButton().setOnAction(e ->{
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("1 month");
-            });
-            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getThreeMonthButton().setOnAction(e ->{
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("3 months");
-            });
-            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getSixMonthButton().setOnAction(e ->{
-                this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("6 months");
-            });
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getFullRecordTime().setOnAction(e -> this.stage.getCablePane().getCableDetailPane().getGraphPane().showMaxPeriod());
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getPreviousPeriod().setOnAction(e -> this.stage.getCablePane().getCableDetailPane().getGraphPane().showPrevPeriod());
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getNextPeriod().setOnAction(e -> this.stage.getCablePane().getCableDetailPane().getGraphPane().showNxtPerioud());
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getFiveDaysButton().setOnAction(e -> this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("5 Tage"));
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getTenDaysButton().setOnAction(e -> this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("10 Tage"));
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getOneMonthButton().setOnAction(e -> this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("1 Monat"));
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getThreeMonthButton().setOnAction(e -> this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("3 Monate"));
+            this.stage.getCablePane().getCableDetailPane().getGraphActionPane().getSixMonthButton().setOnAction(e -> this.stage.getCablePane().getCableDetailPane().getGraphPane().setPeriod("6 Monate"));
         }
         catch(Exception e){
-            System.out.println("Error in controller addGraphActionPaneEventHandlers");
+            e.printStackTrace();
         }
         
     }

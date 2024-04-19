@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import kappa.control.Controller;
 import kappa.view.KappaStage;
 import kappa.model.CableCoreDataDB;
+import kappa.model.TopWorkloud;
 import kappa.model.Watchlist;
 
 public class Kappa extends Application {
@@ -25,6 +26,7 @@ public class Kappa extends Application {
     public void newSession() {
         CableCoreDataDB cableCoreDataDB = new CableCoreDataDB();
         Watchlist watchlist = Watchlist.deserializeHashMap(cableCoreDataDB);
+        TopWorkloud topWorkloud = new TopWorkloud(cableCoreDataDB);
         KappaStage newStage = new KappaStage(cableCoreDataDB, watchlist);
         newStage.showHomeScene();
         new Controller(newStage, cableCoreDataDB, watchlist);

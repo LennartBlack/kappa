@@ -1,6 +1,11 @@
 package kappa.utils;
 
 public class BuildStringFromBytes {
+    // Constructor
+    private BuildStringFromBytes() {
+    }
+
+    // Methods
     public static String buildStringFromBytes(byte[] bytes){
         StringBuilder hexString = new StringBuilder();
         for(byte b : bytes){

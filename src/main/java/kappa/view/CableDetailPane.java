@@ -2,6 +2,7 @@ package kappa.view;
 
 import javafx.scene.layout.BorderPane;
 import kappa.model.Cable;
+import kappa.model.Watchlist;
 
 public class CableDetailPane extends BorderPane {
 
@@ -11,13 +12,10 @@ public class CableDetailPane extends BorderPane {
     private Cable cable;
 
     // Constructor
-    public CableDetailPane(Cable cable) {
+    public CableDetailPane(Cable cable, Watchlist watchlist) {
         this.cable = cable;
-        System.out.println("cabledetailpane Konstruktor");
-        this.graphActionPane = new CableGraphActionPane(this.cable);
-        System.out.println("cablegrahppane Konstruktor");
+        this.graphActionPane = new CableGraphActionPane(this.cable, watchlist);
         this.graphPane = new CableGraphPane(this.cable);
-        System.out.println("Fehler");
         this.setBottom(graphActionPane);
         this.setCenter(graphPane);
     }
@@ -26,7 +24,6 @@ public class CableDetailPane extends BorderPane {
     public CableGraphActionPane getGraphActionPane() {
         return graphActionPane;
     }
-
     public CableGraphPane getGraphPane() {
         return graphPane;
     }

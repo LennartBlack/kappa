@@ -31,18 +31,18 @@ public class MySqlManager {
      * @return
      */
     public static String buildQuery(String calbelId){
-        return "SELECT date, ampere FROM ewes WHERE techplatz = '" + calbelId + "';";
+        return "SELECT date, ampere FROM " + calbelId + ";";
     }
     public static String buildQueryStartOfRecords(String calbelId){
-        return "SELECT date FROM ewes WHERE techplatz = '" + calbelId + "' ORDER BY date ASC LIMIT 1;";
+        return "SELECT date FROM " + calbelId + " ORDER BY date ASC LIMIT 1;";
     }
 
     public static String buildQueryEndOfRecords(String calbelId){
-        return "SELECT date FROM ewes WHERE techplatz = '" + calbelId + "' ORDER BY date DESC LIMIT 1;";
+        return "SELECT date FROM " + calbelId + " ORDER BY date DESC LIMIT 1;";
     }
 
     public static String buildQueryBetweenDates(String calbelId, String startDate, String endDate){
-        return "SELECT date, ampere FROM " + calbelId + " WHERE techplatz = '" + calbelId + "' AND date BETWEEN '" + startDate + "' AND '" + endDate + "';";
+        return "SELECT date, ampere FROM " + calbelId + " WHERE date > '" + startDate + "' AND date < '" + endDate + "';";
     }
     public static String buildQueryLastFiveDays(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + 
@@ -57,7 +57,7 @@ public class MySqlManager {
     public static String buildQueryLastThreeMonths(String calbelId){
         return "SELECT date, ampere " +
         "FROM " + calbelId +
-        "WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(3).toString() + "' " + 
+        " WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(3).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
     public static String buildQueryLastSixMonths(String calbelId){
@@ -78,7 +78,7 @@ public class MySqlManager {
     }
 
     public static String buildQueryFullRecordTime(String calbelId){
-        return "SELECT date, ampere FROM " + calbelId + " WHERE techplatz = '" + calbelId + "' AND date BETWEEN '" + START_DATE_OF_RECORDING_STR + "' AND '" + END_DATE_OF_RECORDING_STR + "';" ;
+        return "SELECT date, ampere FROM " + calbelId + " WHERE date >= '" + START_DATE_OF_RECORDING_STR + "' AND date <='" + END_DATE_OF_RECORDING_STR + "';" ;
     }
 
     /** Executes a SQL-Query with a PreparedStatement
@@ -108,10 +108,8 @@ public class MySqlManager {
         }
         catch (SQLSyntaxErrorException sqlSyntaxErrorException){
            sqlSyntaxErrorException.printStackTrace();
-            System.out.println("SQL-Syntax Fehler: Bitte kontaktieren Sie den Anwendungsadministrator.");
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Datenbank Fehler: Bitte kontaktieren Sie den Anwendungsadministrator.");
         }
         return null;   
     }

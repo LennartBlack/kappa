@@ -25,7 +25,7 @@ public class TopWorkloud extends HashMap<Cable, Double> {
         List<String> availibleCableIds = FileTest.getDateiInfo();
         for (String str : availibleCableIds) {
             if (ccddb.containsKey(str)) {
-                this.availibleCables.add(ccddb.get(str));
+                this.availibleCables.add(this.ccddb.get(str));
             }
         }
         // TODO: ENDE
@@ -45,6 +45,7 @@ public class TopWorkloud extends HashMap<Cable, Double> {
         }
     }
 
+    // Methods
     private void determineTopWorkloud() {
         for (int i = 0; i < this.availibleCables.size(); i++) {
             double integral = calculateIntegral(this.availibleCables.get(i));
@@ -61,8 +62,7 @@ public class TopWorkloud extends HashMap<Cable, Double> {
             }
         }
     }
-
-    public double calculateIntegral(Cable cable) throws SQLException {
+    public double calculateIntegral(Cable cable){
         double ampacity = cable.getAmpacity();
         double workloud = 0;
         String sql = "Select Count(*) as Anzahl, sum(abs(ampere)) as SumAmpere from " + cable.getId() + ";";
@@ -78,5 +78,13 @@ public class TopWorkloud extends HashMap<Cable, Double> {
             return -1;
         }
         return workloud;
+    }
+    // TODO: Entfernen
+    public void createTopWorkloudGui(){
+        for (Map.Entry<Cable, Double> entry : this.entrySet()) {
+            //entry.getKey() hier hat man das cable
+            //entry.getValue() hier hat man den workloud
+
+        } 
     }
 }

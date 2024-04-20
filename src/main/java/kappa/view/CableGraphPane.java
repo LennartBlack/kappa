@@ -55,7 +55,7 @@ public class CableGraphPane extends VBox {
 
             createGraph();
 
-            lineChart.getData().add(workloudSeries);
+            this.lineChart.getData().add(workloudSeries);
             this.lineChart.setCreateSymbols(false);
             this.getChildren().add(this.lineChart);
     } catch (SQLException e) {
@@ -97,7 +97,8 @@ public class CableGraphPane extends VBox {
             double tempAmpere = Double.MIN_VALUE;
             while(resultSet.next()){
                 if(resultSet.isFirst()){
-                    this.currentStartDate = resultSet.getTimestamp("date").toLocalDateTime();              }
+                    this.currentStartDate = resultSet.getTimestamp("date").toLocalDateTime();
+                }
                 double ampere = resultSet.getDouble("ampere");
                 if(tempAmpere != ampere){
                     LocalDateTime dateTime = resultSet.getTimestamp("date").toLocalDateTime();
@@ -226,13 +227,11 @@ public class CableGraphPane extends VBox {
         }
         showGraphBetweenDates(currentStartDate, currentEndDate);
     }
-
     private void showGraphBetweenDates(LocalDateTime startDate, LocalDateTime endDate){
         String query = MySqlManager.buildQueryBetweenDates(cable.getId(), startDate.toString(), endDate.toString());
         ResultSet resultSet = MySqlManager.executeQuery(query);
         updateGraph(resultSet);
     }
-    
     public void showMaxPeriod(){
         this.lineChart.getData().clear();
         String query = MySqlManager.buildQueryFullRecordTime(this.cable.getId());

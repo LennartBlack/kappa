@@ -18,8 +18,11 @@ public class Kappa extends Application {
     public void start(Stage stageToIgnore) {
         CableCoreDataDB cableCoreDataDB = new CableCoreDataDB();
         Watchlist watchlist = Watchlist.deserializeHashMap(cableCoreDataDB);
-        KappaStage stage = new KappaStage(cableCoreDataDB, watchlist);
+        TopWorkloud topWorkloud = new TopWorkloud(cableCoreDataDB);
+        KappaStage stage = new KappaStage(cableCoreDataDB, watchlist, topWorkloud);
         stage.showSignInScene();
+
+        // TODO: Controller muss TopWorkloud übergeben bekommen und entsprechende Handler implementieren
         new Controller(stage, cableCoreDataDB, watchlist);
     }
 
@@ -27,8 +30,10 @@ public class Kappa extends Application {
         CableCoreDataDB cableCoreDataDB = new CableCoreDataDB();
         Watchlist watchlist = Watchlist.deserializeHashMap(cableCoreDataDB);
         TopWorkloud topWorkloud = new TopWorkloud(cableCoreDataDB);
-        KappaStage newStage = new KappaStage(cableCoreDataDB, watchlist);
+        KappaStage newStage = new KappaStage(cableCoreDataDB, watchlist, topWorkloud);
         newStage.showHomeScene();
+
+        // TODO: Controller muss TopWorkloud übergeben bekommen und entsprechende Handler implementieren
         new Controller(newStage, cableCoreDataDB, watchlist);
     }
 }

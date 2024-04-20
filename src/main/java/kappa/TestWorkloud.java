@@ -16,35 +16,33 @@ import kappa.model.MySqlManager;
 public class TestWorkloud {
 
     public static void main(String[] args) {
- 
+
         // Enhält alle Kabel
         CableCoreDataDB ccddb = new CableCoreDataDB();
 
         // Enthält 10 Kabel mit der größten Workloud
         ArrayList<Double> workloud = new ArrayList<Double>();
-        
+
         // Enthält alle Kabel, die in der Datenbank vorhanden sind
         List<String> availibleCableIds = FileTest.getDateiInfo();
         ArrayList<Cable> availibleCables = new ArrayList<Cable>();
 
-        for(String str : availibleCableIds) {
-            if(ccddb.containsKey(str)){
+        for (String str : availibleCableIds) {
+            if (ccddb.containsKey(str)) {
                 availibleCables.add(ccddb.get(str));
             }
         }
         try {
             Connection connection = MySqlManager.getConnection();
 
-            for(int i = 0; i < availibleCables.size(); i++) {
-            
+            for (int i = 0; i < availibleCables.size(); i++) {
 
                 double integral = calculateIntegral(availibleCables.get(i), connection);
-                if(workloud.size() < 11) {
+                if (workloud.size() < 11) {
                     workloud.add(integral);
-                }
-                else {
-                    for(int k = 0; k < workloud.size(); k++) {
-                        if(workloud.get(k) < integral) {
+                } else {
+                    for (int k = 0; k < workloud.size(); k++) {
+                        if (workloud.get(k) < integral) {
                             workloud.remove(k);
                             workloud.add(integral);
                             break;
@@ -56,8 +54,8 @@ public class TestWorkloud {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Done"); 
-        for(Double d : workloud) {
+        System.out.println("Done");
+        for (Double d : workloud) {
             System.out.println(d);
         }
     }
@@ -72,9 +70,8 @@ public class TestWorkloud {
             double sumAmpere = rs.getDouble("SumAmpere");
             double anzahl = rs.getDouble("Anzahl");
             double averageAmpere = sumAmpere / anzahl;
-            workloud = averageAmpere / ampacity  * 100.0;
-        }
-        catch (SQLException e) {
+            workloud = averageAmpere / ampacity * 100.0;
+        } catch (SQLException e) {
             e.printStackTrace();
             return -1;
         }

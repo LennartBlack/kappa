@@ -1,4 +1,4 @@
-package kappa;
+package kappa.loadScripts;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -76,8 +76,9 @@ public class FileTest {
         }
         //schreibeSqlImportsInDatei(sqlImports, "sql_imports.txt");
         //schreibeSqlImportsInDatei(sqlcreatetables, "sqlcreatetables.txt");
-        schreibeSqlImportsInDatei(dropModZwei, "dropModZwei.txt");
+        //schreibeSqlImportsInDatei(dropModZwei, "dropModZwei.txt");
     }
+    @SuppressWarnings("unused")
     private static void schreibeSqlImportsInDatei(List<String> sqlImports, String dateiName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dateiName))) {
             for (String sqlImport : sqlImports) {
@@ -90,6 +91,7 @@ public class FileTest {
         }
     }
 
+    @SuppressWarnings("unused")
     public static List<String> getDateiInfo(){
         List<String> availibleCableIds = new ArrayList<>();
         
@@ -113,8 +115,8 @@ public class FileTest {
                     if (datei.isFile() && datei.getName().endsWith(".csv")) {
                         // Extrahiere Techplatz und Anlage aus dem Dateinamen
                         String dateiName = datei.getName();
-                        String techplatz = dateiName.substring(0, 4); // Annahme: Techplatz besteht aus den ersten 4 Zeichen
-                        String anlage = dateiName.substring(9, 18); // Annahme: Anlage besteht aus den ersten 9 Zeichen
+                        String techplatz = dateiName.substring(0, 4);
+                        String anlage = dateiName.substring(9, 18);
 
                         // Speichere Techplatz und Anlage in einem Array
                         String[] dateiInfo = {techplatz};

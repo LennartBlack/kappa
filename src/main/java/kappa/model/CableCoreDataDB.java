@@ -1,53 +1,41 @@
 package kappa.model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 public class CableCoreDataDB extends HashMap<String, Cable> {
 
     // Constructor
-    public CableCoreDataDB() {
+    public CableCoreDataDB(){
         super();
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/leitungsgebilde.csv"))) {
-            String line = "";
-            String csvSplitBy = ",";
-            reader.readLine();
-            while (line != null && (line = reader.readLine()) != null) {
-                String[] parts = line.split(csvSplitBy);
-                if (parts.length == 10) {
-                    String id = checkAndParse(parts[0]);
-                    String start = checkAndParse(parts[1]);
-                    String end = checkAndParse(parts[2]);
-                    Double resistance = checkAndParseDouble(parts[3]);
-                    Double reactance = checkAndParseDouble(parts[4]);
-                    Double ampacity = checkAndParseDouble(parts[5]);
-                    Double length = checkAndParseDouble(parts[7]);
-                    int yearOfConstruction = checkAndParseInt(parts[8]);
-                    int crossSection = checkAndParseInt(parts[9]);
+        try {
+            Connection connection = MySqlManager.getConnection();
+            String query = "SELECT * FROM coredata;";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                String name = resultSet.getString("name");
+                String start = resultSet.getString("start");
+                String end = resultSet.getString("end");
+                Double resistance = resultSet.getDouble("resistance");
+                Double reactance = resultSet.getDouble("reactance");
+                Double ampacity = resultSet.getDouble("ampacity");
+                Double length = resultSet.getDouble("length");
+                int yearOfConstruction = resultSet.getInt("yearOfConstruction");
+                int crossSection = resultSet.getInt("crossSection");
 
-                    Cable cable = new Cable(id, start, end, resistance, reactance, ampacity, length,
-                            yearOfConstruction, crossSection);
-
-                    this.put(cable.getId(), cable);
-                }
+                Cable cable = new Cable(name, start, end, resistance, reactance, ampacity, length, yearOfConstruction, crossSection);
+                this.put(cable.getId(), cable);
             }
-        } catch (Exception e) {
+        }
+        catch (SQLException e){
             e.printStackTrace();
         }
-    }
-
-
-    // Methods
-    private String checkAndParse(String value) {
-        return (value != null && !value.isEmpty()) ? value : "";
-    }
-
-    private Double checkAndParseDouble(String value) {
-        return (value != null && !value.isEmpty()) ? Double.parseDouble(value) : 0.0;
-    }
-
-    private int checkAndParseInt(String value) {
-        return (value != null && !value.isEmpty()) ? Integer.parseInt(value) : 0;
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

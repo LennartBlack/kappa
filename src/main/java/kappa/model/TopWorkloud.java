@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import kappa.FileTest;
+
+import kappa.loadScripts.FileTest;
 
 public class TopWorkloud extends HashMap<Cable, Double> {
 
@@ -32,16 +33,10 @@ public class TopWorkloud extends HashMap<Cable, Double> {
 
         try {
             this.connection = MySqlManager.getConnection();
-
-            // Für alle Kabel
             determineTopWorkloud();
-
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        for (Map.Entry<Cable, Double> entry : this.entrySet()) {
-            System.out.println("Top workload Cable is: " + entry.getKey().getId() + " with " + entry.getValue());
         }
     }
 
@@ -62,7 +57,7 @@ public class TopWorkloud extends HashMap<Cable, Double> {
             }
         }
     }
-    public double calculateIntegral(Cable cable){
+    private double calculateIntegral(Cable cable){
         double ampacity = cable.getAmpacity();
         double workloud = 0;
         String sql = "Select Count(*) as Anzahl, sum(abs(ampere)) as SumAmpere from " + cable.getId() + ";";
@@ -78,13 +73,5 @@ public class TopWorkloud extends HashMap<Cable, Double> {
             return -1;
         }
         return workloud;
-    }
-    // TODO: Entfernen
-    public void createTopWorkloudGui(){
-        for (Map.Entry<Cable, Double> entry : this.entrySet()) {
-            //entry.getKey() hier hat man das cable
-            //entry.getValue() hier hat man den workloud
-
-        } 
     }
 }

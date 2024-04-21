@@ -58,6 +58,8 @@ public class CableGraphPane extends VBox {
             this.lineChart.getData().add(workloudSeries);
             this.lineChart.setCreateSymbols(false);
             this.getChildren().add(this.lineChart);
+            workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
+
     } catch (SQLException e) {
         e.printStackTrace();
     }

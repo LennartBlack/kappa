@@ -50,6 +50,8 @@ public class TopWorkloadEntryPane extends HBox {
 
         this.cableIdButton.setStyle(Style.getStandardDesign());
         this.cableIdButton.setPadding(Style.getGap());
+        workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
+
     }
     private void addGraphPreview() {
         try{

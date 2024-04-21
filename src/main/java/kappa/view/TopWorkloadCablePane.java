@@ -39,7 +39,7 @@ public class TopWorkloadCablePane extends ScrollPane{
         titleLabel.setAlignment(Pos.CENTER);
         this.topWorkloadVBox.getChildren().add(titleLabel);
 
-        for (Map.Entry<Cable, Double> entry : topWorkloud.entrySet()) {
+        for (Map.Entry<Cable, Double> entry : this.topWorkloud.entrySet()) {
             TopWorkloadEntryPane topWorkloadEntryPane = new TopWorkloadEntryPane(entry.getKey(), entry.getValue());
             this.topWorkloadVBox.getChildren().add(topWorkloadEntryPane);
         }

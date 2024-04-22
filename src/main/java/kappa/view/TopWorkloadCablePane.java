@@ -23,7 +23,7 @@ public class TopWorkloadCablePane extends ScrollPane{
         this.topWorkloadVBox = new VBox();
         this.setContent(this.topWorkloadVBox);
         
-        this.titleLabel = new Label("Top Workload Kabel");
+        this.titleLabel = new Label("Top ausgelastete Kabel");
         this.titleLabel.setPadding(Style.getGap());
         Double previousViewedCablePaneWidth = 0.0;
         if (this.stage.getPreviousViewedCablesPane() != null) {

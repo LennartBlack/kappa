@@ -69,6 +69,7 @@ public class WatchlistEntryPane extends HBox {
     public void createPaneWithNote() {
         this.getChildren().clear();
         this.getChildren().addAll(cableIdButton, removeFromWatchlistButton, lineChart);
+        workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
 
         this.noteLabel.setText(watchlistElement.getNote());
         this.getChildren().addAll(editDeletevBox, noteLabel);
@@ -76,12 +77,14 @@ public class WatchlistEntryPane extends HBox {
     public void createPaneWithoutNote() {
         this.getChildren().clear();
         this.getChildren().addAll(cableIdButton, removeFromWatchlistButton, lineChart);
+        workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
 
         this.getChildren().add(addNoteButton);
     }
     public void createEditNotePane() {
         this.getChildren().clear();
         this.getChildren().addAll(cableIdButton, removeFromWatchlistButton, lineChart);
+        workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
   
         this.noteTextField.setText(watchlistElement.getNote());
         this.getChildren().addAll(saveNoteButton, noteTextField);
@@ -135,7 +138,7 @@ public class WatchlistEntryPane extends HBox {
             this.lineChart.setCreateSymbols(false);
             this.getChildren().add(this.lineChart);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Fehler beim Erstellen des Graphen.");
         }
     }
     private void mapData(ResultSet resultSet) {
@@ -149,7 +152,7 @@ public class WatchlistEntryPane extends HBox {
                 count++;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Fehler beim Mappen der Daten.");
         }
     }
     private void createChart(){
@@ -186,6 +189,7 @@ public class WatchlistEntryPane extends HBox {
             this.workloudData.put(dateTime, workloud);
         }
         catch (SQLException e) {
+            System.out.println("Fehler beim Hinzufügen der Daten zum Graphen.");
             e.printStackTrace();
         }
     }

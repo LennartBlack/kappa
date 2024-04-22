@@ -68,10 +68,15 @@ public class WatchlistPane extends ScrollPane {
             if (this.stage.getPreviousViewedCablesPane() != null) {
                 previousViewedCablePaneWidth = this.stage.getPreviousViewedCablesPane().getWidth();
             }
-            if (this.stage.isPreviousViewedCablesPaneVisible()) {
+            /*if (this.stage.isPreviousViewedCablesPaneVisible()) {
                 titleLabel.setPrefWidth(998);
             } else {
                 titleLabel.setPrefWidth(this.stage.getWidth() - previousViewedCablePaneWidth - 19);
+            }*/
+            if (this.stage.isPreviousViewedCablesPaneVisible()) {
+                titleLabel.setPrefWidth(1400);
+            } else {
+                titleLabel.setPrefWidth(1380);
             }
 
             titleLabel.setStyle(Style.getStandardDesign());

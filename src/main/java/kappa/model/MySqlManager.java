@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 public class MySqlManager {
 
+    // Attributes
     private static final String URL = "jdbc:mysql://localhost:3306/kappa";
     private static final String USER = "root";
     private static final String PASSWORD = "1234";
@@ -19,28 +20,20 @@ public class MySqlManager {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final LocalDateTime END_DATE_OF_RECORDING_LDT = LocalDateTime.parse(END_DATE_OF_RECORDING_STR, formatter);
 
-
-
     // Constructor
     private MySqlManager() {
     }
 
-    /**
-     * Builds a SQL-Query for the given calbelId
-     * @param calbelId
-     * @return
-     */
+    // Methods
     public static String buildQuery(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + ";";
     }
     public static String buildQueryStartOfRecords(String calbelId){
         return "SELECT date FROM " + calbelId + " ORDER BY date ASC LIMIT 1;";
     }
-
     public static String buildQueryEndOfRecords(String calbelId){
         return "SELECT date FROM " + calbelId + " ORDER BY date DESC LIMIT 1;";
     }
-
     public static String buildQueryBetweenDates(String calbelId, String startDate, String endDate){
         return "SELECT date, ampere FROM " + calbelId + " WHERE date > '" + startDate + "' AND date < '" + endDate + "';";
     }
@@ -51,7 +44,7 @@ public class MySqlManager {
     }
     public static String buildQueryLastTenDays(String calbelId){
         return "SELECT date, ampere FROM " + calbelId +
-        "WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusDays(10).toString() + "' " + 
+        " WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusDays(10).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
     public static String buildQueryLastThreeMonths(String calbelId){
@@ -62,21 +55,20 @@ public class MySqlManager {
     }
     public static String buildQueryLastSixMonths(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + 
-        "WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(6).toString() + "' " + 
+        " WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(6).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
     public static String buildQueryLastNineMonths(String calbelId){
         return "SELECT date, ampere " +
         "FROM " + calbelId +
-        "WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(9).toString() + "' " + 
+        " WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(9).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
     public static String buildQueryLastTwelveMonths(String calbelId){
         return "SELECT date, ampere FROM " + calbelId +
-        "WHERE date > '" + START_DATE_OF_RECORDING_STR + "' " + 
+        " WHERE date > '" + START_DATE_OF_RECORDING_STR + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
-
     public static String buildQueryFullRecordTime(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + " WHERE date >= '" + START_DATE_OF_RECORDING_STR + "' AND date <='" + END_DATE_OF_RECORDING_STR + "';" ;
     }
@@ -121,9 +113,7 @@ public class MySqlManager {
     public static Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-
             return connection;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

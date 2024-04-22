@@ -153,7 +153,7 @@ public class Controller {
     /**
      * This method validates the user input to search for a cable
      * 
-     * @param input
+     * @param input user input to be validated as a form of a cable id
      * @return true if the input matches the pattern, false otherwise
      */
     private boolean validateInput(String input) {

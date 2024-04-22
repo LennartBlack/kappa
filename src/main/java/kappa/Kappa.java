@@ -20,10 +20,8 @@ public class Kappa extends Application {
         Watchlist watchlist = Watchlist.deserializeHashMap(cableCoreDataDB);
         TopWorkloud topWorkloud = new TopWorkloud(cableCoreDataDB);
         KappaStage stage = new KappaStage(cableCoreDataDB, watchlist, topWorkloud);
-        stage.showSignInScene();
-
-        // TODO: Controller muss TopWorkloud übergeben bekommen und entsprechende Handler implementieren
         new Controller(stage, cableCoreDataDB, watchlist);
+        stage.showSignInScene();
     }
 
     public void newSession() {

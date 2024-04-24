@@ -8,8 +8,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 
-public class TopWorkloadCablePane extends ScrollPane{
-    
+public class TopWorkloadCablePane extends ScrollPane {
+
     // Attributes
     private TopWorkloud topWorkloud;
     private VBox topWorkloadVBox;
@@ -22,7 +22,7 @@ public class TopWorkloadCablePane extends ScrollPane{
         this.topWorkloud = topWorkloud;
         this.topWorkloadVBox = new VBox();
         this.setContent(this.topWorkloadVBox);
-        
+
         this.titleLabel = new Label("Top ausgelastete Kabel");
         this.titleLabel.setPadding(Style.getGap());
         Double previousViewedCablePaneWidth = 0.0;
@@ -45,7 +45,10 @@ public class TopWorkloadCablePane extends ScrollPane{
         }
     }
 
-
     // Getter
+
+    public VBox getTopWorkloadVBox() {
+        return topWorkloadVBox;
+    }
 
 }

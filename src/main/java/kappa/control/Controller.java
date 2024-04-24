@@ -11,6 +11,7 @@ import kappa.model.Watchlist;
 import kappa.utils.Hash;
 import kappa.view.KappaStage;
 import kappa.view.PreviousViewedCablesPane;
+import kappa.view.TopWorkloadEntryPane;
 import kappa.view.WatchlistEntryPane;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
@@ -364,11 +365,16 @@ public class Controller {
     }
 
     private void topWorkloadCableHandling() {
-        this.stage.getTopWorkloadCablePane().getTopWorkloadCableButton().setOnAction(e -> {
-            Cable cable = this.cableCoreDataDB.getTopWorkloadCable();
-            updatePreviousViewedCables(cable);
-            this.stage.showCablePane(cable);
-            addGraphActionPaneEventHandlers(cable);
-        });
+        //for (int i = 0; i < this.stage.getWatchlistPane().getWatchlistVBox().getChildren().size(); i++) {
+        for (int i = 0; i < this.stage.getTopWorkloadCablePane().getTopWorkloadVBox().getChildren().size(); i++) {
+            if (this.stage.getWatchlistPane().getWatchlistVBox().getChildren().get(i) instanceof TopWorkloadEntryPane) {
+                TopWorkloadEntryPane topWorkloadEntryPane = (TopWorkloadEntryPane) this.stage.getTopWorkloadCablePane().getTopWorkloadVBox().getChildren().get(i);
+                topWorkloadEntryPane.getCableIdButton().setOnAction(e ->{
+                    Cable cable = cableCoreDataDB.get(topWorkloadEntryPane.getCable().getId());
+                    updatePreviousViewedCables(cable);
+                    this.stage.showCablePane(cable);
+                    addGraphActionPaneEventHandlers(cable);
+                });
+        }
     }
 }

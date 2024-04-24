@@ -12,6 +12,8 @@ public class Style {
     private static final String STANDARD_DESIGN = "-fx-background-color:" + EWE_BLUE
             + "; -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: " + EWE_GREEN + ";";
 
+    private static final String GRAPH_COLOR = "-fx-stroke: " + EWE_BLUE + ";";
+
     private static final Insets GAP = new Insets(5);
 
     public static String getEweBlue() {
@@ -32,6 +34,10 @@ public class Style {
 
     public static Insets getGap() {
         return GAP;
+    }
+
+    public static String getGraphColor() {
+        return GRAPH_COLOR;
     }
 
 }

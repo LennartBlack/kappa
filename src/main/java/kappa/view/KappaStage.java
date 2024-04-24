@@ -148,4 +148,7 @@ public class KappaStage extends Stage {
         return watchlist;
     }
 
+    public TopWorkloadCablePane getTopWorkloadCablePane() {
+        return topWorkloadCablePane;
+    }
 }

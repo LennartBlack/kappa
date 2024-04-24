@@ -29,32 +29,33 @@ public class TopWorkloadEntryPane extends HBox {
     // Constructor
     public TopWorkloadEntryPane(Cable cable, double workload) {
         this.cable = cable;
-        
+
         this.cableIdButton = new Button(this.cable.getId());
         Integer roundedWorkload = (int) Math.round(workload);
         this.workloadLabel = new Label("Auslastung: " + roundedWorkload + "%");
 
         this.getChildren().addAll(this.cableIdButton, this.workloadLabel);
-        
+
         addGraphPreview();
         setStyle();
     }
-    
+
     // Methods
     private void setStyle() {
         this.setPadding(Style.getGap());
         WatchlistEntryPane.setMargin(cableIdButton, Style.getGap());
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPrefHeight(120);
-        //this.setStyle("-fx-border-color: #5A5F5F;");
+        // this.setStyle("-fx-border-color: #5A5F5F;");
 
         this.cableIdButton.setStyle(Style.getStandardDesign());
         this.cableIdButton.setPadding(Style.getGap());
         workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
 
     }
+
     private void addGraphPreview() {
-        try{
+        try {
             MySqlManager.getConnection();
             String query = MySqlManager.buildQuery(this.cable.getId());
             ResultSet rs = MySqlManager.executeQuery(query);
@@ -67,8 +68,9 @@ public class TopWorkloadEntryPane extends HBox {
             e.printStackTrace();
         }
     }
+
     private void mapData(ResultSet resultSet) {
-        try{
+        try {
             this.workloudData = new TreeMap<>();
             int count = 1; // Zählvariable für den Index des Ergebnis-Sets
             while (resultSet.next()) {
@@ -81,24 +83,25 @@ public class TopWorkloadEntryPane extends HBox {
             e.printStackTrace();
         }
     }
-    private void addResultSetElementToMap(ResultSet resultSet){
-        try{
+
+    private void addResultSetElementToMap(ResultSet resultSet) {
+        try {
             double cableAmpacity = this.cable.getAmpacity();
             LocalDateTime dateTime = resultSet.getTimestamp("date").toLocalDateTime();
             double workloud = resultSet.getDouble("ampere") / cableAmpacity * 100.0;
-            if(workloud < 0.0){
+            if (workloud < 0.0) {
                 workloud = workloud * -1;
             }
             this.workloudData.put(dateTime, workloud);
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    private void createGraph(){
+
+    private void createGraph() {
         this.workloudSeries = new XYChart.Series<>();
         this.workloudSeries.setName("prozentuale Auslastung");
-        
+
         // Create Chart Axis
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -111,16 +114,20 @@ public class TopWorkloadEntryPane extends HBox {
         // Create LineChart
         this.lineChart = new LineChart<>(xAxis, yAxis);
         this.lineChart.setLegendVisible(false);
-        
+
         // Add Workload Data to Chart
         for (Map.Entry<LocalDateTime, Double> entry : this.workloudData.entrySet()) {
             XYChart.Data<String, Number> data = new XYChart.Data<>(entry.getKey().toString(), entry.getValue());
             this.workloudSeries.getData().add(data);
         }
     }
-    
+
     // Getter
     public Button getCableIdButton() {
         return cableIdButton;
+    }
+
+    public Cable getCable() {
+        return this.cable;
     }
 }

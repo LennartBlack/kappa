@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
-public class Watchlist extends HashMap<String, WatchlistElement>{
+public class Watchlist extends HashMap<String, WatchlistElement> {
 
     // Attributes
     private static final long serialVersionUID = 1L;
@@ -41,9 +41,10 @@ public class Watchlist extends HashMap<String, WatchlistElement>{
     public boolean containsCable(Cable cable) {
         return this.containsKey(cable.getId());
     }
-    
+
     /**
      * Serialize the watchlist to a file
+     * 
      * @param watchlist
      */
     public static void serializeHashMap(Watchlist watchlist) {
@@ -57,8 +58,10 @@ public class Watchlist extends HashMap<String, WatchlistElement>{
 
     /**
      * Deserialize the watchlist from a file
+     * 
      * @param cableCoreDataDB
-     * @return
+     * @return watchlist with all its elements or an empty watchlist if the file
+     *         does not exist or is empty
      */
     public static Watchlist deserializeHashMap(CableCoreDataDB cableCoreDataDB) {
         Watchlist watchlist = new Watchlist(cableCoreDataDB);

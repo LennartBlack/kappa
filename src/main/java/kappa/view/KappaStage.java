@@ -44,13 +44,14 @@ public class KappaStage extends Stage {
     }
 
     // Methods
-    
+
     public void showSignInScene() {
         this.signInScene = new Scene(this.signInPane, 300, 450);
         this.setTitle("Kappa - Anmeldung");
         this.setScene(signInScene);
         this.show();
     }
+
     public void showSignInSceneAfterLogout() {
         if (getSignInPane().isLogininFaildMessageVisible()) {
             getSignInPane().removeLoginFailedMessage();
@@ -59,31 +60,37 @@ public class KappaStage extends Stage {
         this.setScene(this.signInScene);
         this.show();
     }
+
     public void showCablePane(Cable cable) {
         this.cablePane = new CablePane(cable, watchlist);
         this.kappaPane.setCenter(cablePane);
         this.kappaPane.setLeft(this.previousViewedCablesPane);
         updateKappa("Kappa - Kabel Detailansicht " + cable.getId());
     }
+
     public void showCableWithTopWorkloudScene() {
         this.topWorkloadCablePane = new TopWorkloadCablePane(this.topWorkload, this);
         this.kappaPane.setCenter(topWorkloadCablePane);
         updateKappa("Kappa - Kabel mit höchster Auslastung");
     }
+
     public void showHomeScene() {
         this.homePane = new HomePane();
         this.kappaPane.setCenter(homePane);
         updateKappa("Kappa - Willkommen");
     }
+
     public void showHelpScene() {
         this.helpPane = new HelpPane();
         this.kappaPane.setCenter(helpPane.getvBoxHelpLayout());
         updateKappa("Kappa - Hilfe");
     }
+
     public void showWatchlistScene(CableCoreDataDB cableCoreDataDB) {
         this.kappaPane.setCenter(watchlistPane);
         updateKappa("Kappa - Merkliste");
     }
+
     /**
      * This method updates the primary stage with a new title and scene
      * It is meant to use after updating the KappaScene
@@ -104,30 +111,39 @@ public class KappaStage extends Stage {
         }
         return false;
     }
+
     private Scene getKappaScene() {
         return this.kappeScene;
     }
+
     public SignInPane getSignInPane() {
         return this.signInPane;
     }
+
     public HomePane getHomePane() {
         return this.homePane;
     }
+
     public MenuPane getMenuPane() {
         return this.menuPane;
     }
+
     public CablePane getCablePane() {
         return this.cablePane;
     }
+
     public WatchlistPane getWatchlistPane() {
         return this.watchlistPane;
     }
+
     public BorderPane getKappaPane() {
         return this.kappaPane;
     }
+
     public PreviousViewedCablesPane getPreviousViewedCablesPane() {
         return previousViewedCablesPane;
     }
+
     public Watchlist getWatchlist() {
         return watchlist;
     }

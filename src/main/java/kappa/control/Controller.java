@@ -36,6 +36,7 @@ public class Controller {
         handleSignInScene();
         setSceneBuilderActions();
         handleCableSearch();
+        topWorkloadCableHandling();
 
     }
 
@@ -128,6 +129,8 @@ public class Controller {
      * 
      * @throws Exception if the cable is not found and shakes the InputField
      */
+    <
+
     private void searchCable() {
         try {
             String input = this.stage.getMenuPane().getSearchCableTextField().getText();
@@ -358,5 +361,14 @@ public class Controller {
      */
     private boolean validateUser(String username, String hashedPasswordInput) {
         return username.equals(User.getUsername()) && hashedPasswordInput.equals(User.getPasswort());
+    }
+
+    private void topWorkloadCableHandling() {
+        this.stage.getTopWorkloadCablePane().getTopWorkloadCableButton().setOnAction(e -> {
+            Cable cable = this.cableCoreDataDB.getTopWorkloadCable();
+            updatePreviousViewedCables(cable);
+            this.stage.showCablePane(cable);
+            addGraphActionPaneEventHandlers(cable);
+        });
     }
 }

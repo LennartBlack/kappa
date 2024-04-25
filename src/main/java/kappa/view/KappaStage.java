@@ -35,6 +35,7 @@ public class KappaStage extends Stage {
         this.watchlist = watchlist;
         this.kappaPane = new BorderPane();
         this.watchlistPane = new WatchlistPane(this.cableCoreDataDB, this);
+        this.topWorkloadCablePane = new TopWorkloadCablePane(this.topWorkload, this);
         this.kappaPane.setStyle("-fx-background-color:  white;");
         this.kappaPane.setTop(this.menuPane = new MenuPane());
         this.previousViewedCablesPane = new PreviousViewedCablesPane();
@@ -69,7 +70,6 @@ public class KappaStage extends Stage {
     }
 
     public void showCableWithTopWorkloudScene() {
-        this.topWorkloadCablePane = new TopWorkloadCablePane(this.topWorkload, this);
         this.kappaPane.setCenter(topWorkloadCablePane);
         updateKappa("Kappa - Kabel mit höchster Auslastung");
     }

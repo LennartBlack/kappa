@@ -46,7 +46,6 @@ public class TopWorkloadEntryPane extends HBox {
         WatchlistEntryPane.setMargin(cableIdButton, Style.getGap());
         this.setAlignment(Pos.CENTER_LEFT);
         this.setPrefHeight(120);
-        // this.setStyle("-fx-border-color: #5A5F5F;");
 
         this.cableIdButton.setStyle(Style.getStandardDesign());
         this.cableIdButton.setPadding(Style.getGap());

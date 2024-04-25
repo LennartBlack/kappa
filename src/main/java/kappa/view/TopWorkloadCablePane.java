@@ -25,14 +25,10 @@ public class TopWorkloadCablePane extends ScrollPane {
 
         this.titleLabel = new Label("Top ausgelastete Kabel");
         this.titleLabel.setPadding(Style.getGap());
-        Double previousViewedCablePaneWidth = 0.0;
-        if (this.stage.getPreviousViewedCablesPane() != null) {
-            previousViewedCablePaneWidth = this.stage.getPreviousViewedCablesPane().getWidth();
-        }
         if (this.stage.isPreviousViewedCablesPaneVisible()) {
-            titleLabel.setPrefWidth(998);
+            titleLabel.setPrefWidth(928);
         } else {
-            titleLabel.setPrefWidth(this.stage.getWidth() - previousViewedCablePaneWidth - 19);
+            titleLabel.setPrefWidth(1000);
         }
 
         titleLabel.setStyle(Style.getStandardDesign());
@@ -46,9 +42,7 @@ public class TopWorkloadCablePane extends ScrollPane {
     }
 
     // Getter
-
     public VBox getTopWorkloadVBox() {
         return topWorkloadVBox;
     }
-
 }

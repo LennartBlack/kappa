@@ -130,8 +130,6 @@ public class Controller {
      * 
      * @throws Exception if the cable is not found and shakes the InputField
      */
-    <
-
     private void searchCable() {
         try {
             String input = this.stage.getMenuPane().getSearchCableTextField().getText();
@@ -365,9 +363,9 @@ public class Controller {
     }
 
     private void topWorkloadCableHandling() {
-        //for (int i = 0; i < this.stage.getWatchlistPane().getWatchlistVBox().getChildren().size(); i++) {
-        for (int i = 0; i < this.stage.getTopWorkloadCablePane().getTopWorkloadVBox().getChildren().size(); i++) {
-            if (this.stage.getWatchlistPane().getWatchlistVBox().getChildren().get(i) instanceof TopWorkloadEntryPane) {
+        
+        for (int i = 0; i < (this.stage.getTopWorkloadCablePane().getTopWorkloadVBox().getChildren().size()); i++) {
+            if (this.stage.getTopWorkloadCablePane().getTopWorkloadVBox().getChildren().get(i) instanceof TopWorkloadEntryPane) {
                 TopWorkloadEntryPane topWorkloadEntryPane = (TopWorkloadEntryPane) this.stage.getTopWorkloadCablePane().getTopWorkloadVBox().getChildren().get(i);
                 topWorkloadEntryPane.getCableIdButton().setOnAction(e ->{
                     Cable cable = cableCoreDataDB.get(topWorkloadEntryPane.getCable().getId());
@@ -375,6 +373,7 @@ public class Controller {
                     this.stage.showCablePane(cable);
                     addGraphActionPaneEventHandlers(cable);
                 });
+            }
         }
     }
 }

@@ -64,15 +64,6 @@ public class WatchlistPane extends ScrollPane {
             watchlistVBox.getChildren().clear();
             titleLabel = new Label("Merkliste");
             titleLabel.setPadding(Style.getGap());
-            Double previousViewedCablePaneWidth = 0.0;
-            if (this.stage.getPreviousViewedCablesPane() != null) {
-                previousViewedCablePaneWidth = this.stage.getPreviousViewedCablesPane().getWidth();
-            }
-            /*if (this.stage.isPreviousViewedCablesPaneVisible()) {
-                titleLabel.setPrefWidth(998);
-            } else {
-                titleLabel.setPrefWidth(this.stage.getWidth() - previousViewedCablePaneWidth - 19);
-            }*/
             if (this.stage.isPreviousViewedCablesPaneVisible()) {
                 titleLabel.setPrefWidth(1400);
             } else {

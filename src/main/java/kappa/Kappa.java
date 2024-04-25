@@ -30,8 +30,6 @@ public class Kappa extends Application {
         TopWorkloud topWorkloud = new TopWorkloud(cableCoreDataDB);
         KappaStage newStage = new KappaStage(cableCoreDataDB, watchlist, topWorkloud);
         newStage.showHomeScene();
-
-        // TODO: Controller muss TopWorkloud übergeben bekommen und entsprechende Handler implementieren
         new Controller(newStage, cableCoreDataDB, watchlist);
     }
 }

@@ -43,39 +43,76 @@ public class Cable implements Serializable {
         this.crossSection = crossSection;
     }
 
+    
+    // Getter
+    /**
+     * Constructor for the Cable class
+     * @return
+     */
     public String getId() {
         return this.id;
     }
 
-    // Getter
+    /**
+     * Getter for the start attribute
+     * @return
+     */
     public String getStart() {
         return start;
     }
 
+    /**
+     * Getter for the end attribute
+     * @return
+     */
     public String getEnd() {
         return end;
     }
 
+    /**
+     * Getter for the resistance attribute
+     * @return
+     */
     public Double getResistance() {
         return resistance;
     }
 
+    /**
+     * Getter for the reactance attribute
+     * @return
+     */
     public Double getReactance() {
         return reactance;
     }
 
+    /**
+     * Getter for the ampacity attribute
+     * @return
+     */
     public Double getAmpacity() {
         return ampacity;
     }
 
+    /**
+     * Getter for the length attribute
+     * @return
+     */
     public Double getLength() {
         return length;
     }
 
+    /**
+     * Getter for the yearOfConstruction attribute
+     * @return
+     */
     public int getYearOfConstruction() {
         return yearOfConstruction;
     }
 
+    /**
+     * Getter for the crossSection attribute
+     * @return
+     */
     public int getCrossSection() {
         return crossSection;
     }

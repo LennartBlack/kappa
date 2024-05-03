@@ -21,7 +21,9 @@ public class MenuPane extends Region {
     private ImageView searchCableIcon;
     private Button searchCableButton;
 
-    // Constructor
+    /**
+     * Constructor for the MenuPane class
+     */
     public MenuPane() {
         this.flowPane = new FlowPane();
         this.hBox = new HBox();
@@ -34,6 +36,10 @@ public class MenuPane extends Region {
         getSearchCableTextField().requestFocus();
     }
 
+    /**
+     * Creates the toolbar for the menu pane
+     * @return
+     */
     private ToolBar createToolbar() {
         this.searchCableTextField = new TextField();
         searchCableTextField.setPromptText("Kabel suchen");
@@ -93,34 +99,66 @@ public class MenuPane extends Region {
     }
 
     // Getter
+    /**
+     * Getter for the helpButton attribute
+     * @return
+     */
     public Button getHelpButton() {
         return this.helpButton;
     }
 
+    /**
+     * Getter for the topWorkloadCableButton attribute
+     * @return
+     */
     public Button getTopWorkloadCableButton() {
         return topWorkloadCableButton;
     }
 
+    /**
+     * Getter for the watchlistButton attribute
+     * @return
+     */
     public Button getWatchlistButton() {
         return watchlistButton;
     }
 
+    /**
+     * Getter for the openNewWindow attribute
+     * @return
+     */
     public Button getOpenNewWindow() {
         return openNewWindow;
     }
 
+    /**
+     * Getter for the logOffButton attribute
+     * @return
+     */
     public Button getLogOffButton() {
         return logOffButton;
     }
 
+    /**
+     * Getter for the searchCableButton attribute
+     * @return
+     */
     public Button getSearchCableButton() {
         return searchCableButton;
     }
 
+    /**
+     * Getter for the searchCableTextField attribute
+     * @return
+     */
     public TextField getSearchCableTextField() {
         return searchCableTextField;
     }
 
+    /**
+     * Getter for the searchCableIcon attribute
+     * @return
+     */
     public ImageView getMagnifierIcon() {
         return searchCableIcon;
     }

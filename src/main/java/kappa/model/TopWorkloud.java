@@ -15,7 +15,10 @@ public class TopWorkloud extends HashMap<Cable, Double> {
     private final ArrayList<Cable> availibleCables = new ArrayList<Cable>();
     private Connection connection;
 
-    // Constructor
+    /**
+     * Constructor for the TopWorkloud class
+     * @param ccddb
+     */
     public TopWorkloud(CableCoreDataDB ccddb) {
         this.ccddb = ccddb;
 
@@ -68,6 +71,11 @@ public class TopWorkloud extends HashMap<Cable, Double> {
             }
         }
     }
+    /**
+     * Calculates the integral of a cable
+     * @param cable
+     * @return
+     */
     private double calculateIntegral(Cable cable){
         double ampacity = cable.getAmpacity();
         double workloud = 0;

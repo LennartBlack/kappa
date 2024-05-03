@@ -13,25 +13,21 @@ X
 (src/main/java/kappa/view/SignInPane.java,9\4\9431c49ccde3fa48f988348a2120874696706773
 [
 +src/main/java/kappa/control/Controller.java,3\3\3328cf0949d088aa4246bb88c7528ae08e9b8514
-Z
-*src/main/java/kappa/MainWithoutVMArgs.java,c\6\c603731d51fef52416fe5300327ca64cb4d6dfbc
 N
 src/main/java/module-info.java,1\c\1c89a5491fbfda3fb050196d6a239f20200296e7
-[
-+src/main/java/kappa/utils/Authenticate.java,4\0\40a94d455423e4478c110590772a04535c4f821a
 c
 3src/main/java/kappa/utils/BuildStringFromBytes.java,5\d\5d482b4144c360a3fee3786e5853c48e889ffab0
 S
 #src/main/java/kappa/utils/Hash.java,7\e\7ebc753d331ed6d06b0a0aa5b14b679dab2cea0d
 S
 #src/main/java/kappa/model/User.java,b\1\b1ea05143b3dc27dfa3715aa7e4a276a02251095
-T
-$src/main/java/kappa/model/Admin.java,7\0\7008f06ede3ce7b52bc838fe28d1c3338fd0382c
 X
 (src/main/java/kappa/model/Watchlist.java,6\d\6d642b06490caa7ce4d45d940a7fca28e895261a
 [
 +src/main/java/kappa/view/WatchlistPane.java,b\4\b4098dca72ad7fe3821634b619ba53bca937aad8
 M
 src/main/java/kappa/test.java,0\8\08c193ae6de5d9d161b36bbe085708a842012738
-]
--src/main/java/kappa/model/InfluxDBManger.java,c\6\c6c914119cae43757f27930e4f6b30b97324ba33
+N
+src/main/java/kappa/Kappa.java,a\1\a1513b851fc86f6d833f2173f427601a2f1b1988
+[
++src/main/java/kappa/model/MySqlManager.java,e\3\e376950a1fc854d5f19a6299345b7c0d6fc28679

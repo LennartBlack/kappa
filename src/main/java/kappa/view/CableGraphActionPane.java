@@ -29,7 +29,11 @@ public class CableGraphActionPane extends VBox {
     private Watchlist watchlist;
     
 
-    // Constructor
+    /**
+     * Constructor for the CableGraphActionPane class
+     * @param cable
+     * @param watchlist
+     */
     public CableGraphActionPane(Cable cable, Watchlist watchlist) {
         this.watchlist = watchlist;
         this.periodPane = new HBox();
@@ -104,6 +108,9 @@ public class CableGraphActionPane extends VBox {
     }
 
     // Methods
+    /**
+     * Method to style the CableGraphActionPane
+     */
     private void style() {
         CableGraphActionPane.setMargin(periodPane, Style.getGap());
         CableGraphActionPane.setMargin(resetGraphButtonPaneBox, Style.getGap());
@@ -113,6 +120,10 @@ public class CableGraphActionPane extends VBox {
         CableGraphActionPane.setMargin(removeFromWatchlistButton, Style.getGap());
         CableGraphActionPane.setMargin(watchlistButtonPane, Style.getGap());
     }
+    /**
+     * Method to update the watchlist buttons
+     * @param cable
+     */
     public void updateWatchlistButtons(Cable cable) {
         if(this.watchlist.containsCable(cable)) {
             watchlistButtonPane.getChildren().add(this.removeFromWatchlistButton);
@@ -123,33 +134,73 @@ public class CableGraphActionPane extends VBox {
         }
     }
     // Getter
+    /**
+     * Getter for the addToWatchlistButton attribute
+     * @return
+     */
     public Button getAddToWatchlistButton() {
         return this.addToWatchlistButton;
     }
+    /**
+     *  Getter for the removeFromWatchlistButton attribute
+     * @return
+     */
     public Button getRemoveFromWatchlistButton() {
         return this.removeFromWatchlistButton;
     }
+    /**
+     * Getter for the fullRecordTime attribute
+     * @return
+     */
     public Button getFullRecordTime() {
         return fullRecordTime;
     }
+    /**
+     * Getter for the previousPeriod attribute
+     * @return
+     */
     public Button getPreviousPeriod() {
         return previousPeriod;
     }
+    /**
+     * Getter for the nextPeriod attribute
+     * @return
+     */
     public Button getNextPeriod() {
         return nextPeriod;
     }
+    /**
+     * Getter for the fiveDaysButton attribute
+     * @return
+     */
     public Button getFiveDaysButton(){
         return this.fiveDaysButton;
     }
+    /**
+     *  Getter for the tenDaysButton attribute
+     * @return
+     */
     public Button getTenDaysButton(){
         return this.tenDaysButton;
     }
+    /**
+     * Getter for the oneMonthButton attribute
+     * @return
+     */
     public Button getOneMonthButton(){
         return this.oneMonthButton;
     }
+    /**
+     * Getter for the threeMonthsButton attribute
+     * @return
+     */
     public Button getThreeMonthButton(){
         return this.threeMonthsButton;
     }
+    /**
+     * Getter for the sixMonthsButton attribute
+     * @return
+     */
     public Button getSixMonthButton(){
         return this.sixMonthsButton;
     }

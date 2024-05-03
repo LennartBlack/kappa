@@ -26,7 +26,9 @@ public class Controller {
     private CableCoreDataDB cableCoreDataDB;
     private Watchlist watchlist;
 
-    // Constructor
+    /**
+     * Constructor for the Controller
+     */
     public Controller(KappaStage stage, CableCoreDataDB cableCoreDataDB, Watchlist watchlist) {
         this.stage = stage;
         this.cableCoreDataDB = cableCoreDataDB;
@@ -362,6 +364,9 @@ public class Controller {
         return username.equals(User.getUsername()) && hashedPasswordInput.equals(User.getPasswort());
     }
 
+    /**
+     * This method adds the Eventhandlers for the topWorkloadCablePane
+     */
     private void topWorkloadCableHandling() {
         
         for (int i = 0; i < (this.stage.getTopWorkloadCablePane().getTopWorkloadVBox().getChildren().size()); i++) {

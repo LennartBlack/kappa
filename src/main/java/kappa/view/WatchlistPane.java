@@ -19,7 +19,11 @@ public class WatchlistPane extends ScrollPane {
     private CableCoreDataDB cableCoreDataDB;
     private Label titleLabel;
 
-    // Constructor
+    /**
+     * Constructor for the WatchlistPane class
+     * @param cableCoreDataDB
+     * @param primaryStage
+     */
     public WatchlistPane(CableCoreDataDB cableCoreDataDB, KappaStage primaryStage) {
         this.stage = primaryStage;
         this.cableCoreDataDB = cableCoreDataDB;
@@ -85,6 +89,10 @@ public class WatchlistPane extends ScrollPane {
     }
 
     // Getter
+    /**
+     * Getter for the watchlistVBox attribute
+     * @return
+     */
     public VBox getWatchlistVBox() {
         return this.watchlistVBox;
     }

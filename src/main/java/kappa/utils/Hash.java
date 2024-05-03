@@ -9,6 +9,12 @@ public class Hash {
     }
 
     // Methods
+    /**
+     * Method to hash a value
+     * @param value
+     * @return
+     * @throws NoSuchAlgorithmException
+     */
     public static String hash(String value) throws NoSuchAlgorithmException{
         String algorithm = "SHA-256";
         MessageDigest digest = MessageDigest.getInstance(algorithm);

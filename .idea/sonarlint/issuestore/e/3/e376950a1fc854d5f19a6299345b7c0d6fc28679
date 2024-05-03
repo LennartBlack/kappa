@@ -1,0 +1,19 @@
+
+p
+java:S1192"ZDefine a constant instead of duplicating this literal "SELECT date, ampere FROM " 7 times.(İ‹ãô
+c
+java:S1192+"MDefine a constant instead of duplicating this literal "AND date < '" 6 times.(‚©Í»
+f
+java:S1192&"PDefine a constant instead of duplicating this literal " WHERE date > '" 7 times.(°•âù
+x
+java:S1488s"bImmediately return this expression instead of assigning it to the temporary variable "connection".(ËÒôÙ
+b
+java:S2259S"LA "NullPointerException" could be thrown; "getConnection()" can return null.(ÕİÏÂ
+e
+java:S2095S"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ÕİÏÂ
+e
+java:S2095a"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(­è¹×
+[
+java:S2147w"ECombine this catch with the one at line 117, which has the same body.(É®£
+L
+java:S6437s"6Revoke and change this password, as it is compromised.(ËÒôÙ

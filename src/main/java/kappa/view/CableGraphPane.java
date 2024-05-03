@@ -148,6 +148,9 @@ public class CableGraphPane extends VBox {
         }
         
     }
+    /**
+     * Styles the LineChart
+     */
     private void style(){
         this.workloudSeries.setName("prozentuale Auslastung");
         xAxis.setLabel("Zeit mit der Ausschnittgröße: " + this.period + " vom " + this.currentStartDateToVisualize + " bis zum " + this.currentEndDateToVisualize);
@@ -158,6 +161,9 @@ public class CableGraphPane extends VBox {
         
     }
 
+    /**
+     *  Shows the previous period
+     */
     public void showPrevPeriod() {
         switch (period) {
             case "5 Tage":
@@ -210,6 +216,9 @@ public class CableGraphPane extends VBox {
 
     }
 
+    /**
+     * Shows the next period
+     */
     public void showNxtPerioud() {
         switch (period) {
             case "5 days":
@@ -261,6 +270,11 @@ public class CableGraphPane extends VBox {
         showGraphBetweenDates(currentStartDate, currentEndDate);
     }
 
+    /**
+     * Shows the graph for the last 5 days
+     * @param startDate
+     * @param endDate
+     */
     private void showGraphBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         String query = MySqlManager.buildQueryBetweenDates(cable.getId(), startDate.toString(), endDate.toString());
         ResultSet resultSet = MySqlManager.executeQuery(query);
@@ -268,6 +282,9 @@ public class CableGraphPane extends VBox {
         workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
     }
 
+    /**
+     * Shows the graph for the last 5 days
+     */
     public void showMaxPeriod() {
         this.lineChart.getData().clear();
         String query = MySqlManager.buildQueryFullRecordTime(this.cable.getId());
@@ -281,6 +298,10 @@ public class CableGraphPane extends VBox {
         workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
     }
 
+    /**
+     * Shows the graph for the last 5 days
+     * @param resultSet
+     */
     private void updateGraph(ResultSet resultSet) {
 
         this.lineChart.getData().clear();
@@ -295,10 +316,18 @@ public class CableGraphPane extends VBox {
     }
 
     // Getter & Setter
+    /**
+     * Getter for the period attribute
+     * @return
+     */
     public String getPeriod() {
         return period;
     }
 
+    /**
+     * Setter for the period attribute
+     * @param period
+     */
     public void setPeriod(String period) {
         this.period = period;
     }

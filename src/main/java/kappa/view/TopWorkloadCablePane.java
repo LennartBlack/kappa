@@ -16,7 +16,11 @@ public class TopWorkloadCablePane extends ScrollPane {
     private Label titleLabel;
     private KappaStage stage;
 
-    // Constructor
+    /**
+     * Constructor for the TopWorkloadCablePane class
+     * @param topWorkloud
+     * @param primaryStage
+     */
     public TopWorkloadCablePane(TopWorkloud topWorkloud, KappaStage primaryStage) {
         this.stage = primaryStage;
         this.topWorkloud = topWorkloud;
@@ -42,6 +46,10 @@ public class TopWorkloadCablePane extends ScrollPane {
     }
 
     // Getter
+    /**
+     * Getter for the topWorkloadVBox attribute
+     * @return
+     */
     public VBox getTopWorkloadVBox() {
         return topWorkloadVBox;
     }

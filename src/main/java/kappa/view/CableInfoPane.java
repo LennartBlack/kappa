@@ -7,12 +7,17 @@ import javafx.scene.layout.VBox;
 import kappa.model.TableViewAttributeTriple;
 import kappa.model.Cable;
 
+
 public class CableInfoPane extends VBox {
     private TableView<TableViewAttributeTriple> tableView;
     private TableColumn<TableViewAttributeTriple, String> attributeColumn;
     private TableColumn<TableViewAttributeTriple, String> valueColumn;
     private TableColumn<TableViewAttributeTriple, String> unitColumn;
 
+    /**
+     * Constructor for the CableInfoPane class
+     * @param cable
+     */
     public CableInfoPane(Cable cable) {
         this.tableView = new TableView<>();
 

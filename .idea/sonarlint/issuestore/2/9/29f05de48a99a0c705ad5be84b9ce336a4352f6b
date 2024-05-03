@@ -1,7 +1,7 @@
 
+P
+java:S1121(".Extract the assignment out of this expression.(ÄÛÁ¡ıÿÿÿÿ8Ş¹×ğó1
 y
-java:S1450"WRemove the "helpPane" field and declare it as a local variable in the relevant methods.(ÁÆ˜Äûÿÿÿÿ8î›‡¦ç1
-…
-java:S1450"cRemove the "topWorkloadCablePane" field and declare it as a local variable in the relevant methods.(ø¥åÏıÿÿÿÿ8ï›‡¦ç1
+java:S1450"WRemove the "helpPane" field and declare it as a local variable in the relevant methods.(ÁÆ˜Äûÿÿÿÿ8î›‡¦ç1
 S
-java:S1172^"6Remove this unused method parameter "cableCoreDataDB".(›ÿ–¸8ğáµì1
+java:S1172Y"6Remove this unused method parameter "cableCoreDataDB".(›ÿ–¸8ğáµì1

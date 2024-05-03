@@ -8,7 +8,9 @@ import java.util.HashMap;
 
 public class CableCoreDataDB extends HashMap<String, Cable> {
 
-    // Constructor
+    /**
+     * Constructor for the CableCoreDataDB class
+     */
     public CableCoreDataDB(){
         super();
         try {

@@ -20,55 +20,114 @@ public class MySqlManager {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final LocalDateTime END_DATE_OF_RECORDING_LDT = LocalDateTime.parse(END_DATE_OF_RECORDING_STR, formatter);
 
-    // Constructor
+    /**
+     * Constructor for the MySqlManager class
+     */
     private MySqlManager() {
     }
 
     // Methods
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQuery(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + ";";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQueryStartOfRecords(String calbelId){
         return "SELECT date FROM " + calbelId + " ORDER BY date ASC LIMIT 1;";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQueryEndOfRecords(String calbelId){
         return "SELECT date FROM " + calbelId + " ORDER BY date DESC LIMIT 1;";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     public static String buildQueryBetweenDates(String calbelId, String startDate, String endDate){
         return "SELECT date, ampere FROM " + calbelId + " WHERE date > '" + startDate + "' AND date < '" + endDate + "';";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQueryLastFiveDays(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + 
         " WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusDays(5).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQueryLastTenDays(String calbelId){
         return "SELECT date, ampere FROM " + calbelId +
         " WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusDays(10).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQueryLastThreeMonths(String calbelId){
         return "SELECT date, ampere " +
         "FROM " + calbelId +
         " WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(3).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQueryLastSixMonths(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + 
         " WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(6).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQueryLastNineMonths(String calbelId){
         return "SELECT date, ampere " +
         "FROM " + calbelId +
         " WHERE date > '" + END_DATE_OF_RECORDING_LDT.minusMonths(9).toString() + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQueryLastTwelveMonths(String calbelId){
         return "SELECT date, ampere FROM " + calbelId +
         " WHERE date > '" + START_DATE_OF_RECORDING_STR + "' " + 
         "AND date < '" + END_DATE_OF_RECORDING_STR + "';";
     }
+    /**
+     * Builds a SQL-Query for a given calbelId
+     * @param calbelId
+     * @return
+     */
     public static String buildQueryFullRecordTime(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + " WHERE date >= '" + START_DATE_OF_RECORDING_STR + "' AND date <='" + END_DATE_OF_RECORDING_STR + "';" ;
     }
@@ -76,8 +135,7 @@ public class MySqlManager {
     /** Executes a SQL-Query with a PreparedStatement
      *
      * @param sqlQuery Muss eine korrekte SQL-Query in Form eines String enthalten
-     * @return In case the query succeeded method returns a ResulSet. In case the query failed return is null.
-     * @throws SQLException
+     * @return In case the query succeeded method returns a ResulSet. In case the query failed return is null
      */
     public static ResultSet executeQuery(String sqlQuery){
         try {
@@ -93,6 +151,12 @@ public class MySqlManager {
         }
         return null;   
     }
+    /**
+     * Executes a SQL-Query with a PreparedStatement
+     * @param sqlQuery
+     * @param connection
+     * @return
+     */
     public static ResultSet executeQuery(String sqlQuery, Connection connection){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);

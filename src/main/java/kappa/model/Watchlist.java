@@ -15,29 +15,53 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
     private CableCoreDataDB cableCoreDataDB;
     private static String fileName = "watchlist.ser";
 
-    // Constructor
+    /**
+     *  Constructor for the Watchlist class
+     * @param cableCoreDataDB
+     */
     private Watchlist(CableCoreDataDB cableCoreDataDB) {
         super();
         this.cableCoreDataDB = cableCoreDataDB;
     }
 
     // Methods
+    /**
+     * Method to add a cable to the watchlist
+     * @param cable
+     */
     public void addCable(Cable cable) {
         this.put(cable.getId(), new WatchlistElement(cable));
     }
 
+    /**
+     * Method to add a cable to the watchlist
+     * @param cableId
+     */
     public void addCable(String cableId) {
         this.put(cableId, new WatchlistElement(cableCoreDataDB.get(cableId)));
     }
 
+    /**
+     * Method to remove a cable from the watchlist
+     * @param cable
+     */
     public void removeCable(Cable cable) {
         this.remove(cable.getId());
     }
 
+    /**
+     * Method to remove a cable from the watchlist
+     * @param cableId
+     */
     public void removeCable(String cableId) {
         this.remove(cableId);
     }
 
+    /**
+     * Method to check if the watchlist contains a cable
+     * @param cable
+     * @return
+     */
     public boolean containsCable(Cable cable) {
         return this.containsKey(cable.getId());
     }
@@ -79,6 +103,11 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
     }
 
     // Getter
+    /**
+     * Getter for the watchlist element
+     * @param cableId
+     * @return
+     */
     public WatchlistElement getWatchlistElement(String cableId) {
         return this.get(cableId);
     }

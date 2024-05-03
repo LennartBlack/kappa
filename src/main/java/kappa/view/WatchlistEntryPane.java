@@ -39,7 +39,10 @@ public class WatchlistEntryPane extends HBox {
     private Map<LocalDateTime, Double> workloudData;
     private XYChart.Series<String, Number> workloudSeries;
 
-    // Constructor
+    /**
+     * Constructor for the WatchlistEntryPane class
+     * @param watchlistElement
+     */
     public WatchlistEntryPane(WatchlistElement watchlistElement) {
         super();
         this.noteLabel = new TextArea();
@@ -66,6 +69,9 @@ public class WatchlistEntryPane extends HBox {
     }
 
     // Methods
+    /**
+     * Creates the Pane with a note
+     */
     public void createPaneWithNote() {
         this.getChildren().clear();
         this.getChildren().addAll(cableIdButton, removeFromWatchlistButton, lineChart);
@@ -74,6 +80,9 @@ public class WatchlistEntryPane extends HBox {
         this.noteLabel.setText(watchlistElement.getNote());
         this.getChildren().addAll(editDeletevBox, noteLabel);
     }
+    /**
+     * Creates the Pane without a note
+     */
     public void createPaneWithoutNote() {
         this.getChildren().clear();
         this.getChildren().addAll(cableIdButton, removeFromWatchlistButton, lineChart);
@@ -81,6 +90,9 @@ public class WatchlistEntryPane extends HBox {
 
         this.getChildren().add(addNoteButton);
     }
+    /**
+     * Creates the EditNotePane
+     */
     public void createEditNotePane() {
         this.getChildren().clear();
         this.getChildren().addAll(cableIdButton, removeFromWatchlistButton, lineChart);
@@ -90,6 +102,9 @@ public class WatchlistEntryPane extends HBox {
         this.getChildren().addAll(saveNoteButton, noteTextField);
     }
     
+    /**
+     * Sets the style for the WatchlistEntryPane
+     */
     private void setStyle() {
         this.setPadding(Style.getGap());
         WatchlistEntryPane.setMargin(cableIdButton, Style.getGap());
@@ -127,6 +142,9 @@ public class WatchlistEntryPane extends HBox {
         this.removeFromWatchlistButton.setPadding(Style.getGap());
     }
         
+    /**
+     * Creates the graph for the cable
+     */
     private void createGraph() {
         try{
             MySqlManager.getConnection();
@@ -141,6 +159,10 @@ public class WatchlistEntryPane extends HBox {
             System.out.println("Fehler beim Erstellen des Graphen.");
         }
     }
+    /**
+     * Maps the data from the ResultSet to the workloudData map
+     * @param resultSet
+     */
     private void mapData(ResultSet resultSet) {
         try{
             this.workloudData = new TreeMap<>();
@@ -155,6 +177,9 @@ public class WatchlistEntryPane extends HBox {
             System.out.println("Fehler beim Mappen der Daten.");
         }
     }
+    /**
+     * Creates the LineChart for the graph
+     */
     private void createChart(){
         this.workloudSeries = new XYChart.Series<>();
         this.workloudSeries.setName("prozentuale Auslastung");
@@ -178,6 +203,10 @@ public class WatchlistEntryPane extends HBox {
             this.workloudSeries.getData().add(data);
         }
     }
+    /**
+     * Adds a ResultSet element to the map
+     * @param resultSet
+     */
     private void addDataForGraph(ResultSet resultSet){
         try{
             double cableAmpacity = this.cable.getAmpacity();
@@ -194,33 +223,73 @@ public class WatchlistEntryPane extends HBox {
         }
     }
     // Getter
+    /**
+     * Getter for the noteLabel attribute
+     * @return
+     */
     private boolean isNoteEmpty() {
         return (watchlistElement.getNote().equals(""));
     }
+    /**
+     * Getter for the noteLabel attribute
+     * @return
+     */
     public TextArea getNoteLabel() {
         return noteLabel;
     }
+    /**
+     * Getter for the cableIdButton attribute
+     * @return
+     */
     public Button getCableIdButton() {
         return cableIdButton;
     }
+    /**
+     * Getter for the addNoteButton attribute
+     * @return
+     */
     public Button getAddNoteButton() {
         return addNoteButton;
     }
+    /**
+     * Getter for the editNoteButton attribute
+     * @return
+     */
     public Button getEditNoteButton() {
         return editNoteButton;
     }
+    /**
+     * Getter for the deleteNoteButton attribute
+     * @return
+     */
     public Button getDeleteNoteButton() {
         return deleteNoteButton;
     }
+    /**
+     * Getter for the saveNoteButton attribute
+     * @return
+     */
     public Button getSaveNoteButton() {
         return saveNoteButton;
     }
+    /**
+     * Getter for the removeFromWatchlistButton attribute
+     * @return
+     */
     public Button getRemoveFromWatchlistButton() {
         return removeFromWatchlistButton;
     }
+    /**
+     * Getter for the noteTextField attribute
+     * @return
+     */
     public TextField getNoteTextField() {
         return noteTextField;
     }
+    /**
+     * Getter for the watchlistElement attribute
+     * @return
+     */
     public WatchlistElement getWatchlistElement() {
         return watchlistElement;
     }

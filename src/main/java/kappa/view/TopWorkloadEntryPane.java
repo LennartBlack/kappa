@@ -26,7 +26,11 @@ public class TopWorkloadEntryPane extends HBox {
     private Map<LocalDateTime, Double> workloudData;
     private XYChart.Series<String, Number> workloudSeries;
 
-    // Constructor
+    /**
+     * Constructor for the TopWorkloadEntryPane class
+     * @param cable
+     * @param workload
+     */
     public TopWorkloadEntryPane(Cable cable, double workload) {
         this.cable = cable;
 
@@ -41,6 +45,9 @@ public class TopWorkloadEntryPane extends HBox {
     }
 
     // Methods
+    /**
+     * Sets the style for the TopWorkloadEntryPane
+     */
     private void setStyle() {
         this.setPadding(Style.getGap());
         WatchlistEntryPane.setMargin(cableIdButton, Style.getGap());
@@ -53,6 +60,9 @@ public class TopWorkloadEntryPane extends HBox {
 
     }
 
+    /**
+     * Adds the graph preview to the TopWorkloadEntryPane
+     */
     private void addGraphPreview() {
         try {
             MySqlManager.getConnection();
@@ -68,6 +78,10 @@ public class TopWorkloadEntryPane extends HBox {
         }
     }
 
+    /**
+     * Maps the data from the ResultSet to the workloudData map
+     * @param resultSet
+     */
     private void mapData(ResultSet resultSet) {
         try {
             this.workloudData = new TreeMap<>();
@@ -83,6 +97,10 @@ public class TopWorkloadEntryPane extends HBox {
         }
     }
 
+    /**
+     * Adds a ResultSet element to the map
+     * @param resultSet
+     */
     private void addResultSetElementToMap(ResultSet resultSet) {
         try {
             double cableAmpacity = this.cable.getAmpacity();
@@ -97,6 +115,9 @@ public class TopWorkloadEntryPane extends HBox {
         }
     }
 
+    /**
+     * Creates the graph for the workload preview
+     */
     private void createGraph() {
         this.workloudSeries = new XYChart.Series<>();
         this.workloudSeries.setName("prozentuale Auslastung");
@@ -122,10 +143,18 @@ public class TopWorkloadEntryPane extends HBox {
     }
 
     // Getter
+    /**
+     * Getter for the cableIdButton attribute
+     * @return
+     */
     public Button getCableIdButton() {
         return cableIdButton;
     }
 
+    /**
+     * Getter for the cable attribute
+     * @return
+     */
     public Cable getCable() {
         return this.cable;
     }

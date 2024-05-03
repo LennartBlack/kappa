@@ -28,7 +28,12 @@ public class KappaStage extends Stage {
     private CableCoreDataDB cableCoreDataDB;
     private TopWorkloud topWorkload;
 
-    // Constructor
+    /**
+     * Constructor for the KappaStage class
+     * @param cableCoreDataDB
+     * @param watchlist
+     * @param topWorkloud
+     */
     public KappaStage(CableCoreDataDB cableCoreDataDB, Watchlist watchlist, TopWorkloud topWorkloud) {
         this.topWorkload = topWorkloud;
         this.cableCoreDataDB = cableCoreDataDB;
@@ -46,6 +51,9 @@ public class KappaStage extends Stage {
 
     // Methods
 
+    /**
+     *  This method shows the sign in scene
+     */
     public void showSignInScene() {
         this.signInScene = new Scene(this.signInPane, 300, 450);
         this.setTitle("Kappa - Anmeldung");
@@ -53,6 +61,9 @@ public class KappaStage extends Stage {
         this.show();
     }
 
+    /**
+     * This method shows the cable scene
+     */
     public void showSignInSceneAfterLogout() {
         if (getSignInPane().isLogininFaildMessageVisible()) {
             getSignInPane().removeLoginFailedMessage();
@@ -62,6 +73,10 @@ public class KappaStage extends Stage {
         this.show();
     }
 
+    /**
+     * This method shows the cable scene
+     * @param cable
+     */
     public void showCablePane(Cable cable) {
         this.cablePane = new CablePane(cable, watchlist);
         this.kappaPane.setCenter(cablePane);
@@ -69,23 +84,36 @@ public class KappaStage extends Stage {
         updateKappa("Kappa - Kabel Detailansicht " + cable.getId());
     }
 
+    /**
+     * This method shows the cable with the highest workload scene
+     */
     public void showCableWithTopWorkloudScene() {
         this.kappaPane.setCenter(topWorkloadCablePane);
         updateKappa("Kappa - Kabel mit höchster Auslastung");
     }
 
+    /**
+     * This method shows the home scene
+     */
     public void showHomeScene() {
         this.homePane = new HomePane();
         this.kappaPane.setCenter(homePane);
         updateKappa("Kappa - Willkommen");
     }
 
+    /**
+     *  This method shows the help scene
+     */
     public void showHelpScene() {
         this.helpPane = new HelpPane();
         this.kappaPane.setCenter(helpPane.getvBoxHelpLayout());
         updateKappa("Kappa - Hilfe");
     }
 
+    /**
+     * This method shows the watchlist scene
+     * @param cableCoreDataDB
+     */
     public void showWatchlistScene(CableCoreDataDB cableCoreDataDB) {
         this.kappaPane.setCenter(watchlistPane);
         updateKappa("Kappa - Merkliste");
@@ -105,6 +133,10 @@ public class KappaStage extends Stage {
     }
 
     // Getters and Setters
+    /**
+     *  Getter for the kappeScene attribute
+     * @return
+     */
     public boolean isPreviousViewedCablesPaneVisible() {
         if (this.getKappaPane().getLeft() != null) {
             return this.getPreviousViewedCablesPane().isvBoxEmpty();
@@ -112,42 +144,82 @@ public class KappaStage extends Stage {
         return false;
     }
 
+    /**
+     * Getter for the kappeScene attribute
+     * @return
+     */
     private Scene getKappaScene() {
         return this.kappeScene;
     }
 
+    /**
+     * Getter for the signInPane attribute
+     * @return
+     */
     public SignInPane getSignInPane() {
         return this.signInPane;
     }
 
+    /**
+     * Getter for the homePane attribute
+     * @return
+     */
     public HomePane getHomePane() {
         return this.homePane;
     }
 
+    /**
+     * Getter for the menuPane attribute
+     * @return
+     */
     public MenuPane getMenuPane() {
         return this.menuPane;
     }
 
+    /**
+     *  Getter for the cablePane attribute
+     * @return
+     */
     public CablePane getCablePane() {
         return this.cablePane;
     }
 
+    /**
+     * Getter for the watchlistPane attribute
+     * @return
+     */
     public WatchlistPane getWatchlistPane() {
         return this.watchlistPane;
     }
 
+    /**
+     * Getter for the kappaPane attribute
+     * @return
+     */
     public BorderPane getKappaPane() {
         return this.kappaPane;
     }
 
+    /**
+     * Getter for the previousViewedCablesPane attribute
+     * @return
+     */
     public PreviousViewedCablesPane getPreviousViewedCablesPane() {
         return previousViewedCablesPane;
     }
 
+    /**
+     * Getter for the watchlist attribute
+     * @return
+     */
     public Watchlist getWatchlist() {
         return watchlist;
     }
 
+    /**
+     *  Getter for the topWorkloadCablePane attribute
+     * @return
+     */
     public TopWorkloadCablePane getTopWorkloadCablePane() {
         return topWorkloadCablePane;
     }

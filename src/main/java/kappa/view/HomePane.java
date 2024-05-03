@@ -7,6 +7,9 @@ import javafx.scene.layout.VBox;
 
 public class HomePane extends VBox {
 
+    /**
+     * Constructor for the HomePane class
+     */
     public HomePane() {
         this.setAlignment(Pos.CENTER);
         Label titleLabel = new Label("Willkommen bei KAPPA");

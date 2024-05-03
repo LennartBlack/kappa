@@ -110,7 +110,7 @@ public class MySqlManager {
      *
      * @return the connection
      */
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);

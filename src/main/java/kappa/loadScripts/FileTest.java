@@ -76,7 +76,6 @@ public class FileTest {
         schreibeSqlImportsInDatei(sqlcreatetables, "sqlcreatetables.txt");
         schreibeSqlImportsInDatei(dropAllNotMaxValuesAtAFixDate, "dropAllNotMaxValuesAtAFixDate.txt");
     }
-    @SuppressWarnings("unused")
     private static void schreibeSqlImportsInDatei(List<String> sqlImports, String dateiName) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dateiName))) {
             for (String sqlImport : sqlImports) {

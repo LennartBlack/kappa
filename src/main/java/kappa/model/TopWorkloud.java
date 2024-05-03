@@ -1,14 +1,12 @@
 package kappa.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import kappa.loadScripts.FileTest;
 
 public class TopWorkloud extends HashMap<Cable, Double> {
 
@@ -21,16 +19,27 @@ public class TopWorkloud extends HashMap<Cable, Double> {
     public TopWorkloud(CableCoreDataDB ccddb) {
         this.ccddb = ccddb;
 
-        // TODO: Hier muss eine Liste mit allen Kabeln erstellt werden.
-        // Enthält alle Kabel, die in der Datenbank vorhanden sind
-        List<String> availibleCableIds = FileTest.getDateiInfo();
-        for (String str : availibleCableIds) {
-            if (ccddb.containsKey(str)) {
-                this.availibleCables.add(this.ccddb.get(str));
+        try {
+            Connection connection = MySqlManager.getConnection();
+            String query = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'kappa';";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            int i = 0;
+            while(rs.next()){
+                String tableName = rs.getString("table_name");
+                if(this.ccddb.containsKey(tableName.toUpperCase())){
+                    this.availibleCables.add(this.ccddb.get(tableName.toUpperCase()));
+                }
+                i++;
+                if(i == 300){
+                    break;
+                }
             }
-        }
-        // TODO: ENDE
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Top Workloud failed.");
 
+        }
         try {
             this.connection = MySqlManager.getConnection();
             determineTopWorkloud();
@@ -40,7 +49,9 @@ public class TopWorkloud extends HashMap<Cable, Double> {
         }
     }
 
-    // Methods
+    /**
+     * Determines the top workloud of each cable
+     */
     private void determineTopWorkloud() {
         for (int i = 0; i < this.availibleCables.size(); i++) {
             double integral = calculateIntegral(this.availibleCables.get(i));
@@ -60,9 +71,9 @@ public class TopWorkloud extends HashMap<Cable, Double> {
     private double calculateIntegral(Cable cable){
         double ampacity = cable.getAmpacity();
         double workloud = 0;
-        String sql = "Select Count(*) as Anzahl, sum(abs(ampere)) as SumAmpere from " + cable.getId() + ";";
+        String sqlQuery = "Select Count(*) as Anzahl, sum(abs(ampere)) as SumAmpere from " + cable.getId() + ";";
         try {
-            ResultSet rs = MySqlManager.executeQuery(sql, this.connection);
+            ResultSet rs = MySqlManager.executeQuery(sqlQuery, this.connection);
             rs.next();
             double sumAmpere = rs.getDouble("SumAmpere");
             double anzahl = rs.getDouble("Anzahl");

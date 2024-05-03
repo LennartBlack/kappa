@@ -26,8 +26,15 @@ public class CableGraphPane extends VBox {
     private LineChart<String, Number> lineChart;
     private XYChart.Series<String, Number> workloudSeries;
     private String period = "3 Monate";
+    private CategoryAxis xAxis = new CategoryAxis();
+    private NumberAxis yAxis = new NumberAxis();
+    String currentStartDateToVisualize;
+    String currentEndDateToVisualize;
 
-    // Constructor
+    /**
+     * Constructor
+     * @param cable
+     */
     public CableGraphPane(Cable cable) {
         this.cable = cable;
         try {
@@ -55,28 +62,29 @@ public class CableGraphPane extends VBox {
 
             createGraph();
 
-            this.lineChart.getData().add(workloudSeries);
+            this.lineChart.getData().add(this.workloudSeries);
             this.lineChart.setCreateSymbols(false);
             this.getChildren().add(this.lineChart);
-            workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
-
+            style();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    // Methods
+    /**
+     * Creates the Graph with the data from the TreeMap
+     */
     private void createGraph() {
         this.workloudSeries = new XYChart.Series<>();
         this.workloudSeries.setName("prozentuale Auslastung");
 
         // Create Chart Axis
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
+        this.xAxis = new CategoryAxis();
+        this.yAxis = new NumberAxis();
 
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-        String currentStartDateToVisualize = currentStartDate.format(outputFormatter);
-        String currentEndDateToVisualize = currentEndDate.format(outputFormatter);
+        this.currentStartDateToVisualize = currentStartDate.format(outputFormatter);
+        this.currentEndDateToVisualize = currentEndDate.format(outputFormatter);
         xAxis.setLabel("Zeit mit der Ausschnittgröße: " + this.period + " vom " + currentStartDateToVisualize
                 + " bis zum " + currentEndDateToVisualize);
         yAxis.setLabel("Prozentuale Auslastung in %");
@@ -93,10 +101,14 @@ public class CableGraphPane extends VBox {
         }
     }
 
+    /**
+     * Maps the data from the ResultSet to the TreeMap. Ensures that the first and the last entry are added to the TreeMap.
+     * If the ampere values are the same multiple times in a row, the first and the last entry will be added to the TreeMap.
+     * @param resultSet
+     */
     private void mapData(ResultSet resultSet) {
         try {
             this.workloudData = new TreeMap<>();
-            double cableAmpacity = this.cable.getAmpacity();
             double tempAmpere = Double.MIN_VALUE;
             while (resultSet.next()) {
                 if (resultSet.isFirst()) {
@@ -104,29 +116,46 @@ public class CableGraphPane extends VBox {
                 }
                 double ampere = resultSet.getDouble("ampere");
                 if (tempAmpere != ampere) {
-                    LocalDateTime dateTime = resultSet.getTimestamp("date").toLocalDateTime();
-                    double workloud = resultSet.getDouble("ampere") / cableAmpacity * 100.0;
-                    if (workloud < 0.0) {
-                        workloud = workloud * -1;
-                    }
-                    this.workloudData.put(dateTime, workloud);
+                    addDataToGraph(resultSet);
                 }
                 tempAmpere = resultSet.getDouble("ampere");
                 // Ensure a second entry is added so that not only the first entry is added if
                 // the values are all the same
                 if (resultSet.isLast()) {
-                    LocalDateTime dateTime = resultSet.getTimestamp("date").toLocalDateTime();
-                    this.currentEndDate = dateTime;
-                    double workloud = resultSet.getDouble("ampere") / cableAmpacity * 100.0;
-                    if (workloud < 0.0) {
-                        workloud = workloud * -1;
-                    }
-                    this.workloudData.put(dateTime, workloud);
+                    addDataToGraph(resultSet);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    /**
+     * Adds the data from the ResultSet to the TreeMap. Ensures the values are positive.
+     * @param resultSet
+     */
+    private void addDataToGraph(ResultSet resultSet){
+        try {
+            LocalDateTime dateTime = resultSet.getTimestamp("date").toLocalDateTime();
+            this.currentEndDate = dateTime;
+            double workloud;
+            workloud = resultSet.getDouble("ampere") / this.cable.getAmpacity() * 100.0;
+            if (workloud < 0.0) {
+                workloud = workloud * -1;
+            }
+            this.workloudData.put(dateTime, workloud);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+    }
+    private void style(){
+        this.workloudSeries.setName("prozentuale Auslastung");
+        xAxis.setLabel("Zeit mit der Ausschnittgröße: " + this.period + " vom " + this.currentStartDateToVisualize + " bis zum " + this.currentEndDateToVisualize);
+        yAxis.setLabel("Prozentuale Auslastung in %");
+        this.lineChart.setTitle(this.cable.getId());
+        this.lineChart.setLegendVisible(false);
+        this.workloudSeries.getNode().setStyle("-fx-stroke: " + Style.getEweBlue() + ";");
+        
     }
 
     public void showPrevPeriod() {

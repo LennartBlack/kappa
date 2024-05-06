@@ -1,4 +1,4 @@
-package kappa;
+package kappa.test;
 
 public class Test {
 

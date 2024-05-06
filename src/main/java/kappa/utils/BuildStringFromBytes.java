@@ -8,8 +8,8 @@ public class BuildStringFromBytes {
     // Methods
     /**
      * Method to build a string from bytes
-     * @param bytes
-     * @return
+     * @param bytes bytes
+     * @return string
      */
     public static String buildStringFromBytes(byte[] bytes){
         StringBuilder hexString = new StringBuilder();

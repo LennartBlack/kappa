@@ -178,7 +178,7 @@ public class Controller {
      * This method loads WatchlistEntryPane for each Watchlist element and adds the
      * eventhandlers to the buttons
      * 
-     * @param watchlist
+     * @param watchlist to be loaded into the WatchlistPane
      */
     private void loadWatchlist(Watchlist watchlist) {
         this.stage.getWatchlistPane().constructWatchListPane();
@@ -242,7 +242,7 @@ public class Controller {
      * This method adds the Eventhandlers for the Buttons to add and remove a cable
      * from the watchlist
      * 
-     * @param cable
+     * @param cable to be added
      */
     private void addGraphActionPaneEventHandlers(Cable cable) {
         try {
@@ -333,7 +333,7 @@ public class Controller {
     /**
      * This method shakes a node to indicate that the input was invalid
      * 
-     * @param node
+     * @param node to be shaken
      */
     private void shakeNode(Node node) {
         TranslateTransition transition = new TranslateTransition(Duration.millis(50), node);

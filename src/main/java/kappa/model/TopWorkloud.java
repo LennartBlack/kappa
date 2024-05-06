@@ -17,7 +17,7 @@ public class TopWorkloud extends HashMap<Cable, Double> {
 
     /**
      * Constructor for the TopWorkloud class
-     * @param ccddb
+     * @param ccddb CableCoreDataDB
      */
     public TopWorkloud(CableCoreDataDB ccddb) {
         this.ccddb = ccddb;
@@ -73,8 +73,8 @@ public class TopWorkloud extends HashMap<Cable, Double> {
     }
     /**
      * Calculates the integral of a cable
-     * @param cable
-     * @return
+     * @param cable cable
+     * @return integral
      */
     private double calculateIntegral(Cable cable){
         double ampacity = cable.getAmpacity();

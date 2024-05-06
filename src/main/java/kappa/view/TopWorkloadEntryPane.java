@@ -28,8 +28,8 @@ public class TopWorkloadEntryPane extends HBox {
 
     /**
      * Constructor for the TopWorkloadEntryPane class
-     * @param cable
-     * @param workload
+     * @param cable cable
+     * @param workload workload
      */
     public TopWorkloadEntryPane(Cable cable, double workload) {
         this.cable = cable;
@@ -80,7 +80,7 @@ public class TopWorkloadEntryPane extends HBox {
 
     /**
      * Maps the data from the ResultSet to the workloudData map
-     * @param resultSet
+     * @param resultSet resultSet
      */
     private void mapData(ResultSet resultSet) {
         try {
@@ -99,7 +99,7 @@ public class TopWorkloadEntryPane extends HBox {
 
     /**
      * Adds a ResultSet element to the map
-     * @param resultSet
+     * @param resultSet resultSet
      */
     private void addResultSetElementToMap(ResultSet resultSet) {
         try {
@@ -145,7 +145,7 @@ public class TopWorkloadEntryPane extends HBox {
     // Getter
     /**
      * Getter for the cableIdButton attribute
-     * @return
+     * @return cableIdButton
      */
     public Button getCableIdButton() {
         return cableIdButton;
@@ -153,7 +153,7 @@ public class TopWorkloadEntryPane extends HBox {
 
     /**
      * Getter for the cable attribute
-     * @return
+     * @return cable
      */
     public Cable getCable() {
         return this.cable;

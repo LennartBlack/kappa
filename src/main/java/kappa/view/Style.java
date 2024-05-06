@@ -18,7 +18,7 @@ public class Style {
 
     /**
      * Getter for the EWE_BLUE attribute
-     * @return
+     * @return String EWE_BLUE
      */
     public static String getEweBlue() {
         return EWE_BLUE;
@@ -26,28 +26,29 @@ public class Style {
 
     /**
      * Getter for the EWE_GREEN attribute
-     * @return
+     * @return EWE_GREEN
      */
     public static String getEweGreen() {
         return EWE_GREEN;
     }
     /**
      * Getter for the STANDARD_DESIGN attribute
-     * @return
+     * @return STANDARD_DESIGN
      */
     public static String getStandardDesign() {
         return STANDARD_DESIGN;
     }
     /**
      * Getter for the EWE_GREY attribute
-     * @return
+     * @return EWE_GREY
      */
     public static String getEweGrey() {
         return EWE_GREY;
     }
 
     /**
-     * /**
+     * Getter for the GAP attribute
+     * @return GAP  The gap between elements
      */
     public static Insets getGap() {
         return GAP;
@@ -55,7 +56,7 @@ public class Style {
 
     /**
      * Getter for the GRAPH_COLOR attribute
-     * @return
+     * @return GRAPH_COLOR
      */
     public static String getGraphColor() {
         return GRAPH_COLOR;

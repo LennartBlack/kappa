@@ -20,16 +20,16 @@ public class Cable implements Serializable {
     /**
      * Constructor for the Cable class
      * 
-     * @param id
-     * @param start
-     * @param end
-     * @param resistance
-     * @param reactance
-     * @param ampacity
-     * @param electricity
-     * @param length
-     * @param yearOfConstruction
-     * @param crossSection
+     * @param id of the cable
+     * @param start of the cable
+     * @param end of the cable
+     * @param resistance of the cable
+     * @param reactance of the cable
+     * @param ampacity of the cable
+     * @param electricity of the cable
+     * @param length of the cable
+     * @param yearOfConstruction of the cable
+     * @param crossSection of the cable
      */
     public Cable(String id, String start, String end, Double resistance, Double reactance, Double ampacity, Double length, int yearOfConstruction, int crossSection) {
         this.id = id;
@@ -47,7 +47,7 @@ public class Cable implements Serializable {
     // Getter
     /**
      * Constructor for the Cable class
-     * @return
+     * @return id of the cable
      */
     public String getId() {
         return this.id;
@@ -55,7 +55,7 @@ public class Cable implements Serializable {
 
     /**
      * Getter for the start attribute
-     * @return
+     * @return start of the cable
      */
     public String getStart() {
         return start;
@@ -63,7 +63,7 @@ public class Cable implements Serializable {
 
     /**
      * Getter for the end attribute
-     * @return
+     * @return end of the cable
      */
     public String getEnd() {
         return end;
@@ -71,7 +71,7 @@ public class Cable implements Serializable {
 
     /**
      * Getter for the resistance attribute
-     * @return
+     * @return resistance of the cable
      */
     public Double getResistance() {
         return resistance;
@@ -79,7 +79,7 @@ public class Cable implements Serializable {
 
     /**
      * Getter for the reactance attribute
-     * @return
+     * @return reactance of the cable
      */
     public Double getReactance() {
         return reactance;
@@ -87,7 +87,7 @@ public class Cable implements Serializable {
 
     /**
      * Getter for the ampacity attribute
-     * @return
+     * @return ampacity of the cable
      */
     public Double getAmpacity() {
         return ampacity;
@@ -95,7 +95,7 @@ public class Cable implements Serializable {
 
     /**
      * Getter for the length attribute
-     * @return
+     * @return length of the cable
      */
     public Double getLength() {
         return length;
@@ -103,7 +103,7 @@ public class Cable implements Serializable {
 
     /**
      * Getter for the yearOfConstruction attribute
-     * @return
+     * @return yearOfConstruction of the cable
      */
     public int getYearOfConstruction() {
         return yearOfConstruction;
@@ -111,7 +111,7 @@ public class Cable implements Serializable {
 
     /**
      * Getter for the crossSection attribute
-     * @return
+     * @return crossSection of the cable
      */
     public int getCrossSection() {
         return crossSection;

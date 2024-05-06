@@ -33,7 +33,7 @@ public class CableGraphPane extends VBox {
 
     /**
      * Constructor
-     * @param cable
+     * @param cable cable
      */
     public CableGraphPane(Cable cable) {
         this.cable = cable;
@@ -104,7 +104,7 @@ public class CableGraphPane extends VBox {
     /**
      * Maps the data from the ResultSet to the TreeMap. Ensures that the first and the last entry are added to the TreeMap.
      * If the ampere values are the same multiple times in a row, the first and the last entry will be added to the TreeMap.
-     * @param resultSet
+     * @param resultSet ResultSet
      */
     private void mapData(ResultSet resultSet) {
         try {
@@ -131,7 +131,7 @@ public class CableGraphPane extends VBox {
     }
     /**
      * Adds the data from the ResultSet to the TreeMap. Ensures the values are positive.
-     * @param resultSet
+     * @param resultSet ResultSet
      */
     private void addDataToGraph(ResultSet resultSet){
         try {
@@ -272,8 +272,8 @@ public class CableGraphPane extends VBox {
 
     /**
      * Shows the graph for the last 5 days
-     * @param startDate
-     * @param endDate
+     * @param startDate start date
+     * @param endDate end date
      */
     private void showGraphBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         String query = MySqlManager.buildQueryBetweenDates(cable.getId(), startDate.toString(), endDate.toString());
@@ -300,7 +300,7 @@ public class CableGraphPane extends VBox {
 
     /**
      * Shows the graph for the last 5 days
-     * @param resultSet
+     * @param resultSet result set
      */
     private void updateGraph(ResultSet resultSet) {
 
@@ -318,7 +318,7 @@ public class CableGraphPane extends VBox {
     // Getter & Setter
     /**
      * Getter for the period attribute
-     * @return
+     * @return period
      */
     public String getPeriod() {
         return period;
@@ -326,7 +326,7 @@ public class CableGraphPane extends VBox {
 
     /**
      * Setter for the period attribute
-     * @param period
+     * @param period period
      */
     public void setPeriod(String period) {
         this.period = period;

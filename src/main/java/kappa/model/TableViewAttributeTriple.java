@@ -9,9 +9,9 @@ public class TableViewAttributeTriple {
 
     /**
      * Constructor for the TableViewAttributeTriple class
-     * @param attribute
-     * @param value
-     * @param unit
+     * @param attribute attribute
+     * @param value value
+     * @param unit unit
      */
     public TableViewAttributeTriple(String attribute, String value, String unit) {
         this.attribute = attribute;
@@ -22,7 +22,7 @@ public class TableViewAttributeTriple {
     // Getter
     /**
      * Getter for the attribute attribute
-     * @return
+     * @return attribute
      */
     public String getAttribute() {
         return attribute;
@@ -30,7 +30,7 @@ public class TableViewAttributeTriple {
 
     /**
      * Getter for the value attribute
-     * @return
+     * @return value
      */
     public String getValue() {
         return value;
@@ -38,7 +38,7 @@ public class TableViewAttributeTriple {
 
     /**
      * Getter for the unit attribute
-     * @return
+     * @return unit
      */
     public String getUnit() {
         return unit;

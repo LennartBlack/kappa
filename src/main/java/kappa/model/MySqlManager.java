@@ -30,41 +30,41 @@ public class MySqlManager {
     /**
      * Builds a SQL-Query for a given calbelId
      * @param calbelId
-     * @return
+     * @return SQL-Query
      */
     public static String buildQuery(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + ";";
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @return
+     * @param calbelId  if of the cable
+     * @return SQL-Query
      */
     public static String buildQueryStartOfRecords(String calbelId){
         return "SELECT date FROM " + calbelId + " ORDER BY date ASC LIMIT 1;";
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @return
+     * @param calbelId id of the cable
+     * @return SQL-Query
      */
     public static String buildQueryEndOfRecords(String calbelId){
         return "SELECT date FROM " + calbelId + " ORDER BY date DESC LIMIT 1;";
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param calbelId id of the cable
+     * @param startDate start date
+     * @param endDate end date
+     * @return SQL-Query
      */
     public static String buildQueryBetweenDates(String calbelId, String startDate, String endDate){
         return "SELECT date, ampere FROM " + calbelId + " WHERE date > '" + startDate + "' AND date < '" + endDate + "';";
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @return
+     * @param calbelId  id of the cable
+     * @return SQL-Query
      */
     public static String buildQueryLastFiveDays(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + 
@@ -73,8 +73,8 @@ public class MySqlManager {
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @return
+     * @param calbelId id of the cable
+     * @return SQL-Query
      */
     public static String buildQueryLastTenDays(String calbelId){
         return "SELECT date, ampere FROM " + calbelId +
@@ -83,8 +83,8 @@ public class MySqlManager {
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @return
+     * @param calbelId id of the cable
+     * @return SQL-Query
      */
     public static String buildQueryLastThreeMonths(String calbelId){
         return "SELECT date, ampere " +
@@ -94,8 +94,8 @@ public class MySqlManager {
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @return
+     * @param calbelId id of the cable
+     * @return SQL-Query
      */
     public static String buildQueryLastSixMonths(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + 
@@ -104,8 +104,8 @@ public class MySqlManager {
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @return
+     * @param calbelId id of the cable
+     * @return SQL-Query
      */
     public static String buildQueryLastNineMonths(String calbelId){
         return "SELECT date, ampere " +
@@ -115,8 +115,8 @@ public class MySqlManager {
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @return
+     * @param calbelId id of the cable
+     * @return SQL-Query
      */
     public static String buildQueryLastTwelveMonths(String calbelId){
         return "SELECT date, ampere FROM " + calbelId +
@@ -125,8 +125,8 @@ public class MySqlManager {
     }
     /**
      * Builds a SQL-Query for a given calbelId
-     * @param calbelId
-     * @return
+     * @param calbelId id of the cable
+     * @return SQL-Query
      */
     public static String buildQueryFullRecordTime(String calbelId){
         return "SELECT date, ampere FROM " + calbelId + " WHERE date >= '" + START_DATE_OF_RECORDING_STR + "' AND date <='" + END_DATE_OF_RECORDING_STR + "';" ;
@@ -153,9 +153,9 @@ public class MySqlManager {
     }
     /**
      * Executes a SQL-Query with a PreparedStatement
-     * @param sqlQuery
-     * @param connection
-     * @return
+     * @param sqlQuery SQL-Query
+     * @param connection Connection to the database
+     * @return In case the query succeeded method returns a ResulSet. In case the query failed return is null
      */
     public static ResultSet executeQuery(String sqlQuery, Connection connection){
         try {

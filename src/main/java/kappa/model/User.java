@@ -15,14 +15,14 @@ public class User {
     // Getter
     /**
      * Getter for the username attribute
-     * @return
+     * @return username
      */
     public static String getUsername() {
         return username;
     }
     /**
      * Getter for the passwort attribute
-     * @return
+     * @return passwort
      */
     public static String getPasswort() {
         return passwort;

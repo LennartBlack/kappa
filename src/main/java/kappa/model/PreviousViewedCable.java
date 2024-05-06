@@ -18,7 +18,7 @@ public class PreviousViewedCable extends ArrayList<Cable> {
     // Methods
     /**
      * Method to handle the click on a cable
-     * @param cable
+     * @param cable cable
      */
     public void clickedOnACable(Cable cable) {
         if (checkIfCableIsInPreviousViewedCables(cable)) {
@@ -39,8 +39,8 @@ public class PreviousViewedCable extends ArrayList<Cable> {
 
     /**
      * Method to check if a cable is in the previous viewed cables
-     * @param cable
-     * @return
+     * @param cable cable
+     * @return boolean
      */
     public boolean checkIfCableIsInPreviousViewedCables(Cable cable) {
         boolean isCableInPreviousViewedCables = false;
@@ -54,7 +54,7 @@ public class PreviousViewedCable extends ArrayList<Cable> {
 
     /**
      *  Method to check if the previous viewed cables are full
-     * @return
+     * @return boolean
      */
     public boolean isPreviousViewedCablesFull() {
         boolean isFull = this.size() >= MAX_AMOUNT_OF_CABLES;
@@ -63,7 +63,7 @@ public class PreviousViewedCable extends ArrayList<Cable> {
 
     /**
      * Method to remove a cable from the previous viewed cables
-     * @param cable
+     * @param cable cable
      */
     public void removeCableFromPreviousViewedCables(Cable cable) {
         this.remove(cable);
@@ -71,8 +71,8 @@ public class PreviousViewedCable extends ArrayList<Cable> {
 
     /**
      * Method to put a cable on top of the list
-     * @param oldIndex
-     * @param cable
+     * @param oldIndex old index
+     * @param cable cable
      */
     public void putCableOnTopOfList(int oldIndex, Cable cable) {
         this.addFirst(cable);
@@ -81,7 +81,7 @@ public class PreviousViewedCable extends ArrayList<Cable> {
 
     /**
      * Method to add a cable to the first index
-     * @param cable
+     * @param cable cable
      */
     public void addFirst(Cable cable) {
         this.add(0, cable);
@@ -89,7 +89,7 @@ public class PreviousViewedCable extends ArrayList<Cable> {
 
     /**
      * Method to remove the last cable
-     * @return
+     * @return cable
      */
     public Cable removeLast() {
         Cable cable = this.get(this.size() - 1);
@@ -100,8 +100,8 @@ public class PreviousViewedCable extends ArrayList<Cable> {
     // Getters
     /**
      * Method to get the index of a cable
-     * @param cable
-     * @return
+     * @param cable cable
+     * @return index
      */
     public int getIndexOFCable(Cable cable) {
         int i = 0;
@@ -116,8 +116,8 @@ public class PreviousViewedCable extends ArrayList<Cable> {
 
     /**
      * Method to check if a cable is the latest item
-     * @param cable
-     * @return
+     * @param cable cable
+     * @return boolean
      */
     public boolean isCableLatestItem(Cable cable) {
         return this.get(0).getId().equals(cable.getId());

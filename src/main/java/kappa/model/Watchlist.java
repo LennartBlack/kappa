@@ -17,7 +17,7 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
 
     /**
      *  Constructor for the Watchlist class
-     * @param cableCoreDataDB
+     * @param cableCoreDataDB cable core data database
      */
     private Watchlist(CableCoreDataDB cableCoreDataDB) {
         super();
@@ -27,7 +27,7 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
     // Methods
     /**
      * Method to add a cable to the watchlist
-     * @param cable
+     * @param cable cable
      */
     public void addCable(Cable cable) {
         this.put(cable.getId(), new WatchlistElement(cable));
@@ -35,7 +35,7 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
 
     /**
      * Method to add a cable to the watchlist
-     * @param cableId
+     * @param cableId id of the cable
      */
     public void addCable(String cableId) {
         this.put(cableId, new WatchlistElement(cableCoreDataDB.get(cableId)));
@@ -43,7 +43,7 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
 
     /**
      * Method to remove a cable from the watchlist
-     * @param cable
+     * @param cable cable
      */
     public void removeCable(Cable cable) {
         this.remove(cable.getId());
@@ -51,7 +51,7 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
 
     /**
      * Method to remove a cable from the watchlist
-     * @param cableId
+     * @param cableId id of the cable
      */
     public void removeCable(String cableId) {
         this.remove(cableId);
@@ -59,8 +59,8 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
 
     /**
      * Method to check if the watchlist contains a cable
-     * @param cable
-     * @return
+     * @param cable cable
+     * @return boolean
      */
     public boolean containsCable(Cable cable) {
         return this.containsKey(cable.getId());
@@ -69,7 +69,7 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
     /**
      * Serialize the watchlist to a file
      * 
-     * @param watchlist
+     * @param watchlist watchlist to serialize
      */
     public static void serializeHashMap(Watchlist watchlist) {
         try (FileOutputStream fileOut = new FileOutputStream(Watchlist.fileName);
@@ -83,7 +83,7 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
     /**
      * Deserialize the watchlist from a file
      * 
-     * @param cableCoreDataDB
+     * @param cableCoreDataDB cable core data database
      * @return watchlist with all its elements or an empty watchlist if the file
      *         does not exist or is empty
      */
@@ -105,8 +105,8 @@ public class Watchlist extends HashMap<String, WatchlistElement> {
     // Getter
     /**
      * Getter for the watchlist element
-     * @param cableId
-     * @return
+     * @param cableId id of the cable
+     * @return watchlist element
      */
     public WatchlistElement getWatchlistElement(String cableId) {
         return this.get(cableId);

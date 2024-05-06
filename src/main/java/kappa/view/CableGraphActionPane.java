@@ -31,8 +31,8 @@ public class CableGraphActionPane extends VBox {
 
     /**
      * Constructor for the CableGraphActionPane class
-     * @param cable
-     * @param watchlist
+     * @param cable cable
+     * @param watchlist watchlist
      */
     public CableGraphActionPane(Cable cable, Watchlist watchlist) {
         this.watchlist = watchlist;
@@ -122,7 +122,7 @@ public class CableGraphActionPane extends VBox {
     }
     /**
      * Method to update the watchlist buttons
-     * @param cable
+     * @param cable cable
      */
     public void updateWatchlistButtons(Cable cable) {
         if(this.watchlist.containsCable(cable)) {
@@ -136,70 +136,70 @@ public class CableGraphActionPane extends VBox {
     // Getter
     /**
      * Getter for the addToWatchlistButton attribute
-     * @return
+     * @return addToWatchlistButton
      */
     public Button getAddToWatchlistButton() {
         return this.addToWatchlistButton;
     }
     /**
      *  Getter for the removeFromWatchlistButton attribute
-     * @return
+     * @return removeFromWatchlistButton
      */
     public Button getRemoveFromWatchlistButton() {
         return this.removeFromWatchlistButton;
     }
     /**
      * Getter for the fullRecordTime attribute
-     * @return
+     * @return fullRecordTime
      */
     public Button getFullRecordTime() {
         return fullRecordTime;
     }
     /**
      * Getter for the previousPeriod attribute
-     * @return
+     * @return  previousPeriod
      */
     public Button getPreviousPeriod() {
         return previousPeriod;
     }
     /**
      * Getter for the nextPeriod attribute
-     * @return
+     * @return nextPeriod
      */
     public Button getNextPeriod() {
         return nextPeriod;
     }
     /**
      * Getter for the fiveDaysButton attribute
-     * @return
+     * @return fiveDaysButton
      */
     public Button getFiveDaysButton(){
         return this.fiveDaysButton;
     }
     /**
      *  Getter for the tenDaysButton attribute
-     * @return
+     * @return tenDaysButton
      */
     public Button getTenDaysButton(){
         return this.tenDaysButton;
     }
     /**
      * Getter for the oneMonthButton attribute
-     * @return
+     * @return oneMonthButton
      */
     public Button getOneMonthButton(){
         return this.oneMonthButton;
     }
     /**
      * Getter for the threeMonthsButton attribute
-     * @return
+     * @return threeMonthsButton
      */
     public Button getThreeMonthButton(){
         return this.threeMonthsButton;
     }
     /**
      * Getter for the sixMonthsButton attribute
-     * @return
+     * @return sixMonthsButton
      */
     public Button getSixMonthButton(){
         return this.sixMonthsButton;

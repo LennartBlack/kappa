@@ -13,8 +13,8 @@ public class CablePane extends BorderPane {
 
     /**
      * Constructor for the CablePane class
-     * @param cable
-     * @param watchlist
+     * @param cable cable
+     * @param watchlist watchlist
      */
     public CablePane(Cable cable, Watchlist watchlist) {
         this.cableInfoPane = new CableInfoPane(cable);
@@ -26,7 +26,7 @@ public class CablePane extends BorderPane {
     // Getter
     /**
      * Getter for the cableInfoPane attribute
-     * @return
+     * @return cableInfoPane
      */
     public CableInfoPane getCableInfoPane() {
         return this.cableInfoPane;
@@ -34,7 +34,7 @@ public class CablePane extends BorderPane {
 
     /**
      * Getter for the cableDetailPane attribute
-     * @return
+     * @return cableDetailPane
      */
     public CableDetailPane getCableDetailPane() {
         return this.cableDetailPane;
@@ -42,7 +42,7 @@ public class CablePane extends BorderPane {
 
     /**
      * Getter for the cable attribute
-     * @return
+     * @return cable
      */
     public Cable getCable() {
         return this.cable;

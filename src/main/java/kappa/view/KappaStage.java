@@ -30,9 +30,9 @@ public class KappaStage extends Stage {
 
     /**
      * Constructor for the KappaStage class
-     * @param cableCoreDataDB
-     * @param watchlist
-     * @param topWorkloud
+     * @param cableCoreDataDB cableCoreDataDB
+     * @param watchlist watchlist
+     * @param topWorkloud topWorkloud
      */
     public KappaStage(CableCoreDataDB cableCoreDataDB, Watchlist watchlist, TopWorkloud topWorkloud) {
         this.topWorkload = topWorkloud;
@@ -75,7 +75,7 @@ public class KappaStage extends Stage {
 
     /**
      * This method shows the cable scene
-     * @param cable
+     * @param cable cable
      */
     public void showCablePane(Cable cable) {
         this.cablePane = new CablePane(cable, watchlist);
@@ -112,7 +112,7 @@ public class KappaStage extends Stage {
 
     /**
      * This method shows the watchlist scene
-     * @param cableCoreDataDB
+     * @param cableCoreDataDB cableCoreDataDB
      */
     public void showWatchlistScene(CableCoreDataDB cableCoreDataDB) {
         this.kappaPane.setCenter(watchlistPane);
@@ -123,7 +123,7 @@ public class KappaStage extends Stage {
      * This method updates the primary stage with a new title and scene
      * It is meant to use after updating the KappaScene
      * 
-     * @param title
+     * @param title title
      */
     public void updateKappa(String title) {
         this.kappaPane.setLeft(this.previousViewedCablesPane);
@@ -135,7 +135,7 @@ public class KappaStage extends Stage {
     // Getters and Setters
     /**
      *  Getter for the kappeScene attribute
-     * @return
+     * @return kappeScene
      */
     public boolean isPreviousViewedCablesPaneVisible() {
         if (this.getKappaPane().getLeft() != null) {
@@ -146,7 +146,7 @@ public class KappaStage extends Stage {
 
     /**
      * Getter for the kappeScene attribute
-     * @return
+     * @return kappeScene
      */
     private Scene getKappaScene() {
         return this.kappeScene;
@@ -154,7 +154,7 @@ public class KappaStage extends Stage {
 
     /**
      * Getter for the signInPane attribute
-     * @return
+     * @return signInPane
      */
     public SignInPane getSignInPane() {
         return this.signInPane;
@@ -162,7 +162,7 @@ public class KappaStage extends Stage {
 
     /**
      * Getter for the homePane attribute
-     * @return
+     * @return homePane
      */
     public HomePane getHomePane() {
         return this.homePane;
@@ -170,7 +170,7 @@ public class KappaStage extends Stage {
 
     /**
      * Getter for the menuPane attribute
-     * @return
+     * @return menuPane
      */
     public MenuPane getMenuPane() {
         return this.menuPane;
@@ -178,7 +178,7 @@ public class KappaStage extends Stage {
 
     /**
      *  Getter for the cablePane attribute
-     * @return
+     * @return cablePane
      */
     public CablePane getCablePane() {
         return this.cablePane;
@@ -186,7 +186,7 @@ public class KappaStage extends Stage {
 
     /**
      * Getter for the watchlistPane attribute
-     * @return
+     * @return watchlistPane
      */
     public WatchlistPane getWatchlistPane() {
         return this.watchlistPane;
@@ -194,7 +194,7 @@ public class KappaStage extends Stage {
 
     /**
      * Getter for the kappaPane attribute
-     * @return
+     * @return kappaPane
      */
     public BorderPane getKappaPane() {
         return this.kappaPane;
@@ -202,7 +202,7 @@ public class KappaStage extends Stage {
 
     /**
      * Getter for the previousViewedCablesPane attribute
-     * @return
+     * @return previousViewedCablesPane
      */
     public PreviousViewedCablesPane getPreviousViewedCablesPane() {
         return previousViewedCablesPane;
@@ -210,7 +210,7 @@ public class KappaStage extends Stage {
 
     /**
      * Getter for the watchlist attribute
-     * @return
+     * @return watchlist
      */
     public Watchlist getWatchlist() {
         return watchlist;
@@ -218,7 +218,7 @@ public class KappaStage extends Stage {
 
     /**
      *  Getter for the topWorkloadCablePane attribute
-     * @return
+     * @return topWorkloadCablePane
      */
     public TopWorkloadCablePane getTopWorkloadCablePane() {
         return topWorkloadCablePane;

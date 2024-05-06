@@ -19,8 +19,8 @@ public class PreviousViewedCablesPane extends VBox {
     // Methods
     /**
      *  Method to create a button for the previous viewed cables
-     * @param cable
-     * @return
+     * @param cable cable
+     * @return Button
      */
     public Button createPreviousViewedCableButton(Cable cable) {
         Button cableButton = new Button();
@@ -34,7 +34,7 @@ public class PreviousViewedCablesPane extends VBox {
 
     /**
      * Method to add a button to the vBox
-     * @param button
+     * @param button button
      */
     public void addButton(Button button) {
         this.addFirst(button);
@@ -42,8 +42,8 @@ public class PreviousViewedCablesPane extends VBox {
 
     /**
      * Method to remove a button by index
-     * @param index
-     * @return
+     * @param index index
+     * @return Button
      */
     public Button removeButtonByIndex(int index) {
         Button b = (Button) this.getChildren().get(index);
@@ -53,7 +53,7 @@ public class PreviousViewedCablesPane extends VBox {
 
     /**
      * Method to put a button on top of the list
-     * @param oldIndex
+     * @param oldIndex old index
      */
     public void putButtonOnTopOfList(int oldIndex) {
         addButton(removeButtonByIndex(oldIndex));
@@ -68,7 +68,7 @@ public class PreviousViewedCablesPane extends VBox {
 
     /**
      * Method to add a button to the vBox
-     * @param button
+     * @param button button
      */
     public void addFirst(Button button) {
         this.getChildren().add(0, button);
@@ -76,7 +76,7 @@ public class PreviousViewedCablesPane extends VBox {
 
     /**
      * Method to style the button
-     * @param button
+     * @param button button
      */
     private void style(Button button) {
         PreviousViewedCablesPane.setMargin(button, Style.getGap());
@@ -85,7 +85,7 @@ public class PreviousViewedCablesPane extends VBox {
     // Getter
     /**
      * Method to check if the vBox is empty
-     * @return
+     * @return boolean
      */
     public boolean isvBoxEmpty() {
         return this.getChildren().isEmpty();
@@ -93,7 +93,7 @@ public class PreviousViewedCablesPane extends VBox {
 
     /**
      * Getter for the previousViewedCables attribute
-     * @return
+     * @return previousViewedCables
      */
     public PreviousViewedCable getPreviousViewedCables() {
         return this.previousViewedCables;

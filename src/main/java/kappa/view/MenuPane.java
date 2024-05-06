@@ -38,7 +38,7 @@ public class MenuPane extends Region {
 
     /**
      * Creates the toolbar for the menu pane
-     * @return
+     * @return toolbar
      */
     private ToolBar createToolbar() {
         this.searchCableTextField = new TextField();
@@ -101,7 +101,7 @@ public class MenuPane extends Region {
     // Getter
     /**
      * Getter for the helpButton attribute
-     * @return
+     * @return helpButton
      */
     public Button getHelpButton() {
         return this.helpButton;
@@ -109,7 +109,7 @@ public class MenuPane extends Region {
 
     /**
      * Getter for the topWorkloadCableButton attribute
-     * @return
+     * @return topWorkloadCableButton
      */
     public Button getTopWorkloadCableButton() {
         return topWorkloadCableButton;
@@ -117,7 +117,7 @@ public class MenuPane extends Region {
 
     /**
      * Getter for the watchlistButton attribute
-     * @return
+     * @return watchlistButton
      */
     public Button getWatchlistButton() {
         return watchlistButton;
@@ -125,7 +125,7 @@ public class MenuPane extends Region {
 
     /**
      * Getter for the openNewWindow attribute
-     * @return
+     * @return openNewWindow
      */
     public Button getOpenNewWindow() {
         return openNewWindow;
@@ -133,7 +133,7 @@ public class MenuPane extends Region {
 
     /**
      * Getter for the logOffButton attribute
-     * @return
+     * @return logOffButton
      */
     public Button getLogOffButton() {
         return logOffButton;
@@ -141,7 +141,7 @@ public class MenuPane extends Region {
 
     /**
      * Getter for the searchCableButton attribute
-     * @return
+     * @return searchCableButton
      */
     public Button getSearchCableButton() {
         return searchCableButton;
@@ -149,7 +149,7 @@ public class MenuPane extends Region {
 
     /**
      * Getter for the searchCableTextField attribute
-     * @return
+     * @return searchCableTextField
      */
     public TextField getSearchCableTextField() {
         return searchCableTextField;
@@ -157,7 +157,7 @@ public class MenuPane extends Region {
 
     /**
      * Getter for the searchCableIcon attribute
-     * @return
+     * @return searchCableIcon
      */
     public ImageView getMagnifierIcon() {
         return searchCableIcon;

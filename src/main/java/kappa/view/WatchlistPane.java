@@ -21,8 +21,8 @@ public class WatchlistPane extends ScrollPane {
 
     /**
      * Constructor for the WatchlistPane class
-     * @param cableCoreDataDB
-     * @param primaryStage
+     * @param cableCoreDataDB cableCoreDataDB
+     * @param primaryStage primaryStage
      */
     public WatchlistPane(CableCoreDataDB cableCoreDataDB, KappaStage primaryStage) {
         this.stage = primaryStage;
@@ -36,7 +36,7 @@ public class WatchlistPane extends ScrollPane {
     /**
      * Removes a WatchlistEntryPane from the watchlistVBox
      * 
-     * @param watchlistEntryPane
+     * @param watchlistEntryPane watchlistEntryPane
      */
     public void removeWatchlistEntryPane(WatchlistEntryPane watchlistEntryPane) {
         watchlistVBox.getChildren().remove(watchlistEntryPane);
@@ -45,7 +45,7 @@ public class WatchlistPane extends ScrollPane {
     /**
      * Removes a new WatchlistEntryPane from the watchlistVBox
      * 
-     * @param cableId
+     * @param cableId cableId
      */
     public void removeWatchlistEntryPane(String cableId) {
         String keyToRemove = null;
@@ -91,7 +91,7 @@ public class WatchlistPane extends ScrollPane {
     // Getter
     /**
      * Getter for the watchlistVBox attribute
-     * @return
+     * @return watchlistVBox
      */
     public VBox getWatchlistVBox() {
         return this.watchlistVBox;

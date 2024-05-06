@@ -10,7 +10,7 @@ public class WatchlistElement implements Serializable {
 
     /**
      * Constructor for the WatchlistElement class
-     * @param cable
+     * @param cable cable
      */
     public WatchlistElement(Cable cable) {
         this.cable = cable;
@@ -19,21 +19,21 @@ public class WatchlistElement implements Serializable {
     // Getter and Setter
     /**
      * Getter for the note attribute
-     * @return
+     * @return note
      */
     public String getNote() {
         return this.note;
     }
     /**
      * Getter for the cable attribute
-     * @return
+     * @return cable
      */
     public Cable getCable() {
         return this.cable;
     }
     /**
      * Setter for the note attribute
-     * @param note
+     * @param note note
      */
     public void setNote(String note) {
         this.note = note;

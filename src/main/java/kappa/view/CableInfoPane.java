@@ -16,7 +16,7 @@ public class CableInfoPane extends VBox {
 
     /**
      * Constructor for the CableInfoPane class
-     * @param cable
+     * @param cable cable
      */
     public CableInfoPane(Cable cable) {
         this.tableView = new TableView<>();

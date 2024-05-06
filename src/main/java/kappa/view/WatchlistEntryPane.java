@@ -41,7 +41,7 @@ public class WatchlistEntryPane extends HBox {
 
     /**
      * Constructor for the WatchlistEntryPane class
-     * @param watchlistElement
+     * @param watchlistElement watchlistElement
      */
     public WatchlistEntryPane(WatchlistElement watchlistElement) {
         super();
@@ -161,7 +161,7 @@ public class WatchlistEntryPane extends HBox {
     }
     /**
      * Maps the data from the ResultSet to the workloudData map
-     * @param resultSet
+     * @param resultSet resultSet
      */
     private void mapData(ResultSet resultSet) {
         try{
@@ -205,7 +205,7 @@ public class WatchlistEntryPane extends HBox {
     }
     /**
      * Adds a ResultSet element to the map
-     * @param resultSet
+     * @param resultSet resultSet
      */
     private void addDataForGraph(ResultSet resultSet){
         try{
@@ -225,70 +225,70 @@ public class WatchlistEntryPane extends HBox {
     // Getter
     /**
      * Getter for the noteLabel attribute
-     * @return
+     * @return noteLabel
      */
     private boolean isNoteEmpty() {
         return (watchlistElement.getNote().equals(""));
     }
     /**
      * Getter for the noteLabel attribute
-     * @return
+     * @return noteLabel
      */
     public TextArea getNoteLabel() {
         return noteLabel;
     }
     /**
      * Getter for the cableIdButton attribute
-     * @return
+     * @return cableIdButton
      */
     public Button getCableIdButton() {
         return cableIdButton;
     }
     /**
      * Getter for the addNoteButton attribute
-     * @return
+     * @return addNoteButton
      */
     public Button getAddNoteButton() {
         return addNoteButton;
     }
     /**
      * Getter for the editNoteButton attribute
-     * @return
+     * @return editNoteButton
      */
     public Button getEditNoteButton() {
         return editNoteButton;
     }
     /**
      * Getter for the deleteNoteButton attribute
-     * @return
+     * @return deleteNoteButton
      */
     public Button getDeleteNoteButton() {
         return deleteNoteButton;
     }
     /**
      * Getter for the saveNoteButton attribute
-     * @return
+     * @return saveNoteButton
      */
     public Button getSaveNoteButton() {
         return saveNoteButton;
     }
     /**
      * Getter for the removeFromWatchlistButton attribute
-     * @return
+     * @return removeFromWatchlistButton
      */
     public Button getRemoveFromWatchlistButton() {
         return removeFromWatchlistButton;
     }
     /**
      * Getter for the noteTextField attribute
-     * @return
+     * @return noteTextField
      */
     public TextField getNoteTextField() {
         return noteTextField;
     }
     /**
      * Getter for the watchlistElement attribute
-     * @return
+     * @return watchlistElement
      */
     public WatchlistElement getWatchlistElement() {
         return watchlistElement;

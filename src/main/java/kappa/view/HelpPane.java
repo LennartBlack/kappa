@@ -18,7 +18,7 @@ public class HelpPane extends Region{
     }
     /**
      * Getter for the vBoxHelpLayout attribute
-     * @return
+     * @return vBoxHelpLayout
      */
     public VBox getvBoxHelpLayout() {
         return vBoxHelpLayout;

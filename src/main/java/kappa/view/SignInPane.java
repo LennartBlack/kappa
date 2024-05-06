@@ -55,7 +55,7 @@ public class SignInPane extends VBox {
 
     /**
      *  Getter for the signIn attribute
-     * @return
+     * @return signIn
      */
     public Button getSignInButton() {
         return this.signIn;
@@ -63,7 +63,7 @@ public class SignInPane extends VBox {
 
     /**
      * Getter for the password input
-     * @return
+     * @return password
      */
     public String getPasswordInput() {
         return this.passwordField.getText();
@@ -71,7 +71,7 @@ public class SignInPane extends VBox {
 
     /**
      * Getter for the username input
-     * @return
+     * @return username
      */
     public String getUsernameInput() {
         return this.userField.getText();
@@ -79,7 +79,7 @@ public class SignInPane extends VBox {
 
     /**
      * Getter for the userField attribute
-     * @return
+     * @return userField
      */
     public TextField getUserField() {
         return this.userField;
@@ -87,7 +87,7 @@ public class SignInPane extends VBox {
 
     /**
      * Getter for the passwordField attribute
-     * @return
+     * @return passwordField
      */
     public PasswordField getPasswordField() {
         return this.passwordField;
@@ -105,7 +105,7 @@ public class SignInPane extends VBox {
 
     /**
      * Getter for the loginFailed attribute
-     * @return
+     * @return loginFailed
      */
     public Label getLoginFailedMessage() {
         return this.loginFailed;
@@ -127,7 +127,6 @@ public class SignInPane extends VBox {
 
     /**
      * This method removes the login failed message from the login layout
-     
      */
     public void removeLoginFailedMessage() {
         if (this.getChildren().contains(this.loginFailed)) {
